@@ -1,0 +1,5 @@
+templateDir = "templates"
+postDir = "posts"
+defaultLayout = "template.html"
+staticDir = "static"
+tittle = "Blask"

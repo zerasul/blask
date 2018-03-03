@@ -1,0 +1,32 @@
+
+header{
+background:#0066ff;
+color: white;
+padding-bottom: 0.5em;
+padding-left: 1em;
+}
+header h1 a, header h1 a:hover{
+    text-decoration: none;
+    color: white
+}
+footer{
+background: #595959;
+color: white;
+margin-top: 0.5em;
+margin-bottom: 0.5em;
+}
+
+.last-posts{
+margin: 0.5em;
+background: #595959;
+border-radius: 0.5em;
+}
+.last-posts h3
+{
+   margin-left: 1em;
+   color: white;
+}
+
+.last-posts ul li{
+    color: white;
+}
