@@ -38,6 +38,9 @@ padding-bottom: 0.5em;
     margin-left: 1em;
     margin-right: 1em;
 }
+#content{
+    padding-bottom: 2em;
+}
 #meta{
     padding-bottom: 1.5em;
     padding-top: 0.5em;

@@ -46,6 +46,7 @@ Here is the change notes about all the versions of Blask:
 Blask is open Source under the license of [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html). You can se the source code at our repo on [github](https://github.com/zerasul/blask).
 
 Also, you can see:
+
 * [Authors](/https://github.com/zerasul/blask/graphs/contributors)
 * [Issue Tracker](https://github.com/zerasul/blask/issues)
 
