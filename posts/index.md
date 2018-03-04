@@ -1,6 +1,6 @@
 #Blask
 
-Blask is a Blogging engine based on [Flask](http://flask.pocoo.org/), that use MarkDown to show posts. This MicroFramework grants the posibility of create a blog using only MarkDown and HTML.
+Blask is a Blogging engine based on [Flask](http://flask.pocoo.org/), that use MarkDown to show posts. This MicroFramework grants the possibility of create a blog using only MarkDown and HTML.
 
 Using the MicroFramework Flask and the Template engine [Jinja2](http://jinja.pocoo.org/), you can easily create a Blog with only some steps.
 
@@ -14,7 +14,7 @@ This is an example of *markdown*.
 With this text you can see how _Blask works_.
 </pre>
 
-Once you write the markdown file, you can browse to the file url; < site_url >/< filename whitout .md extension >.
+Once you write the markdown file, you can browse to the file url; < site_url >/< filename without .md extension >.
 
 If you want to run the application, just use Flask initialization and run it.
 
@@ -23,7 +23,7 @@ $ FLASK_APP = main.py
 $ flask run
 </pre>
 
-**Note**: This project is on alpha version; is not suitable for production enviorements.
+**Note**: This project is on alpha version; is not suitable for production environments.
 
 ## Documentation
 
