@@ -2,3 +2,4 @@ flask>=0.12.2
 markdown>=2.6.11
 markdown-full-yaml-metadata>=0.0.2
 Pygments>=2.2.0
+pytest>=3.4.1

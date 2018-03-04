@@ -9,7 +9,7 @@ $ FLASK_APP = main.py
 $ flask run
 ```
 
-Blask is open Source under de license of [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
+Blask is open Source under the license of [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
 
 

@@ -1,5 +1,5 @@
 from markdown import Markdown
-from os import path
+from os import path,listdir
 from errors import PageNotExistError
 
 
@@ -16,17 +16,47 @@ class BlogRenderer:
             raise PageNotExistError("{} does not exists".format(filename))
         with open(filepath, 'r') as content_file:
             content = content_file.read()
-            md = Markdown(['full_yaml_metadata', 'CodeHilite'])
-            entry = BlogEntry()
-            output = md.convert(content)
-            entry.content = output
-            if md.Meta is not None:
-                entry.date = md.Meta['date']
+            entry = self.rendertext(filename,content)
         return entry
         pass
+
+    def rendertext(self,filename, text):
+        md = Markdown(['full_yaml_metadata'])
+        entry = BlogEntry(filename, md, text)
+        return entry
+
+    def list_posts(self, tags=[], exclusions=["index.md", "404.md"], search=""):
+        files = list(filter(lambda l: l.endswith('.md') and l not in exclusions, listdir(self.postDir)))
+        mapfilter = list(map(lambda l: path.splitext(l)[0], files))
+        entries = list(map(lambda l: self.renderfile(l), mapfilter))
+        if tags:
+            for tag in tags:
+                entries = list(filter(lambda l: tag in l.tags, entries))
+        if search:
+            entries = list(filter(lambda l: search in l.name, entries))
+        return entries
+
+    def generatetagpage(self, postlist):
+        content = '<ul>'
+        for post in postlist:
+            entrycontent = "<li><a href='/{}'>{}</a></li>".format(post.name, post.name)
+            content += entrycontent
+        content += "</ul>"
+        return content
 
 
 class BlogEntry:
     content = None
     date = None
     tags = None
+    template = None
+    name= None
+
+    def __init__(self, name, md, content):
+        self.content = md.convert(content)
+        self.name = name
+        meta = md.Meta
+        if meta is not None:
+            self.date = meta.get('date')
+            self.tags = meta.get('tags').split(",")
+            self.template = meta.get('template')

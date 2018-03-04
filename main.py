@@ -9,11 +9,18 @@ blogrenderer = BlogRenderer(settings.postDir)
 
 @app.route('/')
 def index():
-    content = blogrenderer.renderfile("index")
-    return render_template(settings.defaultLayout, tittle=settings.tittle, content=content.content)
+    entry = blogrenderer.renderfile("index")
+    template = entry.template
+    if template is None:
+        template = settings.defaultLayout
+    return render_template(template, tittle=settings.tittle, content=entry.content)
 
-#@app.route('/tag/<tag>')
-#def gettag(tag):
+
+@app.route('/tag/<tag>')
+def gettag(tag):
+    postlist = blogrenderer.list_posts([tag])
+    content = blogrenderer.generatetagpage(postlist)
+    return render_template(settings.defaultLayout,tittle=settings.tittle, content=content)
 
 
 @app.route('/<filename>')
@@ -24,4 +31,8 @@ def getpage(filename):
         entry = blogrenderer.renderfile("404")
     content = entry.content
     date = entry.date
-    return render_template(settings.defaultLayout, tittle=settings.tittle, content=content, date=date)
+    template = entry.template
+    tags = entry.tags
+    if template is None:
+        template = settings.defaultLayout
+    return render_template(template, tittle=settings.tittle, content=content, date=date, tags=tags)

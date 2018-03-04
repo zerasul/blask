@@ -1,4 +1,3 @@
-
 header{
 background:#0066ff;
 color: white;
@@ -10,23 +9,46 @@ header h1 a, header h1 a:hover{
     color: white
 }
 footer{
+position: fixed;
+bottom: 0;
+width: 100%;
 background: #595959;
 color: white;
-margin-top: 0.5em;
-margin-bottom: 0.5em;
+padding: 0.5em;
 }
 
-.last-posts{
+.aside-block{
 margin: 0.5em;
 background: #595959;
 border-radius: 0.5em;
+padding-top: 0.5em;
+padding-bottom: 0.5em;
 }
-.last-posts h3
+.aside-block h3
 {
    margin-left: 1em;
    color: white;
 }
 
-.last-posts ul li{
+.aside-block ul li{
     color: white;
+}
+
+.aside-block input{
+    margin-left: 1em;
+    margin-right: 1em;
+}
+#meta{
+    padding-bottom: 1.5em;
+    padding-top: 0.5em;
+    color: #585858;
+}
+#meta .date{
+    position: relative;
+    float: right;
+}
+
+#meta .tags{
+    position: relative;
+    float: left;
 }

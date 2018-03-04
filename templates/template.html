@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{{tittle}}</title>
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='highlitght.css')}}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body>
 
@@ -16,18 +18,39 @@
     <div class="container-fluid">
         <div class="row">
         <div class="col-md-9">
-            {% if  date %}
-            <small>{{date}}</small>
-            {% endif %}
+            <div id="meta">
+                {% if  date %}
+                    <small class="date">{{date}}</small>
+                {% endif %}
+                {% if tags %}
+                    <small class="tags">
+                       {% for tag in tags %}
+                            <a href="/tag/{{tag}}">{{tag}}</a>
+                        {% endfor %}
+                    </small>
+                {% endif %}
+            </div>
+
+
         {{content|safe}}
         </div>
         <aside class="col-md-3">
-            <div class="last-posts">
-                <h3>Last Posts</h3>
+            <div class="aside-block">
+                <form method="POST" action="/search">
+                    <div class="input-group mb-2">
+                     <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Search" />
+                     </div>
+                </form>
+            </div>
+            <div class="aside-block">
+                <h3>Table of Contents</h3>
                 <ul>
-                    <li>Post 1</li>
-                    <li>Post 2</li>
-                    <li>Post 3</li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/install">Install</a></li>
+                    <li><a href="/examples">Examples</a></li>
+                    <li><a href="/docs">Docs</a></li>
+                    <li><a href="http://github.com/zerasul/blask" target="_blank">Contribute</a></li>
+                    <li><a href="/contact">Contact</a></li>
                 </ul>
 
             </div>
