@@ -1,4 +1,4 @@
-languaje: python
+language: python
 python:
     - "3.6"
     - "pypy3.6"
