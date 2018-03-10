@@ -1,6 +1,6 @@
 # BLASK
 
-[![Build Status](https://travis-ci.org/zerasul/blask.svg?branch=master)](https://travis-ci.org/zerasul/blask)
+[![Build Status](https://travis-ci.org/zerasul/blask.svg?branch=master)](https://travis-ci.org/zerasul/blask) [![Coverage Status](https://coveralls.io/repos/github/zerasul/blask/badge.svg?branch=master)](https://coveralls.io/github/zerasul/blask?branch=master)
 
 Blask is a Blogging engine based on [Flask](http://flask.pocoo.org/); blask use markdown syntax for create and render
 the content of the blog's posts. 
