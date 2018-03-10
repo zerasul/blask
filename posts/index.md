@@ -47,7 +47,7 @@ Blask is open Source under the license of [GPL 3.0](https://www.gnu.org/licenses
 
 Also, you can see:
 
-* [Authors](/https://github.com/zerasul/blask/graphs/contributors)
+* [Authors](https://github.com/zerasul/blask/graphs/contributors)
 * [Issue Tracker](https://github.com/zerasul/blask/issues)
 
 
