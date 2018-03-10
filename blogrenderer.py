@@ -48,9 +48,9 @@ class BlogRenderer:
 class BlogEntry:
     content = None
     date = None
-    tags = None
+    tags = []
     template = None
-    name= None
+    name = None
 
     def __init__(self, name, md, content):
         self.content = md.convert(content)
@@ -60,3 +60,7 @@ class BlogEntry:
             self.date = meta.get('date')
             self.tags = meta.get('tags').split(",")
             self.template = meta.get('template')
+
+    def __str__(self):
+        string = "['content': {}, 'name': {}, 'date': {}, tags:[{}], 'template': {}]".format(self.content,self.name,self.date,self.tags,self.template)
+        return string

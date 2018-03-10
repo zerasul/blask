@@ -54,5 +54,9 @@ setup(
           'markdown',
           'markdown-full-yaml-metadata',
           'Pygments'
+    ],
+    test_require=[
+        'pytest',
+        'pytest-cov'
     ]
 )

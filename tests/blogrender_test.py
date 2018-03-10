@@ -19,7 +19,8 @@ class TestblogRender:
 
 
     def test_tagslist(self):
-        print(self.blogrender.list_posts())
+        entries = self.blogrender.list_posts(["blask"])
+        assert len(entries) == 1
 
     def test_rendercontent(self):
         entry = self.blogrender.rendertext("test", self.markdowntest)
