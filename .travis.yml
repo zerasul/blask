@@ -3,4 +3,6 @@ python:
     - "3.6"
 install:
     - "pip install -r requirements.txt"
-script: export PYTHONPATH=$PYTHONPATH:$(pwd) && pytest
+script: export PYTHONPATH=$PYTHONPATH:$(pwd) && pytest --cov=. --cov-report=
+after_success:
+  coveralls
