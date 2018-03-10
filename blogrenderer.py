@@ -5,20 +5,19 @@ from errors import PageNotExistError
 
 class BlogRenderer:
 
-    postDir = None
+    postdir = None
 
     def __init__(self, postdir):
-        self.postDir = postdir
+        self.postdir = postdir
 
     def renderfile(self, filename):
-        filepath = path.join(self.postDir, filename+".md")
+        filepath = path.join(self.postdir, filename + ".md")
         if not path.exists(filepath):
             raise PageNotExistError("{} does not exists".format(filename))
         with open(filepath, 'r') as content_file:
             content = content_file.read()
             entry = self.rendertext(filename,content)
         return entry
-        pass
 
     def rendertext(self,filename, text):
         md = Markdown(['full_yaml_metadata'])
@@ -26,7 +25,7 @@ class BlogRenderer:
         return entry
 
     def list_posts(self, tags=[], exclusions=["index.md", "404.md"], search=""):
-        files = list(filter(lambda l: l.endswith('.md') and l not in exclusions, listdir(self.postDir)))
+        files = list(filter(lambda l: l.endswith('.md') and l not in exclusions, listdir(self.postdir)))
         mapfilter = list(map(lambda l: path.splitext(l)[0], files))
         entries = list(map(lambda l: self.renderfile(l), mapfilter))
         if tags:
