@@ -102,3 +102,7 @@ ENV/
 
 # intellij
 .idea/
+
+# callsonar
+
+callsonarblask.bat
