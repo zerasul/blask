@@ -1,7 +1,8 @@
 from blogrenderer import BlogRenderer
 from settings import postDir
-from pytest import fixture
+from pytest import fixture, raises
 from datetime import date
+from errors import PageNotExistError
 
 
 class TestblogRender:
@@ -27,3 +28,7 @@ class TestblogRender:
         assert entry.name == "test"
         assert entry.date == date(2018, 3, 3)
         assert "test" in entry.tags
+
+    def test_pagenotexists(self):
+        with raises(PageNotExistError):
+            self.blogrender.renderfile("notexists")
