@@ -16,6 +16,7 @@ $ flask run
 
 For more information see [Blask web page](http://getblask.com/). Also, you can subscribe to our [Mailing List](https://www.freelists.org/archive/blask_mail_list).
 
+
 ---
 
 Blask is Open Source under the License [GPL 3.0](LICENSE)

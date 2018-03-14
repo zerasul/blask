@@ -32,7 +32,7 @@ class BlogRenderer:
             for tag in tags:
                 entries = list(filter(lambda l: tag in l.tags, entries))
         if search:
-            entries = list(filter(lambda l: search in l.name, entries))
+            entries = list(filter(lambda l: search in l.content, entries))
         return entries
 
     def generatetagpage(self, postlist):

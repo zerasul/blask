@@ -32,3 +32,14 @@ class TestblogRender:
     def test_pagenotexists(self):
         with raises(PageNotExistError):
             self.blogrender.renderfile("notexists")
+
+    def test_generatetag(self):
+        entries = self.blogrender.list_posts(["about"])
+        taglist = self.blogrender.generatetagpage(entries)
+        assert "href='/about'" in taglist
+
+    def test_search(self):
+        entries = self.blogrender.list_posts(search='documentation')
+        assert len(entries) == 1
+        entrieslist = self.blogrender.generatetagpage(entries)
+        assert  "href='/docs'" in entrieslist
