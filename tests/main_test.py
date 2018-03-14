@@ -29,7 +29,7 @@ class TestMain:
         response = self.testClient.post('/search', data=dict(search='about'))
         assert response.status_code == 200
 
-    def tag_search(self):
+    def test_tag_search(self):
         response = self.testClient.get('/tag/about')
         assert response.status_code == 200
         assert b"href='/about'" in response.data
