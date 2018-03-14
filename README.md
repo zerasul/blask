@@ -14,7 +14,7 @@ $ FLASK_APP=main.py
 $ flask run
 ```
 
-For more information see [Blask web page](getblask.com).
+For more information see [Blask web page](http://getblask.com/).
 
 ---
 
