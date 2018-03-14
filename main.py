@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from blogrenderer import BlogRenderer
 from errors import PageNotExistError
 import settings
@@ -16,11 +16,18 @@ def index():
     return render_template(template, tittle=settings.tittle, content=entry.content)
 
 
+@app.route('/search', methods=['POST'])
+def searchpages():
+    postlist = blogrenderer.list_posts(search=request.form['search'])
+    content = blogrenderer.generatetagpage(postlist)
+    return render_template(settings.defaultLayout, tittle=settings.tittle, content=content)
+
+
 @app.route('/tag/<tag>')
 def gettag(tag):
     postlist = blogrenderer.list_posts([tag])
     content = blogrenderer.generatetagpage(postlist)
-    return render_template(settings.defaultLayout,tittle=settings.tittle, content=content)
+    return render_template(settings.defaultLayout, tittle=settings.tittle, content=content)
 
 
 @app.route('/<filename>')
