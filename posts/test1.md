@@ -1,6 +1,8 @@
 ---
 date: 2018-03-03
 tags: test,test2
+author: Jhon Doe
+category: testing
 template: template.html
 ---
 #Test Post

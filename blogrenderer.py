@@ -48,6 +48,8 @@ class BlogEntry:
     content = None
     date = None
     tags = []
+    author = None
+    category = None
     template = None
     name = None
 
@@ -58,8 +60,10 @@ class BlogEntry:
         if meta is not None:
             self.date = meta.get('date')
             self.tags = meta.get('tags').split(",")
+            self.author = meta.get('author')
+            self.category = meta.get('category')
             self.template = meta.get('template')
 
     def __str__(self):
-        string = "['content': {}, 'name': {}, 'date': {}, tags:[{}], 'template': {}]".format(self.content,self.name,self.date,self.tags,self.template)
+        string = "['content': {}, 'name': {}, 'date': {}, 'tags':[{}], 'author': {}, 'category': {}, template': {}]".format(self.content,self.name,self.date,self.tags,self.author,self.category,self.template)
         return string

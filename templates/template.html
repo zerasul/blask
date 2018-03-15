@@ -21,21 +21,34 @@
     <div class="container container-fluid" id="content">
         <div class="row">
         <div class="col-md-9">
-            <div id="meta">
+            <div class="meta">
                 {% if  date %}
-                    <small class="date">{{date}}</small>
+                    <small class="date">Published on: {{date}}</small><br/>
                 {% endif %}
+
+                {% if author %}
+                    <small class="author">Published by {{author}}</small>
+                {% endif %}
+            </div>
+
+
+            {{content|safe}}
+
+            <div class="meta">
+                {% if category %}
+                    <small class="category">
+                        Category: <a href="/category/{{category}}">{{category}}</a>
+                    </small><br/>
+                {% endif %}
+
                 {% if tags %}
                     <small class="tags">
-                       {% for tag in tags %}
+                        {% for tag in tags %}
                             <a href="/tag/{{tag}}">{{tag}}</a>
                         {% endfor %}
                     </small>
                 {% endif %}
             </div>
-
-
-        {{content|safe}}
         </div>
         <aside class="col-md-3">
             <div class="aside-block">
