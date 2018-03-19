@@ -39,6 +39,7 @@ If you need more information about Blask or about their dependencies; you can se
 
 Here is the change notes about all the versions of Blask:
 
+* [0.1.0-beta](/0.1.0-beta)
 * [0.0.1-alpha](/0.0.1-alpha)
 
 ## Contribute
