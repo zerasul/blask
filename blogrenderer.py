@@ -4,13 +4,31 @@ from errors import PageNotExistError
 
 
 class BlogRenderer:
-
+    """
+    Class BlogRenderer: This class provides the feature for render posts from Markdown to HTML and search features.
+    :Author: Zerasul
+    Date: 2018-03-18
+    Version: 0.0.1
+    """
     postdir = None
+    """
+    Posts Directory
+    """
 
     def __init__(self, postdir):
+        """
+        This is the constructor of the blog renderer.
+        :param postdir: Posts Directory. See Settings py for more information.
+        """
         self.postdir = postdir
 
     def renderfile(self, filename):
+        """
+            Render a markdown and returns the blogEntry.
+        :param filename: Number of the file without extension.
+        :return: BlogEntry.
+        :raises PageNotExistError Raise this error if file does not exists.
+        """
         filepath = path.join(self.postdir, filename + ".md")
         if not path.exists(filepath):
             raise PageNotExistError("{} does not exists".format(filename))
@@ -20,11 +38,24 @@ class BlogRenderer:
         return entry
 
     def rendertext(self,filename, text):
+        """
+         Render a Markdown Text and returns the BlogEntry.
+        :param filename: filename or title of the post.
+        :param text: Text write in Markdown.
+        :return: BlogEntry.
+        """
         md = Markdown(['full_yaml_metadata'])
         entry = BlogEntry(filename, md, text)
         return entry
 
     def list_posts(self, tags=[], exclusions=["index.md", "404.md"], search=""):
+        """
+        Search a list of Posts returning a list of BlogEntry.
+        :param tags: list of tags for searching.
+        :param exclusions: list of name of posts with exclusions.
+        :param search: string with the content what we want of search.
+        :return: List of BlogEntry.
+        """
         files = list(filter(lambda l: l.endswith('.md') and l not in exclusions, listdir(self.postdir)))
         mapfilter = list(map(lambda l: path.splitext(l)[0], files))
         entries = list(map(lambda l: self.renderfile(l), mapfilter))
@@ -36,6 +67,11 @@ class BlogRenderer:
         return entries
 
     def generatetagpage(self, postlist):
+        """
+        Get a HTML with links of the entries.
+        :param postlist: List with BlogEntry.
+        :return: String with the HTML list.
+        """
         content = '<ul>'
         for post in postlist:
             entrycontent = "<li><a href='/{}'>{}</a></li>".format(post.name, post.name)
@@ -45,23 +81,37 @@ class BlogRenderer:
 
 
 class BlogEntry:
+    """"
+    This class has the information about the Blog Posts.
+    Author: Zerasul
+    Version: 0.0.1.
+    """
     content = None
+    """Content of the post."""
     date = None
+    """ Date of post creation"""
     tags = []
+    """List of tags of the blog entry."""
     author = None
     category = None
     template = None
+    """Name of the template file"""
     name = None
+    """ Name of the post"""
 
     def __init__(self, name, md, content):
+        """
+        Default constructor
+        :param name: name of the post
+        :param md: Markdown information
+        :param content: String with the Content in HTML.
+        """
         self.content = md.convert(content)
         self.name = name
         meta = md.Meta
         if meta is not None:
             self.date = meta.get('date')
             self.tags = meta.get('tags').split(",")
-            self.author = meta.get('author')
-            self.category = meta.get('category')
             self.template = meta.get('template')
 
     def __str__(self):
