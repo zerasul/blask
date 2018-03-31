@@ -1,6 +1,6 @@
 from pytest import fixture
-from main import app
-
+from Blask.Blask import Blask
+import settings
 
 class TestMain:
 
@@ -8,8 +8,10 @@ class TestMain:
 
     @fixture(autouse=True)
     def inittest(self):
-        app.testing=True
-        self.testClient = app.test_client()
+        b = Blask(templateDir=settings.templateDir, postDir=settings.postDir, defaultLayout=settings.defaultLayout,
+                  staticDir=settings.staticDir, tittle=settings.tittle)
+        b.app.testing = True
+        self.testClient = b.app.test_client()
 
     def test_index(self):
         response = self.testClient.get('/')

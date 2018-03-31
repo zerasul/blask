@@ -1,6 +1,6 @@
 from markdown import Markdown
 from os import path,listdir
-from errors import PageNotExistError
+from Blask.errors import PageNotExistError
 
 
 class BlogRenderer:
