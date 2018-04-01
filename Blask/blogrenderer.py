@@ -93,7 +93,9 @@ class BlogEntry:
     tags = []
     """List of tags of the blog entry."""
     author = None
+    """Author of the post"""
     category = None
+    """category of the post"""
     template = None
     """Name of the template file"""
     name = None

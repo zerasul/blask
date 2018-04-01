@@ -1,7 +1,6 @@
 from flask import Flask, render_template,request
 from Blask.blogrenderer import BlogRenderer
 from Blask.errors import PageNotExistError
-from os import getcwd
 
 
 class Blask:

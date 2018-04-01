@@ -7,7 +7,7 @@ with open(path.join(currdir, 'README.md')) as f:
 
 setup(
     name='Blask',
-    version='0.1.0b2',
+    version='0.1.0b6',
     packages=find_packages(exclude=['tests']),
     url='https://getblask.com',
     license='GPL 3.0',

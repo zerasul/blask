@@ -1,6 +1,10 @@
 #Install
 
-For install Blask, you can use Git for download the source code:
+For install Blask, you can use _pip_ for install int:
+
+```pip install blask```
+
+Also, you can use Git for download the source code:
 
 ```git clone https://github.com/zerasul/blask/```
 
