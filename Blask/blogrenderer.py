@@ -44,7 +44,7 @@ class BlogRenderer:
         :param text: Text write in Markdown.
         :return: BlogEntry.
         """
-        md = Markdown(['full_yaml_metadata'])
+        md = Markdown(extensions=['full_yaml_metadata', 'codehilite'])
         entry = BlogEntry(filename, md, text)
         return entry
 

@@ -8,20 +8,16 @@ Only you have to do is write a markdown file and store it at the posts directory
 
 For example:
 
-<pre>
-This is an example of *markdown*.
+    This is an example of *markdown*.
 
-With this text you can see how _Blask works_.
-</pre>
+    With this text you can see how _Blask works_.
 
 Once you write the markdown file, you can browse to the file url; < site_url >/< filename without .md extension >.
 
 If you want to run the application, just use Flask initialization and run it.
 
-<pre>
-$ FLASK_APP = main.py
-$ flask run
-</pre>
+    $ FLASK_APP = main.py
+    $ flask run
 
 **Note**: This project is on alpha version; is not suitable for production environments.
 
