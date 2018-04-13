@@ -15,12 +15,12 @@ class TestMain:
 
     def test_index(self):
         response = self.testClient.get('/')
-        assert b'Blask is a Blogging engine' in response.data
+        assert b'Blask is a blogging engine' in response.data
 
     def test_page(self):
         response = self.testClient.get('/about')
         assert response.status_code == 200
-        assert b'For use blask, only you need to configure' in response.data
+        assert b'To use Blask, you only need to edit' in response.data
 
     def test_nopage(self):
         response = self.testClient.get('/nopageerror')

@@ -1,10 +1,10 @@
 ---
 date: 2018-03-03
 tags: test,test2
-author: Jhon Doe
+author: John Doe
 category: testing
 template: template.html
 ---
-#Test Post
+# Test Post
 
 This is a Test Post.

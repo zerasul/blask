@@ -15,7 +15,7 @@ setup(
     license='GPL 3.0',
     author='zerasul',
     author_email='zerasul@gmail.com',
-    description='A simple Blog engine using Flask and markdown.',
+    description='A simple Blog engine using Flask and Markdown.',
     classifiers=[
        'Development Status :: 4 - Beta',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content :: News/Diary',
