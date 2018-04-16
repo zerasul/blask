@@ -1,10 +1,10 @@
-#Examples
+# Examples
 
-In this page, you can see some examples of use for Blask. From create our first post, until create templates.
+In this page, you can see some examples of use for Blask. From creating our first post, to creating templates.
 
-## Configure and Run Blask
+## Configure and run Blask
 
-First if you need to run Blask, need to see the ```settings.py``` file and set the properly configuration.
+First if you need to run Blask, need to see the `settings.py` file and set the properly configuration.
 
 <pre>
 templateDir = "templates" # The templates Folder.
@@ -21,13 +21,13 @@ $ FLASK_APP=main.py #must be on blask directory.
 $ flask run
 </pre>
 
-Then browse to http://localhost:5000 and see the Blask Home Page. Of course you can modify the markdown, and see how it changes.
+Then browse to `http://localhost:5000` and see the *Blask Home Page*. Of course you can modify the markdown, and see how it changes.
 
-## Create first post
+## Create a first post
 
-For create a new post, only need to do is create a new markdown file in the posts Directory. For Example:
+To create a new post, all you need to do is create a new markdown file in the posts directory. For Example:
 
-File: newpost.md
+File: `newpost.md`
 
 <pre>
 
@@ -39,18 +39,16 @@ tags: blask,test
 This is an example of **MarkDown**. This is a test _web page_.
 </pre>
 
-Once we save the previous file, we can browse to http://localhost:5000/newpost and see the result.
+Once we save the previous file, we can point the browser to http://localhost:5000/newpost and see the results.
 
-## Create Template
+## Create a template
 
-To create a new Template, only you have to do is create a new HTML file in the templates folder, and inside the HTML code
-include the jinja2 Template ```content```. Here is an example:
-
+To create a new template, create a new HTML file in the templates folder, and inside the HTML code
+include the Jinja2 template `content`. Here is an example:
 
 ![precode-html](static/img/precodehtml.png)
 
-Once you create a new template, you can reference to it in two ways:
+Once you create a new template, you can reference it in two ways:
 
-* First, using the default template setting in the ```settings.py``` file.
-
-* Second, using the metadata space of the Markdown Documents.
+  * First, using the default template setting in the `settings.py` file.
+  * Second, using the metadata space of the Markdown documents.
