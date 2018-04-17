@@ -4,4 +4,4 @@ If you want to contact with us and participate to the project you can subscribe 
 And of course, you can contact too in our Repository of [Github](https://github.com/zerasul/blask).
 
 
-If you need to contact to us via mail you can send an email to getblask (a) gmail.com.
+If you need to contact to us via mail you can send an email to info@getblask.com.
