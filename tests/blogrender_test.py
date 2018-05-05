@@ -42,6 +42,10 @@ class TestblogRender:
         entries = self.blogrender.list_posts(category="page")
         assert len(entries) == 1
 
+    def test_authorlist(self):
+        entries = self.blogrender.list_posts(category="author")
+        assert len(entries) == 1
+
     def test_search(self):
         entries = self.blogrender.list_posts(search='documentation')
         assert len(entries) == 1

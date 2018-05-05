@@ -9,7 +9,7 @@ with open(path.join(currdir, 'README.md')) as f:
 long_rst_desc = convert(long_desc)
 setup(
     name='Blask',
-    version='0.1.0b7',
+    version='0.1.0b8',
     packages=find_packages(exclude=['tests']),
     url='https://getblask.com',
     license='GPL 3.0',

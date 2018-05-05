@@ -48,7 +48,7 @@ class BlogRenderer:
         entry = BlogEntry(filename, md, text)
         return entry
 
-    def list_posts(self, tags=[], exclusions=["index.md", "404.md"], search="", category=""):
+    def list_posts(self, tags=[], exclusions=["index.md", "404.md"], search="", category="", author=""):
         """
         Search a list of Posts returning a list of BlogEntry.
         :param tags: list of tags for searching.
@@ -65,6 +65,8 @@ class BlogRenderer:
                 entries = list(filter(lambda l: tag in l.tags, entries))
         if category:
             entries = list(filter(lambda c: c.category == category, entries))
+        if author:
+            entries = list(filter(lambda a: a.author == author, entries))
         if search:
             entries = list(filter(lambda l: search in l.content, entries))
 
@@ -120,6 +122,7 @@ class BlogEntry:
             self.tags = meta.get('tags').split(",")
             self.template = meta.get('template')
             self.category = meta.get('category')
+            self.author = meta.get('author')
 
     def __str__(self):
         string = "['content': {}, 'name': {}, 'date': {}, 'tags':[{}], 'author': {}, 'category': {}, template': {}]".format(self.content,self.name,self.date,self.tags,self.author,self.category,self.template)
