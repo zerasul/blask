@@ -6,20 +6,25 @@ In this page, you can see some examples of use for Blask. From creating our firs
 
 First if you need to run Blask, need to see the `settings.py` file and set the properly configuration.
 
-<pre>
-templateDir = "templates" # The templates Folder.
-postDir = "posts" # The posts Folder (markdown Files).
-defaultLayout = "template.html" # Default template file. Must be in Templates Folder.
-staticDir = "static" # The static Folder (css,js,img...).
-tittle = "Blask" (Title of the web Page).
-</pre>
+    :::python
+    templateDir = "templates" # The templates Folder.
+    postDir = "posts" # The posts Folder (markdown Files).
+    defaultLayout = "template.html" # Default template file. Must be in Templates Folder.
+    staticDir = "static" # The static Folder (css,js,img...).
+    tittle = "Blask" (Title of the web Page).
 
-Once You set the configuration, run the next steps on terminal.
 
-<pre>
-$ FLASK_APP=main.py #must be on blask directory.
-$ flask run
-</pre>
+Next you need to run the next code:
+
+    :::python
+    from Blask.Blask import Blask
+    import settings
+
+    if __name__ == '__main__':
+        b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
+                  , defaultLayout=settings.defaultLayout,
+              staticDir=settings.staticDir, tittle=settings.tittle)
+        b.run()
 
 Then browse to `http://localhost:5000` and see the *Blask Home Page*. Of course you can modify the markdown, and see how it changes.
 

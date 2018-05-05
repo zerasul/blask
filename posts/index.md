@@ -14,10 +14,18 @@ For example:
 
 Once you've written the markdown file, you can point your browser to to the file url (< site_url >/< filename without .md extension >).
 
-If you want to run the application, just use Flask initialization and run it.
+Only you need to run the next code:
 
-    $ FLASK_APP = main.py
-    $ flask run
+    :::import
+    from Blask.Blask import Blask
+    import settings
+
+    if __name__ == '__main__':
+        b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
+                  , defaultLayout=settings.defaultLayout,
+              staticDir=settings.staticDir, tittle=settings.tittle)
+        b.run()
+
 
 **Note**: This project is in alpha stage; it is not suitable for production environments.
 

@@ -9,11 +9,21 @@ In this page we can see all the documentation about the Blask Project:
 * [Create a Template](#create-template)
 * [Special Pages](#special-pages)
 * [Tag Search](#tag-search)
+* [Category Search](#category-search)
+* [Author Search](#author-search)
 * [Search pages](#search-function)
 
 ## <a id="init-blask"></a>Init Blask
 
-To init and use Blask you need Python 3.4 or later. You also need the following dependencies:
+To init and use Blask you need Python 3.4 or later. you can use `pip` to install Blask.
+
+    pip install blask 
+    
+or use the source code:
+
+    git clone https://github.com/zerasul/blask/
+
+You also need the following dependencies (Only if you clone the source code):
 
 * Flask
 * Markdown
@@ -24,17 +34,18 @@ Theses dependencies can be easily installed using _pip_. Invoke it with the `-r 
 
 ```pip install -r requirements.txt```
  
-If you want to run Blask, run Flask using `main.py` as the value of the _FLASK_APP_ environment variable:
- 
- <pre>
- export FLASK_APP=main.py
- flask run
- </pre>
- 
-If the `flask` command is not recognised, you can use the python interpreter:
- 
-```python -m flask run```
- 
+If you want to run Blask, use the next code to create a standalone app:
+
+    :::python
+    from Blask.Blask import Blask
+    import settings
+
+
+    if __name__ == '__main__':
+         b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
+              , defaultLayout=settings.defaultLayout,staticDir=settings.staticDir, tittle=settings.tittle)
+         b.run()
+
 Now you can browse to http://localhost:5000.
   
 ## <a id="configure-blask"></a>Configure Blask
@@ -43,13 +54,13 @@ Blask comes with a settings file with all the configuration of the application; 
 
 Here is an example:
 
-<pre>
-templateDir = "templates"
-postDir = "posts"
-defaultLayout = "template.html"
-staticDir = "static"
-tittle = "Blask | A Simple Blog Engine Based on Flask"
-</pre>
+    :::python
+    templateDir = "templates"
+    postDir = "posts"
+    defaultLayout = "template.html"
+    staticDir = "static"
+    tittle = "Blask | A Simple Blog Engine Based on Flask"
+
 
 Here is the description of each configuration:
 
@@ -92,6 +103,8 @@ Here is the description of the metadata used in posts:
 * **date**: Date of the post. Must be in `yyyy-mm-dd` format.
 * **template**: Template file for the post. This is the filename and must be in the _templates folder_.
 * **tags**: List of tags separated by comma.
+* **category**: Category of the post.
+* **author**: Author of the post.
 
 ## <a id="create-template"></a>Create a Template
 
@@ -103,8 +116,10 @@ Once the file is created, add your HTML and include inside a Jinja2 variable cal
 
 Also, if you need to show the metadata information you can add some additional variables.
 
-+ {{date}}: variable with the post date
-* {{tags}}: variable with the list of tags
+* ```{{date}}```: variable with the post date.
+* ```{{tags}}```: variable with the list of tags.
+* ```{{category}}```: variable with the category of the post.
+* ```{{author}}```: variable with the author of the post.
 
 ## <a id="special-pages"></a>Special Pages
 
@@ -116,6 +131,14 @@ With Blask you can edit the content of 2 Special Pages:
 ## <a id="tag-search"></a>Tag Search
 
 With Blask you can search posts by their tags. To see the posts with one particular tag, browse `http://< url >/tag/< tag-name >`.
+
+## <a id="category-search"></a>Category Search
+
+With Blask you can search posts by his category. To see the posts with one particular Category, browse `http://<url>/category/<category-name>`.
+
+## <a id="author-search"></a>Author Search
+
+With Blask you can search by his Author. To see the posts with one particular Author, browse `http://<url>/author/<author-name>`.
 
 ## <a id="search-function"></a>Page Search
 

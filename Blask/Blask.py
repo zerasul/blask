@@ -4,6 +4,11 @@ from Blask.errors import PageNotExistError
 
 
 class Blask:
+    """
+    Blask Main Class.
+    :Author: Zerasul <suarez.garcia.victor@gmail.com>
+    date: 2018-05-05
+    """
     settings = {}
     app = None
     blogrenderer = None
