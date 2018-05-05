@@ -43,11 +43,11 @@ class TestblogRender:
         assert len(entries) == 1
 
     def test_authorlist(self):
-        entries = self.blogrender.list_posts(category="author")
+        entries = self.blogrender.list_posts(author="zerasul")
         assert len(entries) == 1
 
     def test_search(self):
         entries = self.blogrender.list_posts(search='documentation')
         assert len(entries) == 1
         entrieslist = self.blogrender.generatetagpage(entries)
-        assert  "href='/docs'" in entrieslist
+        assert "href='/docs'" in entrieslist

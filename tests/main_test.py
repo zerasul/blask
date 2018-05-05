@@ -40,3 +40,8 @@ class TestMain:
         response = self.testClient.get('/category/page')
         assert response.status_code == 200
         assert b"href='/about'" in response.data
+
+    def test_author_search(self):
+        response = self.testClient.get('/author/zerasul')
+        assert response.status_code == 200
+        assert b"href='/about'" in response.data
