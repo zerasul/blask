@@ -18,16 +18,17 @@ or download the source code:
 
 Later, you need to create a ```settings.py``` file:
 
-    :::python
-    templateDir = "templates"
-    postDir = "posts"
-    defaultLayout = "template.html"
-    staticDir = "static"
-    tittle = "Blask | A Simple Blog Engine Based on Flask"
+```python    
+templateDir = "templates"
+postDir = "posts"
+defaultLayout = "template.html"
+staticDir = "static"
+tittle = "Blask | A Simple Blog Engine Based on Flask"
+```
 
 For last, to Run Blask, use the next Code:
 
-    :::import
+```python
     from Blask.Blask import Blask
     import settings
 
@@ -36,6 +37,7 @@ For last, to Run Blask, use the next Code:
                   , defaultLayout=settings.defaultLayout,
               staticDir=settings.staticDir, tittle=settings.tittle)
         b.run()
+```
 
 For more information, see the [Blask web page](http://getblask.com/). Also, you can subscribe to our [Mailing List](https://www.freelists.org/archive/blask_mail_list).
 
