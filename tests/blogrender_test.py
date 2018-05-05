@@ -39,7 +39,7 @@ class TestblogRender:
         assert "href='/about'" in taglist
 
     def test_categorylist(self):
-        entries = self.blogrender.list_posts("page")
+        entries = self.blogrender.list_posts(category="page")
         assert len(entries) == 1
 
     def test_search(self):
