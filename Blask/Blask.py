@@ -20,6 +20,7 @@ class Blask:
         self.app.add_url_rule('/<filename>', view_func=self._getpage, methods=['GET'])
         self.app.add_url_rule('/tag/<tag>', view_func=self._gettag, methods=['GET'])
         self.app.add_url_rule('/search', view_func=self.searchpages, methods=['POST'])
+        self.app.add_url_rule('/category/<category>', view_func=self._getcategory, methods=['GET'])
 
     def _index(self):
         """
@@ -46,9 +47,11 @@ class Blask:
         date = entry.date
         template = entry.template
         tags = entry.tags
+        category = entry.category
         if template is None:
             template = self.settings['defaultLayout']
-        return render_template(template, tittle=self.settings['tittle'], content=content, date=date, tags=tags)
+        return render_template(template, tittle=self.settings['tittle'], content=content, date=date, tags=tags,
+                               category=category)
 
     def _gettag(self, tag):
         """
@@ -66,6 +69,16 @@ class Blask:
         :return: rendered search Page
         """
         postlist = self.blogrenderer.list_posts(search=request.form['search'])
+        content = self.blogrenderer.generatetagpage(postlist)
+        return render_template(self.settings['defaultLayout'], tittle=self.settings['tittle'], content=content)
+
+    def _getcategory(self, category):
+        """
+        Render a category searchpage
+        :param category:
+        :return: rendered category search page
+        """
+        postlist = self.blogrenderer.list_posts(category=category)
         content = self.blogrenderer.generatetagpage(postlist)
         return render_template(self.settings['defaultLayout'], tittle=self.settings['tittle'], content=content)
 
