@@ -1,8 +1,8 @@
-from blogrenderer import BlogRenderer
+from Blask.blogrenderer import BlogRenderer
 from settings import postDir
 from pytest import fixture, raises
 from datetime import date
-from errors import PageNotExistError
+from Blask.errors import PageNotExistError
 
 
 class TestblogRender:
@@ -38,8 +38,16 @@ class TestblogRender:
         taglist = self.blogrender.generatetagpage(entries)
         assert "href='/about'" in taglist
 
+    def test_categorylist(self):
+        entries = self.blogrender.list_posts(category="page")
+        assert len(entries) == 1
+
+    def test_authorlist(self):
+        entries = self.blogrender.list_posts(author="zerasul")
+        assert len(entries) == 1
+
     def test_search(self):
         entries = self.blogrender.list_posts(search='documentation')
         assert len(entries) == 1
         entrieslist = self.blogrender.generatetagpage(entries)
-        assert  "href='/docs'" in entrieslist
+        assert "href='/docs'" in entrieslist

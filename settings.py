@@ -1,8 +1,9 @@
-templateDir = "templates"
+from os import getcwd
+templateDir = getcwd()+"/templates"
 """
 Name of the Template Folder.
 """
-postDir = "posts"
+postDir = getcwd()+"/posts"
 """
 Name of the post Folder
 """
@@ -10,7 +11,7 @@ defaultLayout = "template.html"
 """
 default name of the template file.
 """
-staticDir = "static"
+staticDir = getcwd()+"/static"
 """
 Default name of the static Folder
 """

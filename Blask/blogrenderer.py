@@ -1,14 +1,14 @@
 from markdown import Markdown
 from os import path,listdir
-from errors import PageNotExistError
+from Blask.errors import PageNotExistError
 
 
 class BlogRenderer:
     """
     Class BlogRenderer: This class provides the feature for render posts from Markdown to HTML and search features.
-    :Author: Zerasul
-    Date: 2018-03-18
-    Version: 0.0.1
+    :Author: Zerasul <suarez.garcia.victor@gmail.com>
+    Date: 2018-05-05
+    Version: 0.1.0
     """
     postdir = None
     """
@@ -44,16 +44,17 @@ class BlogRenderer:
         :param text: Text write in Markdown.
         :return: BlogEntry.
         """
-        md = Markdown(['full_yaml_metadata'])
+        md = Markdown(extensions=['full_yaml_metadata', 'codehilite'])
         entry = BlogEntry(filename, md, text)
         return entry
 
-    def list_posts(self, tags=[], exclusions=["index.md", "404.md"], search=""):
+    def list_posts(self, tags=[], exclusions=["index.md", "404.md"], search="", category="", author=""):
         """
         Search a list of Posts returning a list of BlogEntry.
         :param tags: list of tags for searching.
         :param exclusions: list of name of posts with exclusions.
         :param search: string with the content what we want of search.
+        :param category: list of category of the entry.
         :return: List of BlogEntry.
         """
         files = list(filter(lambda l: l.endswith('.md') and l not in exclusions, listdir(self.postdir)))
@@ -62,8 +63,13 @@ class BlogRenderer:
         if tags:
             for tag in tags:
                 entries = list(filter(lambda l: tag in l.tags, entries))
+        if category:
+            entries = list(filter(lambda c: c.category == category, entries))
+        if author:
+            entries = list(filter(lambda a: a.author == author, entries))
         if search:
             entries = list(filter(lambda l: search in l.content, entries))
+
         return entries
 
     def generatetagpage(self, postlist):
@@ -92,6 +98,10 @@ class BlogEntry:
     """ Date of post creation"""
     tags = []
     """List of tags of the blog entry."""
+    author = None
+    """Author of the post"""
+    category = None
+    """category of the post"""
     template = None
     """Name of the template file"""
     name = None
@@ -111,7 +121,9 @@ class BlogEntry:
             self.date = meta.get('date')
             self.tags = meta.get('tags').split(",")
             self.template = meta.get('template')
+            self.category = meta.get('category')
+            self.author = meta.get('author')
 
     def __str__(self):
-        string = "['content': {}, 'name': {}, 'date': {}, tags:[{}], 'template': {}]".format(self.content,self.name,self.date,self.tags,self.template)
+        string = "['content': {}, 'name': {}, 'date': {}, 'tags':[{}], 'author': {}, 'category': {}, template': {}]".format(self.content,self.name,self.date,self.tags,self.author,self.category,self.template)
         return string

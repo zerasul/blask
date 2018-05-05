@@ -2,20 +2,22 @@
 date: 2018-04-04
 template: template.html
 tags: about,blask
+category: page
+author: zerasul
 ---
 # About
 
-Blask is a simple Blogging engine that use Flask MicroFramework for render a blog web page, and use MarkDown for render
-the posts information. With Blask is very easy to create a blog using only HTML and markdown. Also, the rendering is
-dynamic and is not needed generate the output HTML. This is made at runtime.
+Blask is a simple Blogging engine that uses the Flask MicroFramework to render a blog, and uses MarkDown to render the posts
+information. With Blask, it is very easy to create a blog using only HTML and Markdown. Also, the rendering happens
+dynamically at runtime, so there is no need to generate HTML upfront.
 
-For use blask, only you need to configure the engine with the ```settings.py``` file information; like the posts dir,
-the template dir, the statics dir and of course the title of the Web Page.
+To use Blask, you only need to edit the `settings.py` file to configure the engine with the posts directory, the template
+directory, the static assets directory, and, of course, the title of the site.
 
-With the powerful of the template engine [Jinja2](http://jinja.pocoo.org/docs/2.10/), is very simple to create a template
- for Blask. Only you have to do is write you HTML page and include the ```content``` variable inside.
+With the power of the [Jinja2](http://jinja.pocoo.org/docs/2.10/) template engine, it is very easy to create a template
+ for Blask. All you have to do is write your HTML page and include the `content` variable inside.
 
-Of course, Blask is completly Open source and yes! you can improve it, change it and distribute it under the license of 
-GPL 3.0. Also you can see all the source code and the issues at our [Github Repository](https://github.com/zerasul/blask).
+Of course, Blask is completely Open Source, and yes! You can improve it, change it and distribute it under the GPL 3.0i
+license. Also, you can see all the source code and the issues at our [Github Repository](https://github.com/zerasul/blask).
 
-We hope you like Blask, and enjoy it. 
+We hope you like Blask, and enjoy using it.

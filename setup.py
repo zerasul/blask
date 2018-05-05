@@ -1,59 +1,37 @@
-from setuptools import setup
+from setuptools import setup, find_packages
+from os import path
+from m2r import convert
 
+
+currdir = path.abspath(path.dirname(__file__))
+with open(path.join(currdir, 'README.md')) as f:
+    long_desc = f.read()
+long_rst_desc = convert(long_desc)
 setup(
     name='Blask',
-    version='0.0.1-alpfa',
-    packages=['venv.Lib.distutils', 'venv.Lib.encodings', 'venv.Lib.importlib', 'venv.Lib.collections',
-              'venv.Lib.site-packages.py', 'venv.Lib.site-packages.py._io', 'venv.Lib.site-packages.py._log',
-              'venv.Lib.site-packages.py._code', 'venv.Lib.site-packages.py._path',
-              'venv.Lib.site-packages.py._process', 'venv.Lib.site-packages.py._vendored_packages',
-              'venv.Lib.site-packages.pip', 'venv.Lib.site-packages.pip.req', 'venv.Lib.site-packages.pip.vcs',
-              'venv.Lib.site-packages.pip.utils', 'venv.Lib.site-packages.pip.compat',
-              'venv.Lib.site-packages.pip.models', 'venv.Lib.site-packages.pip._vendor',
-              'venv.Lib.site-packages.pip._vendor.distlib', 'venv.Lib.site-packages.pip._vendor.distlib._backport',
-              'venv.Lib.site-packages.pip._vendor.colorama', 'venv.Lib.site-packages.pip._vendor.html5lib',
-              'venv.Lib.site-packages.pip._vendor.html5lib._trie',
-              'venv.Lib.site-packages.pip._vendor.html5lib.filters',
-              'venv.Lib.site-packages.pip._vendor.html5lib.treewalkers',
-              'venv.Lib.site-packages.pip._vendor.html5lib.treeadapters',
-              'venv.Lib.site-packages.pip._vendor.html5lib.treebuilders', 'venv.Lib.site-packages.pip._vendor.lockfile',
-              'venv.Lib.site-packages.pip._vendor.progress', 'venv.Lib.site-packages.pip._vendor.requests',
-              'venv.Lib.site-packages.pip._vendor.requests.packages',
-              'venv.Lib.site-packages.pip._vendor.requests.packages.chardet',
-              'venv.Lib.site-packages.pip._vendor.requests.packages.urllib3',
-              'venv.Lib.site-packages.pip._vendor.requests.packages.urllib3.util',
-              'venv.Lib.site-packages.pip._vendor.requests.packages.urllib3.contrib',
-              'venv.Lib.site-packages.pip._vendor.requests.packages.urllib3.packages',
-              'venv.Lib.site-packages.pip._vendor.requests.packages.urllib3.packages.ssl_match_hostname',
-              'venv.Lib.site-packages.pip._vendor.packaging', 'venv.Lib.site-packages.pip._vendor.cachecontrol',
-              'venv.Lib.site-packages.pip._vendor.cachecontrol.caches',
-              'venv.Lib.site-packages.pip._vendor.webencodings', 'venv.Lib.site-packages.pip._vendor.pkg_resources',
-              'venv.Lib.site-packages.pip.commands', 'venv.Lib.site-packages.pip.operations',
-              'venv.Lib.site-packages.attr', 'venv.Lib.site-packages.yaml', 'venv.Lib.site-packages.click',
-              'venv.Lib.site-packages.flask', 'venv.Lib.site-packages.flask.ext', 'venv.Lib.site-packages.wheel',
-              'venv.Lib.site-packages.wheel.tool', 'venv.Lib.site-packages.wheel.signatures',
-              'venv.Lib.site-packages.jinja2', 'venv.Lib.site-packages.pluggy', 'venv.Lib.site-packages._pytest',
-              'venv.Lib.site-packages._pytest._code', 'venv.Lib.site-packages._pytest.assertion',
-              'venv.Lib.site-packages.colorama', 'venv.Lib.site-packages.markdown',
-              'venv.Lib.site-packages.markdown.extensions', 'venv.Lib.site-packages.pygments',
-              'venv.Lib.site-packages.pygments.lexers', 'venv.Lib.site-packages.pygments.styles',
-              'venv.Lib.site-packages.pygments.filters', 'venv.Lib.site-packages.pygments.formatters',
-              'venv.Lib.site-packages.werkzeug', 'venv.Lib.site-packages.werkzeug.debug',
-              'venv.Lib.site-packages.werkzeug.contrib', 'venv.Lib.site-packages.markupsafe',
-              'venv.Lib.site-packages.setuptools', 'venv.Lib.site-packages.setuptools.extern',
-              'venv.Lib.site-packages.setuptools.command', 'venv.Lib.site-packages.pkg_resources',
-              'venv.Lib.site-packages.pkg_resources.extern', 'venv.Lib.site-packages.pkg_resources._vendor',
-              'venv.Lib.site-packages.pkg_resources._vendor.packaging'],
-    url='http://getblask.com',
+    version='0.1.0b8',
+    packages=find_packages(exclude=['tests']),
+    url='https://getblask.com',
     license='GPL 3.0',
     author='zerasul',
     author_email='zerasul@gmail.com',
-    description='A simple Blog engine using Flask and markdown.',
+    description='A simple Blog engine using Flask and Markdown.',
+    classifiers=[
+       'Development Status :: 4 - Beta',
+        'Topic :: Internet :: WWW/HTTP :: Dynamic Content :: News/Diary',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+    ],
+    long_description=long_rst_desc,
+    python_requires='>=3',
     install_requires=[
           'flask',
           'markdown',
           'markdown-full-yaml-metadata',
-          'Pygments'
+          'Pygments',
+          'm2r'
     ],
     test_require=[
         'pytest',

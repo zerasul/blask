@@ -13,27 +13,42 @@
 <body>
 
     <header>
-        <h1><a href="/">Blask</a></h1>
-        <p class="lead">A Simple Blogging Engine Using Flask and MarkDown</p>
+        <div class="container container-fluid">
+            <h1><a href="/">Blask</a></h1>
+            <p class="lead">A Simple Blogging Engine Using Flask and MarkDown</p>
+        </div>
     </header>
-    <div class="container-fluid" id="content">
+    <div class="container container-fluid" id="content">
         <div class="row">
         <div class="col-md-9">
-            <div id="meta">
+            <div class="meta">
                 {% if  date %}
-                    <small class="date">{{date}}</small>
+                    <small class="date">Published on: {{date}}</small><br/>
                 {% endif %}
+
+                {% if author %}
+                <small class="author">Published by <a href="/author/{{author}}">{{author}}</a></small>
+                {% endif %}
+            </div>
+
+
+            {{content|safe}}
+
+            <div class="meta">
+                {% if category %}
+                    <small class="category">
+                        Category: <a href="/category/{{category}}">{{category}}</a>
+                    </small><br/>
+                {% endif %}
+
                 {% if tags %}
                     <small class="tags">
-                       {% for tag in tags %}
+                        {% for tag in tags %}
                             <a href="/tag/{{tag}}">{{tag}}</a>
                         {% endfor %}
                     </small>
                 {% endif %}
             </div>
-
-
-        {{content|safe}}
         </div>
         <aside class="col-md-3">
             <div class="aside-block">
@@ -69,7 +84,7 @@
         </div>
     </div>
 
-    <footer>&copy; 2018 - All rights reserved - v0.0.1-alpha - Made with Blask.</footer>
+    <footer>&copy; 2018 - All rights reserved - v0.1.0-beta - Made with Blask.</footer>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
