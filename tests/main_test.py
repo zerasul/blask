@@ -35,3 +35,8 @@ class TestMain:
         response = self.testClient.get('/tag/about')
         assert response.status_code == 200
         assert b"href='/about'" in response.data
+
+    def test_category_search(self):
+        response = self.testClient.get('/category/page')
+        assert response.status_code == 200
+        assert b"href='/about'" in response.data
