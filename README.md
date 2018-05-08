@@ -44,4 +44,6 @@ For more information, see the [Blask web page](http://getblask.com/). Also, you 
 
 ---
 
+You can see the [Code of Participation](https://www.mozilla.org/es-ES/about/governance/policies/participation/) of this project.
+
 Blask is Open Source under the [GPL 3.0](LICENSE) License
