@@ -6,7 +6,8 @@ from m2r import convert
 currdir = path.abspath(path.dirname(__file__))
 with open(path.join(currdir, 'README.md')) as f:
     long_desc = f.read()
-long_rst_desc = convert(long_desc)
+#long_rst_desc = convert(long_desc)
+
 setup(
     name='Blask',
     version='0.1.0b8',
@@ -24,14 +25,15 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    long_description=long_rst_desc,
+    long_description=long_desc,
+    long_description_content_type='text/markdown'
     python_requires='>=3',
     install_requires=[
           'flask',
           'markdown',
           'markdown-full-yaml-metadata',
           'Pygments',
-          'm2r'
+          #'m2r'
     ],
     test_require=[
         'pytest',
