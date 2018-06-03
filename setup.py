@@ -1,6 +1,5 @@
 from setuptools import setup, find_packages
 from os import path
-from m2r import convert
 
 
 currdir = path.abspath(path.dirname(__file__))
@@ -26,7 +25,7 @@ setup(
         'Programming Language :: Python :: 3.7',
     ],
     long_description=long_desc,
-    long_description_content_type='text/markdown'
+    long_description_content_type='text/markdown',
     python_requires='>=3',
     install_requires=[
           'flask',
