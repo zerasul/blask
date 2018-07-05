@@ -3,13 +3,13 @@ from os import path
 
 
 currdir = path.abspath(path.dirname(__file__))
-with open(path.join(currdir, 'README.md')) as f:
+with open(path.join(currdir, 'README.rst')) as f:
     long_desc = f.read()
 #long_rst_desc = convert(long_desc)
 
 setup(
     name='Blask',
-    version='0.1.0b8',
+    version='0.1.0b11',
     packages=find_packages(exclude=['tests']),
     url='https://getblask.com',
     license='GPL 3.0',
