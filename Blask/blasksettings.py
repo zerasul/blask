@@ -8,8 +8,7 @@ DEFAULT_SETTINGS = {
     'postDir': os.path.join(BASE_DIR, 'posts'),
     'defaultLayout': 'template.html',
     'staticDir': os.path.join(BASE_DIR, 'static'),
-    'title': os.path.join(
-        BASE_DIR, 'Blask | A Simple Blog Engine Based on Flask')
+    'title': 'Blask | A Simple Blog Engine Based on Flask'
 }
 
 
@@ -22,12 +21,15 @@ class BlaskSettings(object):
         # Check environment variable for settings module
         if 'BLASK_SETTINGS' in os.environ:
             # Load settings from the module in environment variable
-            settings_mod = __import__(os.environ['BLASK_SETTINGS'])
+            settings_mod = __import__(
+                os.environ['BLASK_SETTINGS'],
+                globals(),
+                locals(),
+                ['object'],
+                0)
             self.settings = {}
-            print(dir(settings_mod))
             for key in DEFAULT_SETTINGS.keys():
                 value = getattr(settings_mod, key, DEFAULT_SETTINGS[key])
-                print(key, value)
                 self.settings[key] = value
         else:
             # Copy default settings
