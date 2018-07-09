@@ -15,4 +15,4 @@ defaultLayout = "template.html"
 staticDir = os.path.join(BASE_DIR, 'static')
 
 # Website title
-title = 'Blask | A Simple Blog Engine Based on Flask'
+title = 'The mantis revenge!'

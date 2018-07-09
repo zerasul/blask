@@ -32,6 +32,7 @@ class TestBlaskSettings:
         settings = BlaskSettings(**kwsettings)
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
             if kw == 'postDir':
+
                 assert settings[kw] == os.path.join(
                     os.getcwd(), '/mantispostdir')
             elif kw == 'title':

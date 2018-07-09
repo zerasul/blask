@@ -1,8 +1,23 @@
-from Blask.Blask import Blask
-import settings
+import argparse
+import logging
+from Blask import BlaskApp
 
 
 if __name__ == '__main__':
-    b = Blask(templateDir=settings.templateDir, postDir=settings.postDir, defaultLayout=settings.defaultLayout,
-              staticDir=settings.staticDir, tittle=settings.tittle)
-    b.run()
+    # Argument parsing
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-d", "--debug", action='store_true', help="Verbose output")
+    parser.add_argument(
+        "-v", "--verbose", action='store_true', help="Verbose output")
+    args = parser.parse_args()
+
+
+    if args.debug or args.verbose:
+        log = logging.getLogger()
+        level = logging.getLevelName('DEBUG')
+        log.setLevel(level)
+        debug = True
+    else:
+        debug = False
+    BlaskApp().run(debug=debug)

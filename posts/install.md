@@ -19,7 +19,7 @@ After that, you need to configure Blask, using the _settings.py_ file:
     postDir = "posts"
     defaultLayout = "template.html"
     staticDir = "static"
-    tittle = "Blask"
+    title = "Blask"
 
 And finally, you can run the application using this code:
 
@@ -29,7 +29,7 @@ And finally, you can run the application using this code:
 
     if __name__ == '__main__':
         b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
-        , defaultLayout=settings.defaultLayout, staticDir=settings.staticDir, tittle=settings.tittle)
+        , defaultLayout=settings.defaultLayout, staticDir=settings.staticDir, title=settings.title)
         
         b.run()
 
