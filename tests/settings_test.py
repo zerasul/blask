@@ -39,3 +39,8 @@ class TestBlaskSettings:
                 assert settings[kw] == 'The mantis has you!'
             else:
                 assert settings[kw] == blasksettings.DEFAULT_SETTINGS[kw]
+
+    def test_nokey(self):
+        settings = BlaskSettings()
+        with raises(KeyError):
+            settings['nokey']

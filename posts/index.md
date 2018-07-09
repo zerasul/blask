@@ -14,17 +14,18 @@ For example:
 
 Once you've written the markdown file, you can point your browser to to the file url (< site_url >/< filename without .md extension >).
 
+befor you run the code you have to export the BLASK_SETTINGS enviorement variable.
+
+    :::bash
+    > export BLASK_SETTINGS= settings.
+
 Only you need to run the next code:
 
-    :::import
-    from Blask.Blask import Blask
-    import settings
-
-    if __name__ == '__main__':
-        b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
-                  , defaultLayout=settings.defaultLayout,
-              staticDir=settings.staticDir, title=settings.title)
-        b.run()
+    :::python
+    from Blask.BlaskApp import BlaskApp
+    
+    if __name__== '__main__':
+        BlaskApp().run() 
 
 
 **Note**: This project is in alpha stage; it is not suitable for production environments.

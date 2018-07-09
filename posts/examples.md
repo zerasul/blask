@@ -7,24 +7,38 @@ In this page, you can see some examples of use for Blask. From creating our firs
 First if you need to run Blask, need to see the `settings.py` file and set the properly configuration.
 
     :::python
-    templateDir = "templates" # The templates Folder.
-    postDir = "posts" # The posts Folder (markdown Files).
-    defaultLayout = "template.html" # Default template file. Must be in Templates Folder.
-    staticDir = "static" # The static Folder (css,js,img...).
-    title = "Blask" (Title of the web Page).
+    import os
+
+    BASE_DIR = os.getcwd()
+
+    # Templates directory
+    templateDir = os.path.join(BASE_DIR, 'templates')
+
+    # Posts directory
+    postDir = os.path.join(BASE_DIR, 'posts')
+
+    # Default layout template
+    defaultLayout = "template.html"
+
+    # Static files directory
+    staticDir = os.path.join(BASE_DIR, 'static')
+
+    # Website title
+    title = 'Blask | A Simple Blog Engine Based on Flask'
 
 
 Next you need to run the next code:
 
     :::python
-    from Blask.Blask import Blask
-    import settings
+    from Blask import BlaskApp
+    
+    BlaskApp().run()
+    
+To get the properly Configuration, you need to export the enviorement variable BLASK_SETTINGS to select the properly _settings_ module:
 
-    if __name__ == '__main__':
-        b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
-                  , defaultLayout=settings.defaultLayout,
-              staticDir=settings.staticDir, title=settings.title)
-        b.run()
+    :::bash
+    > export BLASK_SETTINGS= settings
+    
 
 Then browse to `http://localhost:5000` and see the *Blask Home Page*. Of course you can modify the markdown, and see how it changes.
 

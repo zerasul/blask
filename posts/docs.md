@@ -37,14 +37,28 @@ Theses dependencies can be easily installed using _pip_. Invoke it with the `-r 
 If you want to run Blask, use the next code to create a standalone app:
 
     :::python
-    from Blask.Blask import Blask
-    import settings
+    import argparse
+    import logging
+    from Blask import BlaskApp
 
 
     if __name__ == '__main__':
-         b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
-              , defaultLayout=settings.defaultLayout,staticDir=settings.staticDir, title=settings.title)
-         b.run()
+        # Argument parsing
+        parser = argparse.ArgumentParser()
+        parser.add_argument(
+            "-d", "--debug", action='store_true', help="Verbose output")
+        parser.add_argument(
+        "-v", "--verbose", action='store_true', help="Verbose output")
+        args = parser.parse_args()
+
+        if args.debug or args.verbose:
+            log = logging.getLogger()
+            level = logging.getLevelName('DEBUG')
+            log.setLevel(level)
+            debug = True
+        else:
+            debug = False
+        BlaskApp().run(debug=debug)
 
 Now you can browse to http://localhost:5000.
   
@@ -55,22 +69,52 @@ Blask comes with a settings file with all the configuration of the application; 
 Here is an example:
 
     :::python
-    templateDir = "templates"
-    postDir = "posts"
+    import os
+
+    BASE_DIR = os.getcwd()
+
+    # Templates directory
+    templateDir = os.path.join(BASE_DIR, 'templates')
+
+    # Posts directory
+    postDir = os.path.join(BASE_DIR, 'posts')
+
+    # Default layout template
     defaultLayout = "template.html"
-    staticDir = "static"
-    title = "Blask | A Simple Blog Engine Based on Flask"
+
+    # Static files directory
+    staticDir = os.path.join(BASE_DIR, 'static')
+
+    # Website title
+    title = 'Blask | A Simple Blog Engine Based on Flask'
 
 
 Here is the description of each configuration:
 
+* **BASE_DIR**: Where is the working directory.
 * **templateDir**: Templates Folder. All the HTML for the templates must be there.
 * **postDir**: Posts Dir. All the markdown blog posts must be there.
 * **defaultLayout**: Default template file. This file must be in the _templateDir_ folder.
 * **staticDir**: Static resources folder. All the _css_, _js_, _img_ must be here.
 * **title**: Default title for the site.
 
+**Since: 0.10.**
 
+Blask uses the enviorement variable _BLASK_SETTINGS_ to get the entire configuration.
+
+    :::bash
+    > export BLASK_SETTINGS = settings
+    
+where ```settings``` have the configuration module of Blask.
+
+If you want to use the default values; you can see then here:
+
+* **TemplatesDir**: _templates_.
+* **postDir**: _posts_.
+* **defaultLayout**: _template.html_.
+* **staticDir**: _static_
+* **tittle**: _Blask | A Simple Blog Engine Based on Flask_
+     
 ## <a id="create-post"></a>Create a Post
 
 Creating a new blog post is very easy with Blask. First you need to create a Markdown file with `.md` extension on the *Posts Folder* 
