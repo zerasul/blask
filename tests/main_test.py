@@ -1,5 +1,5 @@
 from pytest import fixture
-from Blask.Blask import Blask
+from Blask import BlaskApp
 import settings
 
 class TestMain:
@@ -8,7 +8,7 @@ class TestMain:
 
     @fixture(autouse=True)
     def inittest(self):
-        b = Blask(templateDir=settings.templateDir, postDir=settings.postDir, defaultLayout=settings.defaultLayout,
+        b = BlaskApp(templateDir=settings.templateDir, postDir=settings.postDir, defaultLayout=settings.defaultLayout,
                   staticDir=settings.staticDir, tittle=settings.tittle)
         b.app.testing = True
         self.testClient = b.app.test_client()

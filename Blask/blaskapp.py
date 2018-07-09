@@ -3,9 +3,9 @@ from Blask.blogrenderer import BlogRenderer
 from Blask.errors import PageNotExistError
 
 
-class Blask:
+class BlaskApp:
     """
-    Blask Main Class.
+    Blask Application Main Class
     :Author: Zerasul <suarez.garcia.victor@gmail.com>
     date: 2018-05-05
     """

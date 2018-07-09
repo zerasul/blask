@@ -1,21 +1,18 @@
-from os import getcwd
-templateDir = getcwd()+"/templates"
-"""
-Name of the Template Folder.
-"""
-postDir = getcwd()+"/posts"
-"""
-Name of the post Folder
-"""
-defaultLayout = "template.html"
-"""
-default name of the template file.
-"""
-staticDir = getcwd()+"/static"
-"""
-Default name of the static Folder
-"""
-tittle = "Blask | A Simple Blog Engine Based on Flask"
-"""
-Title of the blog
-"""
+import os
+
+BASE_DIR = os.getcwd()
+
+# Templates directory
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+
+# Posts directory
+POSTS_DIR = os.path.join(BASE_DIR, 'posts')
+
+# Default layout template
+DEFAULT_TEMPLATE = "template.html"
+
+# Static files directory
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+
+# Website title
+SITE_TITLE = 'Blask | A Simple Blog Engine Based on Flask'
