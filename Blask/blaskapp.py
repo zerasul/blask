@@ -1,4 +1,5 @@
 from flask import Flask, render_template,request
+from Blask.blasksettings import BlaskSettings
 from Blask.blogrenderer import BlogRenderer
 from Blask.errors import PageNotExistError
 
@@ -9,16 +10,11 @@ class BlaskApp:
     :Author: Zerasul <suarez.garcia.victor@gmail.com>
     date: 2018-05-05
     """
-    settings = {}
     app = None
     blogrenderer = None
 
     def __init__(self, **kwargs):
-        self.settings['templateDir'] = kwargs['templateDir']
-        self.settings['postDir'] = kwargs['postDir']
-        self.settings['defaultLayout'] = kwargs['defaultLayout']
-        self.settings['staticDir'] = kwargs['staticDir']
-        self.settings['tittle'] = kwargs['tittle']
+        self.settings = BlaskSettings(**kwargs)
         self.blogrenderer = BlogRenderer(self.settings['postDir'])
         self.app = Flask(__name__, template_folder=self.settings['templateDir'], static_folder=self.settings['staticDir'])
         self.app.add_url_rule('/', endpoint='index', view_func=self._index, methods=['GET'])
@@ -37,7 +33,7 @@ class BlaskApp:
         template = entry.template
         if template is None:
             template = self.settings['defaultLayout']
-        return render_template(template, tittle=self.settings['tittle'], content=entry.content)
+        return render_template(template, title=self.settings['title'], content=entry.content)
 
     def _getpage(self, filename):
         """
@@ -57,7 +53,7 @@ class BlaskApp:
         author = entry.author
         if template is None:
             template = self.settings['defaultLayout']
-        return render_template(template, tittle=self.settings['tittle'], content=content, date=date, tags=tags,
+        return render_template(template, title=self.settings['title'], content=content, date=date, tags=tags,
                                category=category, author=author)
 
     def _gettag(self, tag):
@@ -68,7 +64,7 @@ class BlaskApp:
         """
         postlist = self.blogrenderer.list_posts([tag])
         content = self.blogrenderer.generatetagpage(postlist)
-        return render_template(self.settings['defaultLayout'], tittle=self.settings['tittle'], content=content)
+        return render_template(self.settings['defaultLayout'], title=self.settings['title'], content=content)
 
     def searchpages(self):
         """
@@ -77,7 +73,7 @@ class BlaskApp:
         """
         postlist = self.blogrenderer.list_posts(search=request.form['search'])
         content = self.blogrenderer.generatetagpage(postlist)
-        return render_template(self.settings['defaultLayout'], tittle=self.settings['tittle'], content=content)
+        return render_template(self.settings['defaultLayout'], title=self.settings['title'], content=content)
 
     def _getcategory(self, category):
         """
@@ -87,7 +83,7 @@ class BlaskApp:
         """
         postlist = self.blogrenderer.list_posts(category=category)
         content = self.blogrenderer.generatetagpage(postlist)
-        return render_template(self.settings['defaultLayout'], tittle=self.settings['tittle'], content=content)
+        return render_template(self.settings['defaultLayout'], title=self.settings['title'], content=content)
 
     def _getauthor(self, author):
         """
@@ -97,7 +93,7 @@ class BlaskApp:
         """
         postlist = self.blogrenderer.list_posts(author=author)
         content = self.blogrenderer.generatetagpage(postlist)
-        return render_template(self.settings['defaultLayout'], tittle=self.settings['tittle'], content=content)
+        return render_template(self.settings['defaultLayout'], title=self.settings['title'], content=content)
 
     def run(self):
         self.app.run()
