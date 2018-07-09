@@ -22,6 +22,7 @@ class TestBlaskSettings:
                 assert settings[kw] == 'The mantis revenge!'
             else:
                 assert settings[kw] == blasksettings.DEFAULT_SETTINGS[kw]
+        del(os.environ['BLASK_SETTINGS'])
 
     def test_kwargs(self):
         kwsettings = {
