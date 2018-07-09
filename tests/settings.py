@@ -6,7 +6,7 @@ BASE_DIR = os.getcwd()
 templateDir = os.path.join(BASE_DIR, 'templates')
 
 # Posts directory
-postDir = os.path.join(BASE_DIR, 'posts')
+postDir = os.path.join(BASE_DIR, 'posts2')
 
 # Default layout template
 defaultLayout = "template.html"
@@ -15,4 +15,4 @@ defaultLayout = "template.html"
 staticDir = os.path.join(BASE_DIR, 'static')
 
 # Website title
-title = 'Blask | A Simple Blog Engine Based on Flask'
+title = 'The mantis revenge!'

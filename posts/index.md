@@ -23,7 +23,7 @@ Only you need to run the next code:
     if __name__ == '__main__':
         b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
                   , defaultLayout=settings.defaultLayout,
-              staticDir=settings.staticDir, tittle=settings.tittle)
+              staticDir=settings.staticDir, title=settings.title)
         b.run()
 
 

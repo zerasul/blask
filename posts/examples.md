@@ -11,7 +11,7 @@ First if you need to run Blask, need to see the `settings.py` file and set the p
     postDir = "posts" # The posts Folder (markdown Files).
     defaultLayout = "template.html" # Default template file. Must be in Templates Folder.
     staticDir = "static" # The static Folder (css,js,img...).
-    tittle = "Blask" (Title of the web Page).
+    title = "Blask" (Title of the web Page).
 
 
 Next you need to run the next code:
@@ -23,7 +23,7 @@ Next you need to run the next code:
     if __name__ == '__main__':
         b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
                   , defaultLayout=settings.defaultLayout,
-              staticDir=settings.staticDir, tittle=settings.tittle)
+              staticDir=settings.staticDir, title=settings.title)
         b.run()
 
 Then browse to `http://localhost:5000` and see the *Blask Home Page*. Of course you can modify the markdown, and see how it changes.
