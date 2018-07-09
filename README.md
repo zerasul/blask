@@ -23,7 +23,7 @@ templateDir = "templates"
 postDir = "posts"
 defaultLayout = "template.html"
 staticDir = "static"
-tittle = "Blask | A Simple Blog Engine Based on Flask"
+title = "Blask | A Simple Blog Engine Based on Flask"
 ```
 
 For last, to Run Blask, use the next Code:
@@ -35,7 +35,7 @@ For last, to Run Blask, use the next Code:
     if __name__ == '__main__':
         b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
                   , defaultLayout=settings.defaultLayout,
-              staticDir=settings.staticDir, tittle=settings.tittle)
+              staticDir=settings.staticDir, title=settings.title)
         b.run()
 ```
 

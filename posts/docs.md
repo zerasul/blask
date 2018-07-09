@@ -43,7 +43,7 @@ If you want to run Blask, use the next code to create a standalone app:
 
     if __name__ == '__main__':
          b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
-              , defaultLayout=settings.defaultLayout,staticDir=settings.staticDir, tittle=settings.tittle)
+              , defaultLayout=settings.defaultLayout,staticDir=settings.staticDir, title=settings.title)
          b.run()
 
 Now you can browse to http://localhost:5000.
@@ -59,7 +59,7 @@ Here is an example:
     postDir = "posts"
     defaultLayout = "template.html"
     staticDir = "static"
-    tittle = "Blask | A Simple Blog Engine Based on Flask"
+    title = "Blask | A Simple Blog Engine Based on Flask"
 
 
 Here is the description of each configuration:
@@ -68,7 +68,7 @@ Here is the description of each configuration:
 * **postDir**: Posts Dir. All the markdown blog posts must be there.
 * **defaultLayout**: Default template file. This file must be in the _templateDir_ folder.
 * **staticDir**: Static resources folder. All the _css_, _js_, _img_ must be here.
-* **tittle**: Default title for the site.
+* **title**: Default title for the site.
 
 
 ## <a id="create-post"></a>Create a Post
