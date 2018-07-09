@@ -1,4 +1,5 @@
 import os
+import logging
 
 BASE_DIR = os.getcwd()
 
@@ -18,12 +19,20 @@ class BlaskSettings(object):
     """
 
     def __init__(self, *args, **kwargs):
-        # Copy default settings
-        self.settings = DEFAULT_SETTINGS.copy()
-        # First of all we check environment
+        # Check environment variable for settings module
         if 'BLASK_SETTINGS' in os.environ:
-            # TODO: Load settings from the path in environment variable
-            pass
+            # Load settings from the module in environment variable
+            settings_mod = __import__(os.environ['BLASK_SETTINGS'])
+            self.settings = {}
+            print(dir(settings_mod))
+            for key in DEFAULT_SETTINGS.keys():
+                value = getattr(settings_mod, key, DEFAULT_SETTINGS[key])
+                print(key, value)
+                self.settings[key] = value
+        else:
+            # Copy default settings
+            self.settings = DEFAULT_SETTINGS.copy()
+
         # Keyword arguments always override default and environment settings
         for kw in kwargs.keys():
             if kw in self.DEFAULT_SETTINGS:

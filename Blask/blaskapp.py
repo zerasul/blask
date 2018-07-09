@@ -95,5 +95,5 @@ class BlaskApp:
         content = self.blogrenderer.generatetagpage(postlist)
         return render_template(self.settings['defaultLayout'], title=self.settings['title'], content=content)
 
-    def run(self):
-        self.app.run()
+    def run(self, **kwargs):
+        self.app.run(**kwargs)
