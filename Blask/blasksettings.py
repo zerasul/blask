@@ -35,7 +35,7 @@ class BlaskSettings(object):
 
         # Keyword arguments always override default and environment settings
         for kw in kwargs.keys():
-            if kw in self.DEFAULT_SETTINGS:
+            if kw in DEFAULT_SETTINGS:
                 self.settings[kw] = kwargs[kw]
 
     def __getitem__(self, key):
