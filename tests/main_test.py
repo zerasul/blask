@@ -2,9 +2,10 @@ from pytest import fixture
 from Blask import BlaskApp
 import settings
 
+
 class TestMain:
 
-    testClient=None
+    testClient = None
 
     @fixture(autouse=True)
     def inittest(self):

@@ -26,7 +26,7 @@ class TestBlaskSettings:
 
     def test_kwargs(self):
         kwsettings = {
-            'postDir': '/mantispostdir',
+            'postDir': os.path.join(os.getcwd(),'mantispostdir'),
             'title': 'The mantis has you!',
         }
         settings = BlaskSettings(**kwsettings)
@@ -34,7 +34,7 @@ class TestBlaskSettings:
             if kw == 'postDir':
 
                 assert settings[kw] == os.path.join(
-                    os.getcwd(), '/mantispostdir')
+                    os.getcwd(), 'mantispostdir')
             elif kw == 'title':
                 assert settings[kw] == 'The mantis has you!'
             else:
