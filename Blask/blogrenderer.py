@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 from markdown import Markdown
-from os import path,listdir
+from os import path, listdir
 from Blask.errors import PageNotExistError
 
 
@@ -62,7 +62,7 @@ class BlogRenderer:
         :param text: Text write in Markdown.
         :return: BlogEntry.
         """
-        md = Markdown(extensions=['full_yaml_metadata', 'codehilite'])
+        md = Markdown(extensions=['full_yaml_metadata', 'markdown.extensions.codehilite'])
         entry = BlogEntry(filename, md, text)
         return entry
 
