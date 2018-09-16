@@ -29,14 +29,26 @@ title = "Blask | A Simple Blog Engine Based on Flask"
 For last, to Run Blask, use the next Code:
 
 ```python
-    from Blask.Blask import Blask
+    from Blask import BlaskApp
     import settings
 
     if __name__ == '__main__':
-        b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
+        b = BlaskApp(templateDir=settings.templateDir, postDir=settings.postDir
                   , defaultLayout=settings.defaultLayout,
               staticDir=settings.staticDir, title=settings.title)
         b.run()
+```
+
+Also, you can use a environment variable to set the settings:
+
+```bash
+    > export BLASK_SETTINGS=settips.py
+```
+
+You can use the Blask Command Line Tool to run the site:
+
+```bash
+    >blaskcli run
 ```
 
 For more information, see the [Blask web page](http://getblask.com/). Also, you can subscribe to our [Mailing List](https://www.freelists.org/archive/blask_mail_list).

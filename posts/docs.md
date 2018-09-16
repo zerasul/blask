@@ -197,7 +197,8 @@ With Blask you can search by his Author. To see the posts with one particular Au
 
 With Blask you can search by post contents. To do this, just send a POST request to `http://< url >/search` with the `search` parameter set to your search criteria.
 
-## <a id="blaskcli"></a>Blask Command Line Tool
+## <a id="blaskcli"></a>Blask Command Line Tool 
+**(Since: 0.1.0b12)**
 
 The Blask Command Line Tool, is a program that you can use for control Blask and have some features. For example for create a new Blask project.
 For use the Blask CLI Tool, you need to install Blask using the _setup.py_ script (or using pip).

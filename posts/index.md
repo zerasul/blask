@@ -17,7 +17,7 @@ Once you've written the markdown file, you can point your browser to to the file
 befor you run the code you have to export the BLASK_SETTINGS enviorement variable.
 
     :::bash
-    > export BLASK_SETTINGS= settings.
+    > export BLASK_SETTINGS= settings.py
 
 Only you need to run the next code:
 
