@@ -39,6 +39,10 @@ To get the properly Configuration, you need to export the enviorement variable B
     :::bash
     > export BLASK_SETTINGS= settings
     
+You can also, run Blask from the Command Line Tool:
+
+    :::bash
+    > blaskcli run
 
 Then browse to `http://localhost:5000` and see the *Blask Home Page*. Of course you can modify the markdown, and see how it changes.
 

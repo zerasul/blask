@@ -12,6 +12,7 @@ In this page we can see all the documentation about the Blask Project:
 * [Category Search](#category-search)
 * [Author Search](#author-search)
 * [Search pages](#search-function)
+* [Blask Command Line Tool](#blaskcli)
 
 ## <a id="init-blask"></a>Init Blask
 
@@ -59,6 +60,14 @@ If you want to run Blask, use the next code to create a standalone app:
         else:
             debug = False
         BlaskApp().run(debug=debug)
+        
+There is a alternative for manual running; using the Blask CLI Tool:
+ 
+    :::bash
+    > blaskcli run
+    
+
+**NOTE**: The Blask CLI Tool is only available if you install Blask using setup.py (or using pip).
 
 Now you can browse to http://localhost:5000.
   
@@ -188,3 +197,24 @@ With Blask you can search by his Author. To see the posts with one particular Au
 
 With Blask you can search by post contents. To do this, just send a POST request to `http://< url >/search` with the `search` parameter set to your search criteria.
 
+## <a id="blaskcli"></a>Blask Command Line Tool
+
+The Blask Command Line Tool, is a program that you can use for control Blask and have some features. For example for create a new Blask project.
+For use the Blask CLI Tool, you need to install Blask using the _setup.py_ script (or using pip).
+
+Usage of Blask Command Line Tool:
+
+    :::bash
+    Usage: blaskcli [OPTIONS] COMMAND [ARGS]...
+    Options:
+        --debug
+        --help        Show this message and exit.
+
+    Commands:
+        init  Initialize a new Blask Project
+        run   Run the instance of blask
+        
+There are two commands available:
+
+* _init_: creates a new Blask project creating the default folders and minimum files; in the current directory.
+* _run_: run a new instance of blask in the current directory.

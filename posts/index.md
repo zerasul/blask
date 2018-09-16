@@ -27,6 +27,10 @@ Only you need to run the next code:
     if __name__== '__main__':
         BlaskApp().run() 
 
+Or You can use the _Blask Command Line Tool_:
+
+    :::bash
+    > blaskcli run
 
 **Note**: This project is in alpha stage; it is not suitable for production environments.
 

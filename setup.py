@@ -36,6 +36,7 @@ setup(
           'markdown',
           'markdown-full-yaml-metadata',
           'Pygments',
+          'click'
           #'m2r'
     ],
     test_require=[

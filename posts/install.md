@@ -21,16 +21,34 @@ After that, you need to configure Blask, using the _settings.py_ file:
     staticDir = "static"
     title = "Blask"
 
-And finally, you can run the application using this code:
+You can export a environment variable that point to this file:
 
-    ::::python
-    from Blask.Blask import Blask
+    :::bash
+    > export BLASK_SETTINGS=settings.py
+    
+You can run the application using this code:
+
+    :::python
+    from Blask.Blask import BlaskApp
     import settings
 
     if __name__ == '__main__':
-        b = Blask(templateDir=settings.templateDir, postDir=settings.postDir
+        b = BlaskApp(templateDir=settings.templateDir, postDir=settings.postDir
         , defaultLayout=settings.defaultLayout, staticDir=settings.staticDir, title=settings.title)
         
         b.run()
+If you use the environment Variable you can run Blask without arguments:
+
+    :::python
+    from Blask.Blask import BlaskApp
+    import settings
+
+    if __name__ == '__main__':
+        BlaskApp().run()
+        
+Or you can use the BlaskCLI tool:
+    
+    :::bash
+    > blaskcli run
 
 Now you can browse the main page at http://localhost:5000. If you see the *Blask Home Page*, all is ok and working.
