@@ -42,7 +42,7 @@ For last, to Run Blask, use the next Code:
 Also, you can use a environment variable to set the settings:
 
 ```bash
-    > export BLASK_SETTINGS=settips.py
+    > export BLASK_SETTINGS=settings
 ```
 
 You can use the Blask Command Line Tool to run the site:
