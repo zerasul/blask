@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 from markdown import Markdown
 from os import path, listdir
 from Blask.errors import PageNotExistError
+from datetime import datetime
 
 
 class BlogRenderer:
@@ -55,14 +56,14 @@ class BlogRenderer:
             entry = self.rendertext(filename,content)
         return entry
 
-    def rendertext(self,filename, text):
+    def rendertext(self, filename, text):
         """
          Render a Markdown Text and returns the BlogEntry.
         :param filename: filename or title of the post.
         :param text: Text write in Markdown.
         :return: BlogEntry.
         """
-        md = Markdown(extensions=['full_yaml_metadata', 'markdown.extensions.codehilite'])
+        md = Markdown(extensions=['meta', 'markdown.extensions.codehilite'])
         entry = BlogEntry(filename, md, text)
         return entry
 
@@ -135,12 +136,15 @@ class BlogEntry:
         self.content = md.convert(content)
         self.name = name
         meta = md.Meta
-        if meta is not None:
-            self.date = meta.get('date')
-            self.tags = meta.get('tags').split(",")
-            self.template = meta.get('template')
-            self.category = meta.get('category')
-            self.author = meta.get('author')
+        if meta:
+            self.date = datetime.strptime(meta['date'][0], '%Y-%m-%d')
+            self.tags = meta['tags'][0].split(',')
+            if 'template' in meta.keys():
+                self.template = meta['template'][0]
+            if 'category' in meta.keys():
+                self.category = meta['category'][0]
+            if 'author' in meta.keys():
+                self.author = meta['author'][0]
 
     def __str__(self):
         string = "['content': {}, 'name': {}, 'date': {}, 'tags':[{}], 'author': {}, 'category': {}, template': {}]".format(self.content,self.name,self.date,self.tags,self.author,self.category,self.template)

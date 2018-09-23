@@ -27,7 +27,9 @@ isdebug = False
 
 defaultTemplateFile = '<html><head><title>{{title}}</title></head><body>{{content|safe}}</body>'
 defaultIndex = '# Its Working \n Welcome to Blask'
-version = '0.1.0b13'
+version = '0.1.0b14'
+
+
 @click.group()
 @click.option('--debug', default=False)
 def blaskcli(debug):
