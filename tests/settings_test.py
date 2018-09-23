@@ -13,7 +13,7 @@ class TestBlaskSettings:
             assert settings[kw] == blasksettings.DEFAULT_SETTINGS[kw]
 
     def test_from_environ(self):
-        os.environ['BLASK_SETTINGS'] = 'testsettings'
+        os.environ['BLASK_SETTINGS'] = 'testsettings' #changed for the new version of pytest.
         settings = BlaskSettings()
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
             if kw == 'postDir':
