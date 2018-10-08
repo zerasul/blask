@@ -9,7 +9,7 @@ with open(path.join(currdir, 'README.md')) as f:
 
 setup(
     name='Blask',
-    version='0.1.0b14',
+    version='0.1.0b15',
     packages=find_packages(exclude=['tests']),
     url='https://getblask.com',
     license='GPL 3.0',
@@ -39,7 +39,7 @@ setup(
           'click'
           #'m2r'
     ],
-    test_require=[
+    test_requires=[
         'pytest',
         'pytest-cov'
     ]

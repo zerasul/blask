@@ -5,6 +5,5 @@
 # - twine
 # this script require a valid user and password for upload to Pypi.
 rm -R dist
-m2r README.md
 python setup.py sdist bdist_wheel
 twine upload dist/Blask-*
