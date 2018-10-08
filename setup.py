@@ -3,7 +3,7 @@ from os import path
 
 
 currdir = path.abspath(path.dirname(__file__))
-with open(path.join(currdir, 'README.rst')) as f:
+with open(path.join(currdir, 'README.md')) as f:
     long_desc = f.read()
 #long_rst_desc = convert(long_desc)
 
