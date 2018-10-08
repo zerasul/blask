@@ -9,7 +9,7 @@ with open(path.join(currdir, 'README.md')) as f:
 
 setup(
     name='Blask',
-    version='0.1.0b15',
+    version='0.1.0',
     packages=find_packages(exclude=['tests']),
     url='https://getblask.com',
     license='GPL 3.0',
@@ -34,10 +34,8 @@ setup(
     install_requires=[
           'flask',
           'markdown',
-          'markdown-full-yaml-metadata',
           'Pygments',
           'click'
-          #'m2r'
     ],
     test_requires=[
         'pytest',
