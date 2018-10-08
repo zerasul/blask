@@ -22,11 +22,29 @@ import click
 from Blask import BlaskApp, blasksettings
 from os import mkdir, path, getcwd
 
+
+class CLIController:
+
+    defaultTemplateFile = '<html><head><title>{{title}}</title></head><body>{{content|safe}}</body>'
+    defaultIndex = '# Its Working \n Welcome to Blask'
+
+    def createdefaultindexfile(self, filepath):
+        with open(filepath, 'w') as indexfile:
+            indexfile.write(self.defaultIndex)
+
+    def createdefaulttemplatefile(self, filepath):
+        with open(filepath, 'w') as templatefile:
+            templatefile.write(self.defaultTemplateFile)
+
+    def createdir(self, dirpath):
+        mkdir(dirpath)
+        return True
+
+
 blask = BlaskApp()
 isdebug = False
+cliController = CLIController()
 
-defaultTemplateFile = '<html><head><title>{{title}}</title></head><body>{{content|safe}}</body>'
-defaultIndex = '# Its Working \n Welcome to Blask'
 version = '0.1.0b14'
 
 
@@ -47,23 +65,12 @@ def init():
     postdir = blasksettings.DEFAULT_SETTINGS['postDir']
     templatedir = blasksettings.DEFAULT_SETTINGS['templateDir']
     static_dir = blasksettings.DEFAULT_SETTINGS['staticDir']
-    mkdir(postdir)
-    createdefaultindexfile(path.join(postdir, 'index.md'))
-    mkdir(templatedir)
-    createdefaulttemplatefile(path.join(templatedir, 'template.html'))
-    mkdir(static_dir)
+    cliController.createdir(postdir)
+    cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
+    cliController.createdir(templatedir)
+    cliController.createdefaulttemplatefile(path.join(templatedir, 'template.html'))
     click.echo('Created new Blask project on %s' % getcwd())
     click.echo('Now you can execute: blaskcli run')
-
-
-def createdefaultindexfile(filepath):
-    with open(filepath, 'w') as indexfile:
-        indexfile.write(defaultIndex)
-
-
-def createdefaulttemplatefile(filepath):
-    with open(filepath, 'w') as templatefile:
-        templatefile.write(defaultTemplateFile)
 
 
 if __name__ == '__main__':
