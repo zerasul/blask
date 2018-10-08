@@ -13,9 +13,9 @@ class TestCLI:
 
 
     def test_init(self):
-        with patch('os.mkdir'):
+        with patch('Blask.blaskcli.CLIController.createdir'):
             with patch('Blask.blaskcli.CLIController.createdefaultindexfile'):
                 with patch('Blask.blaskcli.CLIController.createdefaulttemplatefile'):
                     run = self.runner.invoke(blaskcli.blaskcli, ['init'])
-                    print(run.output)
                     assert "Initializing new Blask Project" in run.output
+                    assert 'Now you can execute: blaskcli run' in run.output

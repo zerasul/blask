@@ -25,8 +25,8 @@ from os import mkdir, path, getcwd
 
 class CLIController:
 
-    defaultTemplateFile = '<html><head><title>{{title}}</title></head><body>{{content|safe}}</body>'
-    defaultIndex = '# Its Working \n Welcome to Blask'
+    default_template_file = '<html><head><title>{{title}}</title></head><body>{{content|safe}}</body>'
+    default_index = '# Its Working \n Welcome to Blask'
 
     def createdefaultindexfile(self, filepath):
         with open(filepath, 'w') as indexfile:
@@ -34,7 +34,7 @@ class CLIController:
 
     def createdefaulttemplatefile(self, filepath):
         with open(filepath, 'w') as templatefile:
-            templatefile.write(self.defaultTemplateFile)
+            templatefile.write(self.default_template_file)
 
     def createdir(self, dirpath):
         mkdir(dirpath)
@@ -64,7 +64,6 @@ def init():
     click.echo('Using default Settings')
     postdir = blasksettings.DEFAULT_SETTINGS['postDir']
     templatedir = blasksettings.DEFAULT_SETTINGS['templateDir']
-    static_dir = blasksettings.DEFAULT_SETTINGS['staticDir']
     cliController.createdir(postdir)
     cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
     cliController.createdir(templatedir)
