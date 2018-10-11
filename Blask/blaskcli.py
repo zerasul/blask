@@ -85,7 +85,7 @@ blask = BlaskApp()
 isdebug = False
 cliController = CLIController()
 
-version = '0.1.0b15a'
+version = '0.1.0b15b1'
 
 @click.group()
 @click.option('--debug', default=False)
