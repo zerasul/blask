@@ -12,8 +12,8 @@ class TestCLI:
     def test_init(self):
         with patch('Blask.blaskcli.CLIController.createdir'):
             with patch('Blask.blaskcli.CLIController.createdefaultindexfile'):
-                with patch('Blask.blaskcli.CLIController.createSettingsFile'):
-                    with patch('Blask.blaskcli.CLIController.createNotFoundPage'):
+                with patch('Blask.blaskcli.CLIController.createsettingsfile'):
+                    with patch('Blask.blaskcli.CLIController.createfotfoundpage'):
                         with patch('Blask.blaskcli.CLIController.createdefaulttemplatefile'):
                             run = self.runner.invoke(blaskcli.blaskcli, ['init'])
                             assert "Initializing new Blask Project" in run.output
