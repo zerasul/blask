@@ -85,7 +85,7 @@ blask = BlaskApp()
 isdebug = False
 cliController = CLIController()
 
-version = '0.1.0b15a'
+version = '0.1.0b15b1'
 
 
 @click.group()
@@ -108,7 +108,7 @@ def init():
     cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
     cliController.createdir(templatedir)
     cliController.createdefaulttemplatefile(path.join(templatedir, 'template.html'))
-    cliController.createSettingsFile() # creates a sample settings file
+    cliController.createSettingsFile()  # creates a sample settings file
     cliController.createNotFoundPage(postdir) # creates a 404 page
     click.echo('Created new Blask project on %s' % getcwd())
     click.echo('Now you can execute: blaskcli run')
