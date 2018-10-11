@@ -95,7 +95,6 @@ def blaskcli(debug):
 @blaskcli.command(help='Run the instance of blask')
 def run():
     environ['BLASK_SETTINGS']='settings.py'
-    print(environ['BLASK_SETTINGS'])
     blask.run(debug=isdebug)
 
 
