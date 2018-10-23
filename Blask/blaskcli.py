@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import click
 
 from Blask import BlaskApp, blasksettings
-from os import mkdir, path, getcwd
+from os import mkdir, path, getcwd, environ
 
 class CLIController:
 
@@ -72,11 +72,11 @@ class CLIController:
         except FileExistsError:
             print("There is an existing Blask blog on this folder.")
 
-    def createSettingsFile(self):
+    def createsettingsfile(self):
         with open(path.join(getcwd(), '.env'), 'w') as settingsFile:
             settingsFile.write(self.settings)
 
-    def createNotFoundPage(self, filepath):
+    def createnotfoundpage(self, filepath):
         with open(path.join(filepath, '404.md'), 'w') as page:
             page.write(self.not_found)
 
@@ -87,7 +87,6 @@ cliController = CLIController()
 
 version = '0.1.0b15b1'
 
-
 @click.group()
 @click.option('--debug', default=False)
 def blaskcli(debug):
@@ -95,6 +94,7 @@ def blaskcli(debug):
 
 @blaskcli.command(help='Run the instance of blask')
 def run():
+    environ['BLASK_SETTINGS']='settings.py'
     blask.run(debug=isdebug)
 
 
@@ -108,8 +108,8 @@ def init():
     cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
     cliController.createdir(templatedir)
     cliController.createdefaulttemplatefile(path.join(templatedir, 'template.html'))
-    cliController.createSettingsFile()  # creates a sample settings file
-    cliController.createNotFoundPage(postdir) # creates a 404 page
+    cliController.createsettingsfile() # creates a sample settings file
+    cliController.createnotfoundpage(postdir) # creates a 404 page
     click.echo('Created new Blask project on %s' % getcwd())
     click.echo('Now you can execute: blaskcli run')
 
