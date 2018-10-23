@@ -1,4 +1,3 @@
-from pytest import fixture
 from click.testing import CliRunner
 from Blask import blaskcli
 from unittest.mock import patch

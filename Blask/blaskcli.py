@@ -21,6 +21,7 @@ import click
 from Blask import BlaskApp, blasksettings
 from os import mkdir, path, getcwd, environ
 
+
 class CLIController:
 
     default_template_file = """
@@ -66,11 +67,8 @@ class CLIController:
             templatefile.write(self.default_template_file)
 
     def createdir(self, dirpath):
-        try:
             mkdir(dirpath)
             return True
-        except FileExistsError:
-            print("There is an existing Blask blog on this folder.")
 
     def createsettingsfile(self):
         with open(path.join(getcwd(), '.env'), 'w') as settingsFile:
@@ -85,16 +83,17 @@ blask = BlaskApp()
 isdebug = False
 cliController = CLIController()
 
-version = '0.1.0b15b1'
+version = '0.1.1b1'
+
 
 @click.group()
 @click.option('--debug', default=False)
 def blaskcli(debug):
     click.echo('Blask (C) version %s' % version)
 
+
 @blaskcli.command(help='Run the instance of blask')
 def run():
-    environ['BLASK_SETTINGS']='settings.py'
     blask.run(debug=isdebug)
 
 
@@ -104,14 +103,17 @@ def init():
     click.echo('Using default Settings')
     postdir = blasksettings.DEFAULT_SETTINGS['postDir']
     templatedir = blasksettings.DEFAULT_SETTINGS['templateDir']
-    cliController.createdir(postdir)
-    cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
-    cliController.createdir(templatedir)
-    cliController.createdefaulttemplatefile(path.join(templatedir, 'template.html'))
-    cliController.createsettingsfile() # creates a sample settings file
-    cliController.createnotfoundpage(postdir) # creates a 404 page
-    click.echo('Created new Blask project on %s' % getcwd())
-    click.echo('Now you can execute: blaskcli run')
+    try:
+        cliController.createdir(postdir)
+        cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
+        cliController.createdir(templatedir)
+        cliController.createdefaulttemplatefile(path.join(templatedir, 'template.html'))
+        cliController.createsettingsfile() # creates a sample settings file
+        cliController.createnotfoundpage(postdir) # creates a 404 page
+        click.echo('Created new Blask project on %s' % getcwd())
+        click.echo('Now you can execute: blaskcli run')
+    except FileExistsError:
+        click.echo("There is an existing Blask Project")
 
 
 if __name__ == '__main__':
