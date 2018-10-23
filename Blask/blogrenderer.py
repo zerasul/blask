@@ -20,6 +20,8 @@ from markdown import Markdown
 from os import path, listdir
 from Blask.errors import PageNotExistError
 from datetime import datetime
+from hashlib import sha256
+from functools import lru_cache
 
 
 class BlogRenderer:
@@ -34,6 +36,11 @@ class BlogRenderer:
     Posts Directory
     """
 
+    cache = {}
+    """
+    Post Cache; improves the post loading.
+    """
+
     def __init__(self, postdir):
         """
         This is the constructor of the blog renderer.
@@ -44,6 +51,7 @@ class BlogRenderer:
     def renderfile(self, filename):
         """
             Render a markdown and returns the blogEntry.
+            Note: This method uses a cache based on a SHA-256 hash of the content.
         :param filename: Number of the file without extension.
         :return: BlogEntry.
         :raises PageNotExistError Raise this error if file does not exists.
@@ -53,8 +61,13 @@ class BlogRenderer:
             raise PageNotExistError("{} does not exists".format(filename))
         with open(filepath, 'r') as content_file:
             content = content_file.read()
-            entry = self.rendertext(filename,content)
-        return entry
+            # Check cache
+            content_hash = sha256(content.encode())
+            if content_hash not in self.cache:
+                entry = self.rendertext(filename, content)
+                self.cache[content_hash] = entry
+
+        return self.cache[content_hash]
 
     def rendertext(self, filename, text):
         """
@@ -74,6 +87,7 @@ class BlogRenderer:
         :param exclusions: list of name of posts with exclusions.
         :param search: string with the content what we want of search.
         :param category: list of category of the entry.
+        :param author: name of the author of the post
         :return: List of BlogEntry.
         """
         files = list(filter(lambda l: l.endswith('.md') and l not in exclusions, listdir(self.postdir)))
