@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import click
 
 from Blask import BlaskApp, blasksettings
-from os import mkdir, path, getcwd, environ
+from os import mkdir, path, getcwd
 
 
 class CLIController:
@@ -59,7 +59,6 @@ Wanna help us?
 
 Check [this project at GitHub](https://github.com/zerasul/blask)
 """
-
 
     settings = """ 
     # Minimal conf for Blask
@@ -110,6 +109,7 @@ cliController = CLIController()
 
 
 version = '0.1.1b1'
+
 
 @click.group()
 @click.option('--debug', default=False)
