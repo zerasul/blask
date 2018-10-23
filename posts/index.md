@@ -21,6 +21,7 @@ Before you run the code you have to export the BLASK_SETTINGS enviorement variab
     :::bash
       export BLASK_SETTINGS= settings.py
 
+
 Only you need to run the next code:
 
     :::python

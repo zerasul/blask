@@ -59,6 +59,7 @@ Wanna help us?
 Check [this project at GitHub](https://github.com/zerasul/blask)
 """
 
+
     settings = """ 
     # Minimal conf for Blask
     FLASK_APP=main.py                
@@ -109,8 +110,8 @@ blask = BlaskApp()
 isdebug = False
 cliController = CLIController()
 
-version = '0.1.0b15a'
 
+version = '0.1.1b1'
 
 @click.group()
 @click.option('--debug', default=False)
@@ -119,6 +120,7 @@ def blaskcli(debug):
 
 @blaskcli.command(help='Run the instance of blask')
 def run():
+    environ['BLASK_SETTINGS']='settings.py'
     blask.run(debug=isdebug)
 
 
@@ -132,6 +134,8 @@ def init():
     cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
     cliController.createdir(templatedir)
     cliController.createdefaulttemplatefile(path.join(templatedir, 'template.html'))
+    cliController.createsettingsfile() # creates a sample settings file
+    cliController.createnotfoundpage(postdir) # creates a 404 page
     click.echo('Created new Blask project on %s' % getcwd())
     click.echo('Now you can execute: blaskcli run')
 
