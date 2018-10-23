@@ -25,16 +25,41 @@ from os import mkdir, path, getcwd, environ
 class CLIController:
 
     default_template_file = """
-    <html>
-        <head>
-            <title>{{title}}</title>
-        </head>
-        <body>
-            {{content|safe}}
-        </body>
-    """
+<html>
+    <head>
+        <title>{{title}}</title>
 
-    default_index = "# It works!\nWelcome to Blask. Edit `.env` file on your blog's base directory to edit the Blask's settings"
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hello Bulma!</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <style>
+            h1 {
+                font-size: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        <section class="section">
+            <div class="container">
+                {{content|safe}}
+            </div>
+        </section>
+    </body>
+</html>
+"""
+
+    default_index = """# Welcome to Blask!
+This is your `index.md` file, located at `posts` directory. Edit this file to add your own index. You can use Markdown to write it!
+
+Blask is currently under development, and we have a lot of things to do.
+
+Wanna help us?
+
+Check [this project at GitHub](https://github.com/zerasul/blask)
+"""
+
 
     settings = """ 
     # Minimal conf for Blask
@@ -83,8 +108,8 @@ blask = BlaskApp()
 isdebug = False
 cliController = CLIController()
 
-version = '0.1.1b1'
 
+version = '0.1.1b1'
 
 @click.group()
 @click.option('--debug', default=False)
