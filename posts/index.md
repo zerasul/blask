@@ -6,31 +6,34 @@ Using the Flask MicroFramework and the [Jinja2](http://jinja.pocoo.org/) templat
 
 For Blask to find a new post, all you have to do is write a markdown file and store it in the posts directory.
 
-For example:
+Example:
 
     This is an example of *markdown*.
 
     With this text you can see how _Blask works_.
 
-Once you've written the markdown file, you can point your browser to to the file url (< site_url >/< filename without .md extension >).
+Once you've written the markdown file, you can view it on your site:
 
-befor you run the code you have to export the BLASK_SETTINGS enviorement variable.
+    https://myfancysite.com/hello-world
+
+Before you run the code you have to export the BLASK_SETTINGS enviorement variable.
 
     :::bash
-    > export BLASK_SETTINGS=settings.py
+      export BLASK_SETTINGS= settings.py
+
 
 Only you need to run the next code:
 
     :::python
-    from Blask.BlaskApp import BlaskApp
+      from Blask import BlaskApp
     
-    if __name__== '__main__':
-        BlaskApp().run() 
+      if __name__== '__main__':
+          BlaskApp().run() 
 
 Or You can use the _Blask Command Line Tool_:
 
     :::bash
-    > blaskcli run
+      blaskcli run
 
 **Note**: This project is in alpha stage; it is not suitable for production environments.
 
