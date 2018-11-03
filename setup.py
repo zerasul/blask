@@ -1,11 +1,9 @@
 from setuptools import setup, find_packages
 from pathlib import Path
 
-currdir = Path(__file__).resolve().parents[0]
-file_to_open = 'README.md'
-with open(currdir / file_to_open) as f:
+info_file = Path(__file__).resolve().parents[0] / 'README.md'
+with info_file.open() as f:
     long_desc = f.read()
-#long_rst_desc = convert(long_desc)
 
 setup(
     name='Blask',
