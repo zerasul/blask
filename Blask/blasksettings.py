@@ -18,15 +18,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
+from pathlib import Path
 import logging
 
-BASE_DIR = os.getcwd()
+BASE_DIR = Path(__file__).resolve().parents[0]
 
 DEFAULT_SETTINGS = {
-    'templateDir': os.path.join(BASE_DIR, 'templates'),
-    'postDir': os.path.join(BASE_DIR, 'posts'),
+    'templateDir': BASE_DIR / 'templates',
+    'postDir': BASE_DIR / 'posts',
     'defaultLayout': 'template.html',
-    'staticDir': os.path.join(BASE_DIR, 'static'),
+    'staticDir': BASE_DIR / 'static',
     'title': 'Blask | A Simple Blog Engine Based on Flask'
 }
 
