@@ -1,18 +1,18 @@
-from pathlib import Path
+import os
 
-BASE_DIR = Path(__file__).resolve().parents[0]
+BASE_DIR = os.getcwd()
 
 # Templates directory
-templateDir = BASE_DIR / 'templates'
+templateDir = os.path.join(BASE_DIR, 'templates')
 
 # Posts directory
-postDir = BASE_DIR / 'posts2'
+postDir = os.path.join(BASE_DIR, 'posts')
 
 # Default layout template
 defaultLayout = "template.html"
 
 # Static files directory
-staticDir = BASE_DIR / 'static'
+staticDir = os.path.join(BASE_DIR, 'static')
 
 # Website title
 title = 'The mantis revenge!'
