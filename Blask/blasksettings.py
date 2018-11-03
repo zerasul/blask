@@ -21,13 +21,13 @@ import os
 from pathlib import Path
 import logging
 
-BASE_DIR = Path(__file__).resolve().parents[0]
+BASE_DIR = Path(__file__).resolve().parents[1]
 
 DEFAULT_SETTINGS = {
-    'templateDir': BASE_DIR / 'templates',
-    'postDir': BASE_DIR / 'posts',
-    'defaultLayout': 'template.html',
-    'staticDir': BASE_DIR / 'static',
+    'templateDir': str(BASE_DIR / 'templates'),
+    'postDir': str(BASE_DIR / 'posts'),
+    'defaultLayout': str('template.html'),
+    'staticDir': str(BASE_DIR / 'static'),
     'title': 'Blask | A Simple Blog Engine Based on Flask'
 }
 
@@ -41,12 +41,8 @@ class BlaskSettings(object):
         # Check environment variable for settings module
         if 'BLASK_SETTINGS' in os.environ:
             # Load settings from the module in environment variable
-            settings_mod = __import__(
-                os.environ['BLASK_SETTINGS'],
-                globals(),
-                locals(),
-                ['object'],
-                0)
+            settings_mod = __import__(os.environ['BLASK_SETTINGS'], globals(),
+                                      locals(), ['object'], 0)
             self.settings = {}
             for key in DEFAULT_SETTINGS.keys():
                 value = getattr(settings_mod, key, DEFAULT_SETTINGS[key])
