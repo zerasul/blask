@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
-from os import path
+from pathlib import Path
 
-
-currdir = path.abspath(path.dirname(__file__))
-with open(path.join(currdir, 'README.md')) as f:
+currdir = Path(__file__).resolve().parents[0]
+file_to_open = 'README.md'
+with open(currdir / file_to_open) as f:
     long_desc = f.read()
 #long_rst_desc = convert(long_desc)
 
