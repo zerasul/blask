@@ -9,8 +9,10 @@ class TestMain:
 
     @fixture(autouse=True)
     def inittest(self):
-        b = BlaskApp(templateDir=settings.templateDir, postDir=settings.postDir, defaultLayout=settings.defaultLayout,
-                  staticDir=settings.staticDir, title=settings.title)
+        b = BlaskApp(templateDir=settings.templateDir,
+                     postDir=settings.postDir,
+                     defaultLayout=settings.defaultLayout,
+                     staticDir=settings.staticDir, title=settings.title)
         b.app.testing = True
         self.testClient = b.app.test_client()
 
