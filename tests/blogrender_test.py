@@ -18,7 +18,6 @@ class TestblogRender:
         entry = self.blogrender.renderfile("index")
         assert entry.name == "index"
 
-
     def test_tagslist(self):
         entries = self.blogrender.list_posts(["blask"])
         assert len(entries) == 1
