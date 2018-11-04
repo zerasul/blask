@@ -108,21 +108,23 @@ isdebug = False
 cliController = CLIController()
 
 
-version = '0.1.1b1'
+version = '0.1.1b3'
 
 
 @click.group()
-@click.option('--debug', default=False)
-def blaskcli(debug):
+def blaskcli():
     click.echo('Blask (C) version %s' % version)
 
 
 @blaskcli.command(help='Run the instance of blask')
-def run():
-    blask.run(debug=isdebug)
+@click.option('--debug', default=False, help="Init with de debug flag")
+@click.option('--port', default=5000, help='Port where the server is listening')
+def run(debug, port):
+    blask.run(debug=debug, port=port)
 
 
 @blaskcli.command(help='Initialize a new Blask Project')
+@click.pass_context
 def init():
     click.echo('Initializing new Blask Project')
     click.echo('Using default Settings')
