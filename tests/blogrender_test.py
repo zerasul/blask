@@ -50,3 +50,7 @@ class TestblogRender:
         assert len(entries) == 1
         entrieslist = self.blogrender.generatetagpage(entries)
         assert "href='/docs'" in entrieslist
+
+    def test_str(self):
+        entry = self.blogrender.renderfile("index")
+        str(entry)

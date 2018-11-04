@@ -124,7 +124,6 @@ def run(debug, port):
 
 
 @blaskcli.command(help='Initialize a new Blask Project')
-@click.pass_context
 def init():
     click.echo('Initializing new Blask Project')
     click.echo('Using default Settings')
