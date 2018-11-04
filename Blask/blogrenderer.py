@@ -26,7 +26,8 @@ from functools import lru_cache
 
 class BlogRenderer:
     """
-    Class BlogRenderer: This class provides the feature for render posts from Markdown to HTML and search features.
+    Class BlogRenderer: This class provides the feature for render posts from
+    Markdown to HTML and search features.
     :Author: Zerasul <suarez.garcia.victor@gmail.com>
     Date: 2018-05-05
     Version: 0.1.0
@@ -35,12 +36,10 @@ class BlogRenderer:
     """
     Posts Directory
     """
-
     cache = {}
     """
     Post Cache; improves the post loading.
     """
-
     def __init__(self, postdir):
         """
         This is the constructor of the blog renderer.
@@ -51,7 +50,8 @@ class BlogRenderer:
     def renderfile(self, filename):
         """
             Render a markdown and returns the blogEntry.
-            Note: This method uses a cache based on a SHA-256 hash of the content.
+            Note: This method uses a cache based on a SHA-256 hash of the
+            content.
         :param filename: Number of the file without extension.
         :return: BlogEntry.
         :raises PageNotExistError Raise this error if file does not exists.
@@ -80,7 +80,8 @@ class BlogRenderer:
         entry = BlogEntry(filename, md, text)
         return entry
 
-    def list_posts(self, tags=[], exclusions=["index.md", "404.md"], search="", category="", author=""):
+    def list_posts(self, tags=[], exclusions=["index.md", "404.md"], search="",
+                   category="", author=""):
         """
         Search a list of Posts returning a list of BlogEntry.
         :param tags: list of tags for searching.
@@ -90,7 +91,8 @@ class BlogRenderer:
         :param author: name of the author of the post
         :return: List of BlogEntry.
         """
-        files = list(filter(lambda l: l.endswith('.md') and l not in exclusions, listdir(self.postdir)))
+        files = list(filter(lambda l: l.endswith('.md') and l not in
+                            exclusions, listdir(self.postdir)))
         mapfilter = list(map(lambda l: path.splitext(l)[0], files))
         entries = list(map(lambda l: self.renderfile(l), mapfilter))
         if tags:
@@ -113,7 +115,8 @@ class BlogRenderer:
         """
         content = '<ul>'
         for post in postlist:
-            entrycontent = "<li><a href='/{}'>{}</a></li>".format(post.name, post.name)
+            entrycontent = "<li><a href='/{}'>{}</a></li>".format(post.name,
+                                                                  post.name)
             content += entrycontent
         content += "</ul>"
         return content
@@ -161,5 +164,10 @@ class BlogEntry:
                 self.author = meta['author'][0]
 
     def __str__(self):
-        string = "['content': {}, 'name': {}, 'date': {}, 'tags':[{}], 'author': {}, 'category': {}, template': {}]".format(self.content,self.name,self.date,self.tags,self.author,self.category,self.template)
+        string = "['content': {}, 'name': {}, ".format(self.content, self.name)
+        string += "'date': {}, 'tags':[{}], ".format(self.date, self.tags)
+        string += "'author': {}, 'category': {}, ".format(self.author,
+                                                          self.category)
+        string += "'template': {}]".format(self.template)
+
         return string
