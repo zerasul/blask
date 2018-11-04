@@ -4,6 +4,6 @@ python:
 install:
     - "pip install -r requirements.txt"
     - "pip install pylint"
-script: export PYTHONPATH=$PYTHONPATH:$(pwd) && pytest --cov=. --cov-report= && pylint Blask --exit-zero
+script: export PYTHONPATH=$PYTHONPATH:$(pwd) && pytest --cov=Blask --cov-report= && pylint Blask --exit-zero
 after_success:
   coveralls
