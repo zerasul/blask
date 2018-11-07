@@ -17,7 +17,7 @@ directory, the static assets directory, and, of course, the title of the site.
 With the power of the [Jinja2](http://jinja.pocoo.org/docs/2.10/) template engine, it is very easy to create a template
  for Blask. All you have to do is write your HTML page and include the `content` variable inside.
 
-Of course, Blask is completely Open Source, and yes! You can improve it, change it and distribute it under the GPL 3.0i
+Of course, Blask is completely Open Source, and yes! You can improve it, change it and distribute it under the GPL 3.0
 license. Also, you can see all the source code and the issues at our [Github Repository](https://github.com/zerasul/blask).
 
 We hope you like Blask, and enjoy using it.

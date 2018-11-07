@@ -37,7 +37,7 @@ Next you need to run the next code:
 To get the properly Configuration, you need to export the enviorement variable BLASK_SETTINGS to select the properly _settings_ module:
 
     :::bash
-    > export BLASK_SETTINGS= settings
+    > export BLASK_SETTINGS=settings
     
 You can also, run Blask from the Command Line Tool:
 

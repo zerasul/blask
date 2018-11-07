@@ -16,9 +16,9 @@ In this page we can see all the documentation about the Blask Project:
 
 ## <a id="init-blask"></a>Init Blask
 
-To init and use Blask you need Python 3.4 or later. you can use `pip` to install Blask.
+To init and use Blask you need **Python 3.4 or later**. you can use `pip` to install Blask.
 
-    pip install blask 
+    pip install blask
     
 or use the source code:
 
@@ -31,7 +31,7 @@ You also need the following dependencies (Only if you clone the source code):
 * Markdown-full-yaml-metadata
 * Pygments
 
-Theses dependencies can be easily installed using _pip_. Invoke it with the `-r <file>` parameter:
+Theses dependencies can be easily installed using _pip_ (Only if you clone the source code). Invoke it with the `-r <file>` parameter:
 
 ```pip install -r requirements.txt```
  
@@ -61,10 +61,10 @@ If you want to run Blask, use the next code to create a standalone app:
             debug = False
         BlaskApp().run(debug=debug)
         
-There is a alternative for manual running; using the Blask CLI Tool:
+There is an alternative for manual running; using the Blask CLI Tool:
  
     :::bash
-    > blaskcli run
+    blaskcli run
     
 
 **NOTE**: The Blask CLI Tool is only available if you install Blask using setup.py (or using pip).
@@ -73,7 +73,7 @@ Now you can browse to http://localhost:5000.
   
 ## <a id="configure-blask"></a>Configure Blask
 
-Blask comes with a settings file with all the configuration of the application; you can see it in the `settings.py` file.
+Blask needs a settings file with all the configuration of the application; you need to create a `settings.py` file.
 
 Here is an example:
 
@@ -112,7 +112,7 @@ Here is the description of each configuration:
 Blask uses the enviorement variable _BLASK_SETTINGS_ to get the entire configuration.
 
     :::bash
-    > export BLASK_SETTINGS = settings
+    export BLASK_SETTINGS=settings
     
 where ```settings``` have the configuration module of Blask.
 
@@ -201,7 +201,7 @@ With Blask you can search by post contents. To do this, just send a POST request
 **(Since: 0.1.0b12)**
 
 The Blask Command Line Tool, is a program that you can use for control Blask and have some features. For example for create a new Blask project.
-For use the Blask CLI Tool, you need to install Blask using the _setup.py_ script (or using pip).
+For use the Blask CLI Tool, you need to install Blask using the _setup.py_ script ( using pip).
 
 Usage of Blask Command Line Tool:
 
@@ -210,6 +210,7 @@ Usage of Blask Command Line Tool:
     Options:
         --debug
         --help        Show this message and exit.
+        --port NUMBER (Only for run command) sets the server listening Port.
 
     Commands:
         init  Initialize a new Blask Project
@@ -218,4 +219,4 @@ Usage of Blask Command Line Tool:
 There are two commands available:
 
 * _init_: creates a new Blask project creating the default folders and minimum files; in the current directory.
-* _run_: run a new instance of blask in the current directory.
+* _run_: run a new instance of blask in the current directory. You can set the listening port with _--port_ option.
