@@ -108,7 +108,7 @@ isdebug = False
 cliController = CLIController()
 
 
-version = '0.1.1b4'
+version = '0.1.1b5'
 
 
 @click.group()
@@ -127,8 +127,8 @@ def run(debug, port):
 def init():
     click.echo('Initializing new Blask Project')
     click.echo('Using default Settings')
-    postdir = blasksettings.DEFAULT_SETTINGS['postDir']
-    templatedir = blasksettings.DEFAULT_SETTINGS['templateDir']
+    postdir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS['postDir']+'/')))
+    templatedir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS['templateDir']+'/')))
     try:
         cliController.createdir(postdir)
         cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
@@ -138,7 +138,8 @@ def init():
         cliController.createnotfoundpage(postdir) # creates a 404 page
         click.echo('Created new Blask project on %s' % getcwd())
         click.echo('Now you can execute: blaskcli run')
-    except FileExistsError:
+    except FileExistsError as e:
+        print(str(e))
         click.echo("There is an existing Blask Project")
 
 
