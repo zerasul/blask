@@ -1,6 +1,6 @@
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parents[0]
+BASE_DIR = Path('.').resolve()
 
 # Templates directory
 templateDir = str(BASE_DIR / 'templates')
