@@ -21,7 +21,7 @@ import os
 from pathlib import Path
 import logging
 
-BASE_DIR = Path(__file__).resolve().parents[1]
+BASE_DIR = Path('.').resolve()
 
 DEFAULT_SETTINGS = {
     'templateDir': str(BASE_DIR / 'templates'),
