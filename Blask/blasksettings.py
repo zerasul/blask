@@ -20,7 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import os
 from pathlib import Path
 from importlib import import_module
-import logging
+
 
 BASE_DIR = Path('.').resolve()
 
