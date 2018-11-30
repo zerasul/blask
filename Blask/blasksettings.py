@@ -22,7 +22,7 @@ from pathlib import Path
 from importlib import import_module
 import logging
 
-BASE_DIR = Path(__file__).resolve().parents[1]
+BASE_DIR = Path('.').resolve()
 
 DEFAULT_SETTINGS = {
     'templateDir': str(BASE_DIR / 'templates'),
