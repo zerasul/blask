@@ -15,10 +15,14 @@ Then (If you clone the source code), you need to install the dependencies using 
 After that, you need to configure Blask, create a file called _settings.py_ file:
 
     :::python
-    templateDir = "templates"
-    postDir = "posts"
+    from pathlib import Path
+    from os import path
+    
+    BASE_DIR = Path('.').resolve()
+    templateDir = path.join(BASE_DIR, "templates")
+    postDir = path.join(BASE_DIR, "posts")
     defaultLayout = "template.html"
-    staticDir = "static"
+    staticDir = path.join(BASE_DIR, "static")
     title = "Blask"
 
 You can export a environment variable that point to this file:
