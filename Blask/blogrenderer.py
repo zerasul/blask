@@ -58,7 +58,7 @@ class BlogRenderer:
         """
         filepath = path.join(self.postdir, filename + ".md")
         if not path.exists(filepath):
-            raise PageNotExistError("{} does not exists".format(filename))
+            raise PageNotExistError("{} does not exists in {} directory".format(filename, self.postdir))
         with open(filepath, 'r') as content_file:
             content = content_file.read()
             # Check cache

@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 import os
 from pathlib import Path
+from sys import path
 from importlib import import_module
 
 
@@ -41,6 +42,8 @@ class BlaskSettings(object):
     def __init__(self, *args, **kwargs):
         # Check environment variable for settings module
         if 'BLASK_SETTINGS' in os.environ:
+            #add current Dir to Path
+            path.append(os.getcwd())
             # Load settings from the module in environment variable
             settings_mod = import_module(os.environ['BLASK_SETTINGS'], os.environ['BLASK_SETTINGS'])
 
