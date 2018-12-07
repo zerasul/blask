@@ -1,18 +1,18 @@
-import os
+from pathlib import Path
 
-BASE_DIR = os.getcwd()
+BASE_DIR = Path('.').resolve()
 
 # Templates directory
-templateDir = os.path.join(BASE_DIR, 'templates')
+templateDir = str(BASE_DIR / 'templates')
 
 # Posts directory
-postDir = os.path.join(BASE_DIR, 'posts')
+postDir = str(BASE_DIR / 'posts')
 
 # Default layout template
 defaultLayout = "template.html"
 
 # Static files directory
-staticDir = os.path.join(BASE_DIR, 'static')
+staticDir = str(BASE_DIR / 'static')
 
 # Website title
 title = 'Blask | A Simple Blog Engine Based on Flask'

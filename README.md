@@ -42,13 +42,13 @@ For last, to Run Blask, use the next Code:
 Also, you can use a environment variable to set the settings:
 
 ```bash
-    > export BLASK_SETTINGS=settings
+   export BLASK_SETTINGS=settings
 ```
 
 You can use the Blask Command Line Tool to run the site:
 
 ```bash
-    >blaskcli run
+   blaskcli run --port 4444 #sets the port to 4444
 ```
 
 For more information, see the [Blask web page](http://getblask.com/). Also, you can subscribe to our [Mailing List](https://www.freelists.org/archive/blask_mail_list).

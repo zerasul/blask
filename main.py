@@ -11,11 +11,9 @@ if __name__ == '__main__':
     parser.add_argument(
         "-v", "--verbose", action='store_true', help="Verbose output")
     args = parser.parse_args()
-
-
     if args.debug or args.verbose:
         log = logging.getLogger()
-        level = logging.getLevelName('DEBUG')
+        level = logging.getLevelName(logging.DEBUG)
         log.setLevel(level)
         debug = True
     else:

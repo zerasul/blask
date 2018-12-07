@@ -106,3 +106,10 @@ ENV/
 # callsonar
 
 callsonarblask.bat
+
+# visual studio code and sonarlint extension
+.vscode/
+.sonarlint/
+
+# Mac OS X
+.DS_Store

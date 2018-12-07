@@ -1,15 +1,13 @@
 from setuptools import setup, find_packages
-from os import path
+from pathlib import Path
 
-
-currdir = path.abspath(path.dirname(__file__))
-with open(path.join(currdir, 'README.md')) as f:
+info_file = Path(__file__).resolve().parents[0] / 'README.md'
+with info_file.open() as f:
     long_desc = f.read()
-#long_rst_desc = convert(long_desc)
 
 setup(
     name='Blask',
-    version='0.1.1b2',
+    version='0.1.1b6',
     packages=find_packages(exclude=['tests']),
     url='https://getblask.com',
     license='GPL 3.0',
@@ -39,6 +37,7 @@ setup(
     ],
     test_requires=[
         'pytest',
-        'pytest-cov'
+        'pytest-cov',
+        'pylint'
     ]
 )

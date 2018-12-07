@@ -19,7 +19,7 @@ Once you've written the markdown file, you can view it on your site:
 Before you run the code you have to export the BLASK_SETTINGS enviorement variable.
 
     :::bash
-      export BLASK_SETTINGS= settings.py
+    export BLASK_SETTINGS=settings
 
 
 Only you need to run the next code:
@@ -33,7 +33,7 @@ Only you need to run the next code:
 Or You can use the _Blask Command Line Tool_:
 
     :::bash
-      blaskcli run
+    blaskcli run
 
 **Note**: This project is in alpha stage; it is not suitable for production environments.
 

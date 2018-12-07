@@ -108,26 +108,27 @@ isdebug = False
 cliController = CLIController()
 
 
-version = '0.1.1b1'
+version = '0.1.1b6'
 
 
 @click.group()
-@click.option('--debug', default=False)
-def blaskcli(debug):
+def blaskcli():
     click.echo('Blask (C) version %s' % version)
 
 
 @blaskcli.command(help='Run the instance of blask')
-def run():
-    blask.run(debug=isdebug)
+@click.option('--debug', default=False, help="Init with de debug flag")
+@click.option('--port', default=5000, help='Port where the server is listening')
+def run(debug, port):
+    blask.run(debug=debug, port=port)
 
 
 @blaskcli.command(help='Initialize a new Blask Project')
 def init():
     click.echo('Initializing new Blask Project')
     click.echo('Using default Settings')
-    postdir = blasksettings.DEFAULT_SETTINGS['postDir']
-    templatedir = blasksettings.DEFAULT_SETTINGS['templateDir']
+    postdir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS['postDir']+'/')))
+    templatedir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS['templateDir']+'/')))
     try:
         cliController.createdir(postdir)
         cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
@@ -137,7 +138,8 @@ def init():
         cliController.createnotfoundpage(postdir) # creates a 404 page
         click.echo('Created new Blask project on %s' % getcwd())
         click.echo('Now you can execute: blaskcli run')
-    except FileExistsError:
+    except FileExistsError as e:
+        print(str(e))
         click.echo("There is an existing Blask Project")
 
 
