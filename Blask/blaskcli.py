@@ -108,7 +108,7 @@ isdebug = False
 cliController = CLIController()
 
 
-version = '0.1.1b6'
+version = '0.1.1.1'
 
 
 @click.group()
