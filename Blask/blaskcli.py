@@ -109,11 +109,15 @@ isdebug = False
 cliController = CLIController()
 
 
-version = get_distribution('Blask').version
+
 
 
 @click.group()
 def blaskcli():
+    try:
+        version = get_distribution('Blask').version
+    except ModuleNotFoundError:
+        version = "test_version"
     click.echo('Blask (C) version %s' % version)
 
 
