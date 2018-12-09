@@ -20,7 +20,7 @@ import click
 
 from Blask import BlaskApp, blasksettings
 from os import mkdir, path, getcwd
-from pkg_resources import get_distribution
+from pkg_resources import get_distribution, DistributionNotFound
 
 
 class CLIController:
@@ -116,7 +116,7 @@ cliController = CLIController()
 def blaskcli():
     try:
         version = get_distribution('Blask').version
-    except ModuleNotFoundError:
+    except DistributionNotFound:
         version = "test_version"
     click.echo('Blask (C) version %s' % version)
 
