@@ -7,7 +7,7 @@ with info_file.open() as f:
 
 setup(
     name='Blask',
-    version='0.1.1.1.post4',
+    version='0.1.1.1.post5',
     packages=find_packages(exclude=['tests']),
     url='https://getblask.com',
     license='GPL 3.0',

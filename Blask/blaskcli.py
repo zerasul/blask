@@ -20,6 +20,7 @@ import click
 
 from Blask import BlaskApp, blasksettings
 from os import mkdir, path, getcwd
+from pkg_resources import get_distribution
 
 
 class CLIController:
@@ -108,7 +109,7 @@ isdebug = False
 cliController = CLIController()
 
 
-version = '0.1.1.1.post4'
+version = get_distribution('Blask').version
 
 
 @click.group()
