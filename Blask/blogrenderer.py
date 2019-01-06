@@ -164,6 +164,10 @@ class BlogEntry:
                 self.author = meta['author'][0]
 
     def __str__(self):
+        """
+        Convert this objet to String
+        :return: String with the data of this object.
+        """
         string = "['content': {}, 'name': {}, ".format(self.content, self.name)
         string += "'date': {}, 'tags':[{}], ".format(self.date, self.tags)
         string += "'author': {}, 'category': {}, ".format(self.author,

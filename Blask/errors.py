@@ -19,5 +19,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
 class PageNotExistError(Exception):
+    """
+    Error that is raised if the page that is looking for does not exists.
+    """
     def __init__(self, message):
+        """
+        Initialize the Error
+        :param message: Message to show
+        """
         super(PageNotExistError, self).__init__(message)

@@ -33,6 +33,10 @@ class BlaskApp:
     blogrenderer = None
 
     def __init__(self, **kwargs):
+        """
+        Initialices a new Blask Instance
+        :param kwargs: Dictionary with all the required settings; for more info see :settings
+        """
         self.settings = BlaskSettings(**kwargs)
         self.blogrenderer = BlogRenderer(self.settings['postDir'])
         self.app = Flask(__name__,
@@ -129,4 +133,8 @@ class BlaskApp:
                                title=self.settings['title'], content=content)
 
     def run(self, **kwargs):
+        """
+        Run the current instance of Blask
+        :param kwargs: Dictionary with all the required settings.
+        """
         self.app.run(**kwargs)

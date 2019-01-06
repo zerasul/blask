@@ -24,7 +24,9 @@ from pkg_resources import get_distribution, DistributionNotFound
 
 
 class CLIController:
-
+    """
+    Class that controls all the Command Line interface application
+    """
     default_template_file = """
 <html>
     <head>
@@ -84,22 +86,42 @@ Check [this project at GitHub](https://github.com/zerasul/blask)
     not_found = "# 404\n Page not found"
 
     def createdefaultindexfile(self, filepath):
+        """
+        create a new default index file.
+        :param filepath: file path where the new index file is stored
+        """
         with open(filepath, 'w') as indexfile:
             indexfile.write(self.default_index)
 
     def createdefaulttemplatefile(self, filepath):
+        """
+        Create a new default template.
+        :param filepath: file path where the new template file is stored.
+        """
         with open(filepath, 'w') as templatefile:
             templatefile.write(self.default_template_file)
 
     def createdir(self, dirpath):
+            """
+            Create a new Directory
+            :param dirpath: file path where the new directory is created
+            :return: True if the directory is created
+            """
             mkdir(dirpath)
             return True
 
     def createsettingsfile(self):
+        """
+        Create a new settings file
+        """
         with open(path.join(getcwd(), '.env'), 'w') as settingsFile:
             settingsFile.write(self.settings)
 
     def createnotfoundpage(self, filepath):
+        """
+        Create a new page not found file.
+        :param filepath: file path where the page not found is stored
+        """
         with open(path.join(filepath, '404.md'), 'w') as page:
             page.write(self.not_found)
 
@@ -114,6 +136,9 @@ cliController = CLIController()
 
 @click.group()
 def blaskcli():
+    """
+    Initialice the command Line Interface Objects.
+    """
     try:
         version = get_distribution('Blask').version
     except DistributionNotFound:
@@ -125,11 +150,19 @@ def blaskcli():
 @click.option('--debug', default=False, help="Init with de debug flag")
 @click.option('--port', default=5000, help='Port where the server is listening')
 def run(debug, port):
+    """
+    Run the current blask instance
+    :param debug: initialice with debug options
+    :param port: port where the port is opened
+    """
     blask.run(debug=debug, port=port)
 
 
 @blaskcli.command(help='Initialize a new Blask Project')
 def init():
+    """
+    Inits a new Blask Instance; with the default options.
+    """
     click.echo('Initializing new Blask Project')
     click.echo('Using default Settings')
     postdir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS['postDir']+'/')))
