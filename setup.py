@@ -26,7 +26,7 @@ with info_file.open() as f:
 
 setup(
     name='Blask',
-    version='0.1.1.1.post6',
+    version='0.1.2.b2',
     packages=find_packages(exclude=['tests']),
     url='https://getblask.com',
     license='GPL 3.0',
@@ -57,6 +57,7 @@ setup(
     test_requires=[
         'pytest',
         'pytest-cov',
-        'pylint'
+        'pylint',
+        'pytest-mock'
     ]
 )

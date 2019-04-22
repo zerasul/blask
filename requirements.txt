@@ -4,4 +4,5 @@ markdown>=2.6.11
 Pygments>=2.2.0
 pytest==4.0.2
 pytest-cov>=2.6.0
+pytest-mock>=1.10.4
 coveralls>=1.3.0
