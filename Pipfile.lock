@@ -139,7 +139,7 @@
                 "sha256:74c935a1b8bb9a3947c50a54766a969d4846290e1e788ea44c1392163723c3bd",
                 "sha256:f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4"
             ],
-            "version": "==2.10"
+            "version": ">=2.10.1"
         },
         "markdown": {
             "hashes": [
@@ -220,7 +220,7 @@
                 "sha256:41c3db2fc01e5b907288010dec72f9d0a74e37d6994e6eb56849f59fea2265ae",
                 "sha256:8819bba37a02d143296a4d032373c4dd4aca11f6d4c9973335ca75f9c8475f59"
             ],
-            "version": "==1.24"
+            "version": ">=1.24.2"
         },
         "werkzeug": {
             "hashes": [
