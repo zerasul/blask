@@ -81,14 +81,15 @@ class BlogRenderer:
         return entry
 
     def list_posts(self, tags=[], exclusions=["index.md", "404.md"], search="",
-                   category="", author=""):
+                   category="", author="", orderbydate=True):
         """
-        Search a list of Posts returning a list of BlogEntry.
+        Search a list of Posts returning a list of BlogEntry ordered By Date.
         :param tags: list of tags for searching.
         :param exclusions: list of name of posts with exclusions.
         :param search: string with the content what we want of search.
         :param category: list of category of the entry.
         :param author: name of the author of the post
+        :param orderbydate: If is set to True the List is Date Inverse Ordered (Most new First).
         :return: List of BlogEntry.
         """
         files = list(filter(lambda l: l.endswith('.md') and l not in
@@ -104,7 +105,8 @@ class BlogRenderer:
             entries = list(filter(lambda a: a.author == author, entries))
         if search:
             entries = list(filter(lambda l: search in l.content, entries))
-
+        if orderbydate:
+            entries = list(sorted(entries, key=lambda t: t.date, reverse=True))
         return entries
 
     def generatetagpage(self, postlist):
@@ -165,7 +167,7 @@ class BlogEntry:
 
     def __str__(self):
         """
-        Convert this objet to String
+        Convert this object to String
         :return: String with the data of this object.
         """
         string = "['content': {}, 'name': {}, ".format(self.content, self.name)
