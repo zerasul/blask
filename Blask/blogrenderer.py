@@ -20,7 +20,7 @@ from markdown import Markdown
 from os import path, listdir
 from Blask.errors import PageNotExistError
 from datetime import datetime
-from hashlib import sha256
+from hashlib import sha3_512
 from functools import lru_cache
 
 
@@ -62,7 +62,7 @@ class BlogRenderer:
         with open(filepath, 'r') as content_file:
             content = content_file.read()
             # Check cache
-            content_hash = sha256(content.encode())
+            content_hash = sha3_512(content.encode())
             if content_hash not in self.cache:
                 entry = self.rendertext(filename, content)
                 self.cache[content_hash] = entry
