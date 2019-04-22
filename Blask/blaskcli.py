@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import click
 
 from Blask import BlaskApp, blasksettings
-from os import mkdir, path, getcwd
+from os import makedirs, path, getcwd
 from pkg_resources import get_distribution, DistributionNotFound
 
 
@@ -101,13 +101,8 @@ Check [this project at GitHub](https://github.com/zerasul/blask)
         with open(filepath, 'w') as templatefile:
             templatefile.write(self.default_template_file)
 
-    def createdir(self, dirpath):
-            """
-            Create a new Directory
-            :param dirpath: file path where the new directory is created
-            :return: True if the directory is created
-            """
-            mkdir(dirpath)
+
+
             return True
 
     def createsettingsfile(self):
@@ -168,16 +163,15 @@ def init():
     postdir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS['postDir']+'/')))
     templatedir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS['templateDir']+'/')))
     try:
-        cliController.createdir(postdir)
+        makedirs(postdir)
         cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
-        cliController.createdir(templatedir)
+        makedirs(templatedir)
         cliController.createdefaulttemplatefile(path.join(templatedir, 'template.html'))
         cliController.createsettingsfile() # creates a sample settings file
         cliController.createnotfoundpage(postdir) # creates a 404 page
         click.echo('Created new Blask project on %s' % getcwd())
         click.echo('Now you can execute: blaskcli run')
     except FileExistsError as e:
-        print(str(e))
         click.echo("There is an existing Blask Project")
 
 
