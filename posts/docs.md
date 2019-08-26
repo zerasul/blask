@@ -185,17 +185,25 @@ With Blask you can edit the content of 2 Special Pages:
 
 With Blask you can search posts by their tags. To see the posts with one particular tag, browse `http://< url >/tag/< tag-name >`.
 
+**Since 0.1.2**: By Default, the list is Date Ordered (Most New First).
+
 ## <a id="category-search"></a>Category Search
 
 With Blask you can search posts by his category. To see the posts with one particular Category, browse `http://<url>/category/<category-name>`.
+
+**Since 0.1.2**: By Default, the list is Date Ordered (Most New First).
 
 ## <a id="author-search"></a>Author Search
 
 With Blask you can search by his Author. To see the posts with one particular Author, browse `http://<url>/author/<author-name>`.
 
+**Since 0.1.2**: By Default, the list is Date Ordered (Most New First).
+
 ## <a id="search-function"></a>Page Search
 
 With Blask you can search by post contents. To do this, just send a POST request to `http://< url >/search` with the `search` parameter set to your search criteria.
+
+**Since 0.1.2**: By Default, the list is Date Ordered (Most New First).
 
 ## <a id="blaskcli"></a>Blask Command Line Tool 
 **(Since: 0.1.0b12)**
