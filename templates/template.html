@@ -20,7 +20,10 @@
     </header>
     <div class="container container-fluid" id="content">
         <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
+            
+            <!-- Post title -->
+
             <div class="meta">
                 {% if  date %}
                     <small class="date">Published on: {{date}}</small><br/>
@@ -50,7 +53,7 @@
                 {% endif %}
             </div>
         </div>
-        <aside class="col-md-3">
+        <aside class="col-md-4">
             <div class="aside-block">
                 <form method="POST" action="/search">
                     <div class="input-group mb-2">
@@ -60,7 +63,7 @@
             </div>
             <div class="aside-block">
                 <h3>Table of Contents</h3>
-                <ul>
+                <ul type="none">
                     <li><a href="/">Home</a></li>
                     <li><a href="/about">About</a></li>
                     <li><a href="/install">Install</a></li>
@@ -73,7 +76,6 @@
             </div>
             <div id="flask-powered">
                 <a class="github-button" href="https://github.com/zerasul/blask" data-size="large" data-show-count="true" aria-label="Star zerasul/blask on GitHub">Star</a>
-
             </div>
         </aside>
         </div>

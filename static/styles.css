@@ -17,21 +17,21 @@ color: white;
 padding: 0.5em;
 }
 
-.aside-block{
+.aside-block {
 margin: 0.5em;
-background: #595959;
 border-radius: 0.5em;
 padding-top: 0.5em;
 padding-bottom: 0.5em;
 }
+
 .aside-block h3
 {
    margin-left: 1em;
-   color: white;
 }
 
-.aside-block ul li{
-    color: white;
+.aside-block ul {
+    position: relative;
+    left: -0.6em;
 }
 
 .aside-block input{
@@ -42,14 +42,10 @@ padding-bottom: 0.5em;
     padding-bottom: 2em;
 }
 
-.meta{
+.meta {
     padding-bottom: 1.5em;
     padding-top: 0.5em;
     color: #585858;
-}
-.meta .date{
-    position: relative;
-    float: right;
 }
 
 .meta .tags{
@@ -57,9 +53,8 @@ padding-bottom: 0.5em;
     float: left;
 }
 
-#flask-powered{
-    float:right;
+#flask-powered {
     padding-top:0.5em;
-    margin-right:1em;
+    margin-right:1.5em;
     padding-bottom: 1.5em;
 }
