@@ -8,6 +8,9 @@ templateDir = str(BASE_DIR / 'templates')
 # Posts directory
 postDir = str(BASE_DIR / 'posts')
 
+# Errors directory
+errorDir = str(BASE_DIR / 'errors')
+
 # Default layout template
 defaultLayout = "template.html"
 

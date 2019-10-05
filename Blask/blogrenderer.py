@@ -47,7 +47,7 @@ class BlogRenderer:
         """
         self.postdir = postdir
 
-    def renderfile(self, filename):
+    def renderfile(self, filename, **kwargs):
         """
             Render a markdown and returns the blogEntry.
             Note: This method uses a cache based on a SHA-256 hash of the
@@ -56,7 +56,11 @@ class BlogRenderer:
         :return: BlogEntry.
         :raises PageNotExistError Raise this error if file does not exists.
         """
-        filepath = path.join(self.postdir, filename + ".md")
+        
+        filedir = kwargs.get('dir', self.postdir)
+
+        filepath = path.join(filedir, filename + ".md")
+
         if not path.exists(filepath):
             raise PageNotExistError("{} does not exists in {} directory".format(filename, self.postdir))
         with open(filepath, 'r') as content_file:

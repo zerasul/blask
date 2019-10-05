@@ -28,6 +28,7 @@ BASE_DIR = Path('.').resolve()
 DEFAULT_SETTINGS = {
     'templateDir': str(BASE_DIR / 'templates'),
     'postDir': str(BASE_DIR / 'posts'),
+    'errorDir': str(BASE_DIR / 'errors'),
     'defaultLayout': str('template.html'),
     'staticDir': str(BASE_DIR / 'static'),
     'title': 'Blask | A Simple Blog Engine Based on Flask'

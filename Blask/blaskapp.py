@@ -76,7 +76,7 @@ class BlaskApp:
         try:
             entry = self.blogrenderer.renderfile(filename)
         except PageNotExistError:
-            entry = self.blogrenderer.renderfile("404")
+            entry = self.blogrenderer.renderfile("404", dir=self.settings['errorDir'])
         content = entry.content
         date = entry.date
         template = entry.template
