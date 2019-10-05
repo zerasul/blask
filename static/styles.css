@@ -45,6 +45,7 @@ footer {
 
 #content {
     padding-bottom: 2em;
+    min-height: 100%;
 }
 
 .meta {
@@ -62,8 +63,4 @@ footer {
     padding-top:0.5em;
     margin-right:1.5em;
     padding-bottom: 1.5em;
-}
-
-#content {
-    min-height: 100%;
 }
