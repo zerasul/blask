@@ -1,31 +1,35 @@
-header{
-background:#0066ff;
-color: white;
-padding-bottom: 0.5em;
-padding-left: 1em;
+html, body   {
+    height: 100%;
+    margin: 0;
 }
-header h1 a, header h1 a:hover{
+
+header {
+    background:#0066ff;
+    color: white;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+}
+
+header h1 a, header h1 a:hover {
     text-decoration: none;
     color: white
 }
-footer{
-position: fixed;
-bottom: 0;
-width: 100%;
-background: #595959;
-color: white;
-padding: 0.5em;
+
+footer {
+    width: 100%;
+    background: #595959;
+    color: white;
+    padding: 0.5em;
 }
 
 .aside-block {
-margin: 0.5em;
-border-radius: 0.5em;
-padding-top: 0.5em;
-padding-bottom: 0.5em;
+    margin: 0.5em;
+    border-radius: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }
 
-.aside-block h3
-{
+.aside-block h3 {
    margin-left: 1em;
 }
 
@@ -34,11 +38,12 @@ padding-bottom: 0.5em;
     left: -0.6em;
 }
 
-.aside-block input{
+.aside-block input {
     margin-left: 1em;
     margin-right: 1em;
 }
-#content{
+
+#content {
     padding-bottom: 2em;
 }
 
@@ -48,7 +53,7 @@ padding-bottom: 0.5em;
     color: #585858;
 }
 
-.meta .tags{
+.meta .tags {
     position: relative;
     float: left;
 }
@@ -57,4 +62,8 @@ padding-bottom: 0.5em;
     padding-top:0.5em;
     margin-right:1.5em;
     padding-bottom: 1.5em;
+}
+
+#content {
+    min-height: 100%;
 }
