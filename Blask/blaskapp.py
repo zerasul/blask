@@ -44,15 +44,15 @@ class BlaskApp:
                          static_folder=self.settings['staticDir'])
         self.app.add_url_rule('/', endpoint='index', view_func=self._index,
                               methods=['GET'])
-        self.app.add_url_rule('/<filename>', view_func=self._getpage,
+        self.app.add_url_rule('/<filename>', view_func=self._get_page,
                               methods=['GET'])
-        self.app.add_url_rule('/tag/<tag>', view_func=self._gettag,
+        self.app.add_url_rule('/tag/<tag>', view_func=self._get_tag,
                               methods=['GET'])
-        self.app.add_url_rule('/search', view_func=self.searchpages,
+        self.app.add_url_rule('/search', view_func=self.search_pages,
                               methods=['POST'])
         self.app.add_url_rule('/category/<category>',
-                              view_func=self._getcategory, methods=['GET'])
-        self.app.add_url_rule('/author/<author>', view_func=self._getauthor,
+                              view_func=self._get_category, methods=['GET'])
+        self.app.add_url_rule('/author/<author>', view_func=self._get_author,
                               methods=['GET'])
 
     def _index(self):
@@ -60,23 +60,23 @@ class BlaskApp:
         Render the Index page
         :return: rendered Index Page
         """
-        entry = self.blogrenderer.renderfile("index")
+        entry = self.blogrenderer.render_file("index")
         template = entry.template
         if template is None:
             template = self.settings['defaultLayout']
         return render_template(template, title=self.settings['title'],
                                content=entry.content)
 
-    def _getpage(self, filename):
+    def _get_page(self, filename):
         """
         Render a blog post
         :param filename: Name of the Blog Post.
         :return: rendered Blog post or 404 page.
         """
         try:
-            entry = self.blogrenderer.renderfile(filename)
+            entry = self.blogrenderer.render_file(filename)
         except PageNotExistError:
-            entry = self.blogrenderer.renderfile("404", dir=self.settings['errorDir'])
+            entry = self.blogrenderer.render_file("404", dir=self.settings['errorDir'])
         content = entry.content
         date = entry.date
         template = entry.template
@@ -89,46 +89,46 @@ class BlaskApp:
                                content=content, date=date, tags=tags,
                                category=category, author=author)
 
-    def _gettag(self, tag):
+    def _get_tag(self, tag):
         """
         Render the Tags Page.
         :param tag: Tag for search
         :return: Rendered tags search.
         """
         postlist = self.blogrenderer.list_posts([tag])
-        content = self.blogrenderer.generatetagpage(postlist)
+        content = self.blogrenderer.generate_tag_page(postlist)
         return render_template(self.settings['defaultLayout'],
                                title=self.settings['title'], content=content)
 
-    def searchpages(self):
+    def search_pages(self):
         """
         Render the search page. Must Be on Method POST
         :return: rendered search Page
         """
         postlist = self.blogrenderer.list_posts(search=request.form['search'])
-        content = self.blogrenderer.generatetagpage(postlist)
+        content = self.blogrenderer.generate_tag_page(postlist)
         return render_template(self.settings['defaultLayout'],
                                title=self.settings['title'], content=content)
 
-    def _getcategory(self, category):
+    def _get_category(self, category):
         """
         Render a category searchpage
         :param category:
         :return: rendered category search page
         """
         postlist = self.blogrenderer.list_posts(category=category)
-        content = self.blogrenderer.generatetagpage(postlist)
+        content = self.blogrenderer.generate_tag_page(postlist)
         return render_template(self.settings['defaultLayout'],
                                title=self.settings['title'], content=content)
 
-    def _getauthor(self, author):
+    def _get_author(self, author):
         """
         Render an author searchpage
         :param author: author parameter
         :return:  rendered author search page
         """
         postlist = self.blogrenderer.list_posts(author=author)
-        content = self.blogrenderer.generatetagpage(postlist)
+        content = self.blogrenderer.generate_tag_page(postlist)
         return render_template(self.settings['defaultLayout'],
                                title=self.settings['title'], content=content)
 

@@ -47,7 +47,7 @@ class BlogRenderer:
         """
         self.postdir = postdir
 
-    def renderfile(self, filename, **kwargs):
+    def render_file(self, filename, **kwargs):
         """
             Render a markdown and returns the blogEntry.
             Note: This method uses a cache based on a SHA-256 hash of the
@@ -68,12 +68,12 @@ class BlogRenderer:
             # Check cache
             content_hash = sha3_512(content.encode())
             if content_hash not in self.cache:
-                entry = self.rendertext(filename, content)
+                entry = self.render_text(filename, content)
                 self.cache[content_hash] = entry
 
         return self.cache[content_hash]
 
-    def rendertext(self, filename, text):
+    def render_text(self, filename, text):
         """
          Render a Markdown Text and returns the BlogEntry.
         :param filename: filename or title of the post.
@@ -99,7 +99,7 @@ class BlogRenderer:
         files = list(filter(lambda l: l.endswith('.md') and l not in
                             exclusions, listdir(self.postdir)))
         mapfilter = list(map(lambda l: path.splitext(l)[0], files))
-        entries = list(map(lambda l: self.renderfile(l), mapfilter))
+        entries = list(map(lambda l: self.render_file(l), mapfilter))
         if tags:
             for tag in tags:
                 entries = list(filter(lambda l: tag in l.tags, entries))
@@ -113,7 +113,7 @@ class BlogRenderer:
             entries = list(sorted(entries, key=lambda t: t.date, reverse=True))
         return entries
 
-    def generatetagpage(self, postlist):
+    def generate_tag_page(self, postlist):
         """
         Get a HTML with links of the entries.
         :param postlist: List with BlogEntry.

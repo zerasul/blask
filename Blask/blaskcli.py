@@ -85,7 +85,7 @@ Check [this project at GitHub](https://github.com/zerasul/blask)
 
     not_found = "# 404\n Page not found"
 
-    def createdefaultindexfile(self, filepath):
+    def create_default_index_file(self, filepath):
         """
         create a new default index file.
         :param filepath: file path where the new index file is stored
@@ -93,26 +93,24 @@ Check [this project at GitHub](https://github.com/zerasul/blask)
         with open(filepath, 'w') as indexfile:
             indexfile.write(self.default_index)
 
-    def createdefaulttemplatefile(self, filepath):
+    def create_default_template_file(self, filepath):
         """
         Create a new default template.
         :param filepath: file path where the new template file is stored.
         """
         with open(filepath, 'w') as templatefile:
             templatefile.write(self.default_template_file)
-
-
-
+            
             return True
 
-    def createsettingsfile(self):
+    def create_settings_file(self):
         """
         Create a new settings file
         """
         with open(path.join(getcwd(), '.env'), 'w') as settingsFile:
             settingsFile.write(self.settings)
 
-    def createnotfoundpage(self, filepath):
+    def create_not_found_page(self, filepath):
         """
         Create a new page not found file.
         :param filepath: file path where the page not found is stored
@@ -124,10 +122,6 @@ Check [this project at GitHub](https://github.com/zerasul/blask)
 blask = BlaskApp()
 isdebug = False
 cliController = CLIController()
-
-
-
-
 
 @click.group()
 def blaskcli():
@@ -164,11 +158,11 @@ def init():
     templatedir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS['templateDir']+'/')))
     try:
         makedirs(postdir)
-        cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
+        cliController.create_default_index_file(path.join(postdir, 'index.md'))
         makedirs(templatedir)
-        cliController.createdefaulttemplatefile(path.join(templatedir, 'template.html'))
-        cliController.createsettingsfile() # creates a sample settings file
-        cliController.createnotfoundpage(postdir) # creates a 404 page
+        cliController.create_default_template_file(path.join(templatedir, 'template.html'))
+        cliController.create_settings_file() # creates a sample settings file
+        cliController.create_not_found_page(postdir) # creates a 404 page
         click.echo('Created new Blask project on %s' % getcwd())
         click.echo('Now you can execute: blaskcli run')
     except FileExistsError as e:
