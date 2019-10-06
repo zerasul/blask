@@ -41,8 +41,10 @@ class BlaskSettings(object):
 
     def __init__(self, *args, **kwargs):
         """
-        Initialice the Blask Settigns. First, look for the BLASK_SETTINGS enviroment variable and try to load the module.
-        If there is not environment variable, try to load the current settings from the default values.
+        Initialice the Blask Settigns. First, look for the BLASK_SETTINGS enviroment variable 
+        and try to load the module.
+        If there is not environment variable, try to load the current settings from the 
+        default values.
         :param args:
         :param kwargs:
         """
