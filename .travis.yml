@@ -1,9 +1,14 @@
 language: python
+addons:
+  sonarcloud:
+    token: ${sonar-key}
 python:
     - "3.6"
 install:
     - "pip install -r requirements.txt"
     - "pip install pylint"
-script: export PYTHONPATH=$PYTHONPATH:$(pwd) && pytest --cov=Blask --cov-report= && pylint Blask --exit-zero
+script: 
+    - export PYTHONPATH=$PYTHONPATH:$(pwd) && pytest --cov=Blask --cov-report= && pylint Blask --exit-zero
+    - sonar-scanner -Dsonar.projectKey=blask-project-key -Dsonar.sources=Blask/ -Dsonar.organization=zerasul-github -Dsonar.python.coverage.reportPath=cov.xml -Dsonar.projectName=Blask
 after_success:
   coveralls
