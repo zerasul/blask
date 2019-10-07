@@ -27,6 +27,7 @@ class CLIController:
     """
     Class that controls all the Command Line interface application
     """
+
     default_template_file = """
 <html>
     <head>
@@ -90,7 +91,7 @@ Check [this project at GitHub](https://github.com/zerasul/blask)
         create a new default index file.
         :param filepath: file path where the new index file is stored
         """
-        with open(filepath, 'w') as indexfile:
+        with open(filepath, "w") as indexfile:
             indexfile.write(self.default_index)
 
     def createdefaulttemplatefile(self, filepath):
@@ -98,10 +99,8 @@ Check [this project at GitHub](https://github.com/zerasul/blask)
         Create a new default template.
         :param filepath: file path where the new template file is stored.
         """
-        with open(filepath, 'w') as templatefile:
+        with open(filepath, "w") as templatefile:
             templatefile.write(self.default_template_file)
-
-
 
             return True
 
@@ -109,7 +108,7 @@ Check [this project at GitHub](https://github.com/zerasul/blask)
         """
         Create a new settings file
         """
-        with open(path.join(getcwd(), '.env'), 'w') as settingsFile:
+        with open(path.join(getcwd(), ".env"), "w") as settingsFile:
             settingsFile.write(self.settings)
 
     def createnotfoundpage(self, filepath):
@@ -117,7 +116,7 @@ Check [this project at GitHub](https://github.com/zerasul/blask)
         Create a new page not found file.
         :param filepath: file path where the page not found is stored
         """
-        with open(path.join(filepath, '404.md'), 'w') as page:
+        with open(path.join(filepath, "404.md"), "w") as page:
             page.write(self.not_found)
 
 
@@ -126,24 +125,21 @@ isdebug = False
 cliController = CLIController()
 
 
-
-
-
 @click.group()
 def blaskcli():
     """
     Initialice the command Line Interface Objects.
     """
     try:
-        version = get_distribution('Blask').version
+        version = get_distribution("Blask").version
     except DistributionNotFound:
         version = "test_version"
-    click.echo('Blask (C) version %s' % version)
+    click.echo("Blask (C) version %s" % version)
 
 
-@blaskcli.command(help='Run the instance of blask')
-@click.option('--debug', default=False, help="Init with de debug flag")
-@click.option('--port', default=5000, help='Port where the server is listening')
+@blaskcli.command(help="Run the instance of blask")
+@click.option("--debug", default=False, help="Init with de debug flag")
+@click.option("--port", default=5000, help="Port where the server is listening")
 def run(debug, port):
     """
     Run the current blask instance
@@ -153,27 +149,29 @@ def run(debug, port):
     blask.run(debug=debug, port=port)
 
 
-@blaskcli.command(help='Initialize a new Blask Project')
+@blaskcli.command(help="Initialize a new Blask Project")
 def init():
     """
     Inits a new Blask Instance; with the default options.
     """
-    click.echo('Initializing new Blask Project')
-    click.echo('Using default Settings')
-    postdir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS['postDir']+'/')))
-    templatedir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS['templateDir']+'/')))
+    click.echo("Initializing new Blask Project")
+    click.echo("Using default Settings")
+    postdir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS["postDir"] + "/")))
+    templatedir = path.basename(
+        path.dirname(str(blasksettings.DEFAULT_SETTINGS["templateDir"] + "/"))
+    )
     try:
         makedirs(postdir)
-        cliController.createdefaultindexfile(path.join(postdir, 'index.md'))
+        cliController.createdefaultindexfile(path.join(postdir, "index.md"))
         makedirs(templatedir)
-        cliController.createdefaulttemplatefile(path.join(templatedir, 'template.html'))
-        cliController.createsettingsfile() # creates a sample settings file
-        cliController.createnotfoundpage(postdir) # creates a 404 page
-        click.echo('Created new Blask project on %s' % getcwd())
-        click.echo('Now you can execute: blaskcli run')
+        cliController.createdefaulttemplatefile(path.join(templatedir, "template.html"))
+        cliController.createsettingsfile()  # creates a sample settings file
+        cliController.createnotfoundpage(postdir)  # creates a 404 page
+        click.echo("Created new Blask project on %s" % getcwd())
+        click.echo("Now you can execute: blaskcli run")
     except FileExistsError as e:
         click.echo("There is an existing Blask Project")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     blaskcli()

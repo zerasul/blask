@@ -29,6 +29,7 @@ class BlaskApp:
     :Author: Zerasul <suarez.garcia.victor@gmail.com>
     date: 2018-05-05
     """
+
     app = None
     blogrenderer = None
 
@@ -38,22 +39,18 @@ class BlaskApp:
         :param kwargs: Dictionary with all the required settings; for more info see :settings
         """
         self.settings = BlaskSettings(**kwargs)
-        self.blogrenderer = BlogRenderer(self.settings['postDir'])
-        self.app = Flask(__name__,
-                         template_folder=self.settings['templateDir'],
-                         static_folder=self.settings['staticDir'])
-        self.app.add_url_rule('/', endpoint='index', view_func=self._index,
-                              methods=['GET'])
-        self.app.add_url_rule('/<filename>', view_func=self._getpage,
-                              methods=['GET'])
-        self.app.add_url_rule('/tag/<tag>', view_func=self._gettag,
-                              methods=['GET'])
-        self.app.add_url_rule('/search', view_func=self.searchpages,
-                              methods=['POST'])
-        self.app.add_url_rule('/category/<category>',
-                              view_func=self._getcategory, methods=['GET'])
-        self.app.add_url_rule('/author/<author>', view_func=self._getauthor,
-                              methods=['GET'])
+        self.blogrenderer = BlogRenderer(self.settings["postDir"])
+        self.app = Flask(
+            __name__,
+            template_folder=self.settings["templateDir"],
+            static_folder=self.settings["staticDir"],
+        )
+        self.app.add_url_rule("/", endpoint="index", view_func=self._index, methods=["GET"])
+        self.app.add_url_rule("/<filename>", view_func=self._getpage, methods=["GET"])
+        self.app.add_url_rule("/tag/<tag>", view_func=self._gettag, methods=["GET"])
+        self.app.add_url_rule("/search", view_func=self.searchpages, methods=["POST"])
+        self.app.add_url_rule("/category/<category>", view_func=self._getcategory, methods=["GET"])
+        self.app.add_url_rule("/author/<author>", view_func=self._getauthor, methods=["GET"])
 
     def _index(self):
         """
@@ -63,9 +60,8 @@ class BlaskApp:
         entry = self.blogrenderer.renderfile("index")
         template = entry.template
         if template is None:
-            template = self.settings['defaultLayout']
-        return render_template(template, title=self.settings['title'],
-                               content=entry.content)
+            template = self.settings["defaultLayout"]
+        return render_template(template, title=self.settings["title"], content=entry.content)
 
     def _getpage(self, filename):
         """
@@ -84,10 +80,16 @@ class BlaskApp:
         category = entry.category
         author = entry.author
         if template is None:
-            template = self.settings['defaultLayout']
-        return render_template(template, title=self.settings['title'],
-                               content=content, date=date, tags=tags,
-                               category=category, author=author)
+            template = self.settings["defaultLayout"]
+        return render_template(
+            template,
+            title=self.settings["title"],
+            content=content,
+            date=date,
+            tags=tags,
+            category=category,
+            author=author,
+        )
 
     def _gettag(self, tag):
         """
@@ -97,18 +99,20 @@ class BlaskApp:
         """
         postlist = self.blogrenderer.list_posts([tag])
         content = self.blogrenderer.generatetagpage(postlist)
-        return render_template(self.settings['defaultLayout'],
-                               title=self.settings['title'], content=content)
+        return render_template(
+            self.settings["defaultLayout"], title=self.settings["title"], content=content
+        )
 
     def searchpages(self):
         """
         Render the search page. Must Be on Method POST
         :return: rendered search Page
         """
-        postlist = self.blogrenderer.list_posts(search=request.form['search'])
+        postlist = self.blogrenderer.list_posts(search=request.form["search"])
         content = self.blogrenderer.generatetagpage(postlist)
-        return render_template(self.settings['defaultLayout'],
-                               title=self.settings['title'], content=content)
+        return render_template(
+            self.settings["defaultLayout"], title=self.settings["title"], content=content
+        )
 
     def _getcategory(self, category):
         """
@@ -118,8 +122,9 @@ class BlaskApp:
         """
         postlist = self.blogrenderer.list_posts(category=category)
         content = self.blogrenderer.generatetagpage(postlist)
-        return render_template(self.settings['defaultLayout'],
-                               title=self.settings['title'], content=content)
+        return render_template(
+            self.settings["defaultLayout"], title=self.settings["title"], content=content
+        )
 
     def _getauthor(self, author):
         """
@@ -129,8 +134,9 @@ class BlaskApp:
         """
         postlist = self.blogrenderer.list_posts(author=author)
         content = self.blogrenderer.generatetagpage(postlist)
-        return render_template(self.settings['defaultLayout'],
-                               title=self.settings['title'], content=content)
+        return render_template(
+            self.settings["defaultLayout"], title=self.settings["title"], content=content
+        )
 
     def run(self, **kwargs):
         """

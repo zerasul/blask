@@ -22,6 +22,7 @@ class PageNotExistError(Exception):
     """
     Error that is raised if the page that is looking for does not exists.
     """
+
     def __init__(self, message):
         """
         Initialize the Error
