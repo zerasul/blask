@@ -8,7 +8,7 @@ install:
     - "pip install -r requirements.txt"
     - "pip install pylint"
 script: 
-    - export PYTHONPATH=$PYTHONPATH:$(pwd) && pytest --cov=Blask --cov-report= && pylint Blask --exit-zero
-    - sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=blask-project-key -Dsonar.sources=Blask/ -Dsonar.organization=zerasul-github -Dsonar.python.coverage.reportPaths=cov.xml -Dsonar.projectName=Blask
+    - export PYTHONPATH=$PYTHONPATH:$(pwd) && pytest --cov=Blask --cov-report=xml && pylint Blask --exit-zero
+    - sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=blask-project-key -Dsonar.sources=Blask/ -Dsonar.organization=zerasul-github -Dsonar.python.coverage.reportPaths=coverage.xml -Dsonar.projectName=Blask
 after_success:
   coveralls
