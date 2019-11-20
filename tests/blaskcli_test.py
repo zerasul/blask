@@ -9,8 +9,8 @@ class TestCLI:
 
 
     def test_init(self, mocker):
-            with mocker.patch('os.makedirs'):
-                with mocker.patch('__main__.open'):
-                    run = self.runner.invoke(blaskcli.blaskcli, ['init'])
-                    assert "Initializing new Blask Project" in run.output
+        mocker.patch('os.makedirs')
+        mocker.patch('__main__.open')
+        run = self.runner.invoke(blaskcli.blaskcli, ['init'])
+        assert "Initializing new Blask Project" in run.output
 

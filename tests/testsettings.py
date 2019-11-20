@@ -1,6 +1,7 @@
+from pathlib import Path
 import os
 
-BASE_DIR = os.getcwd()
+BASE_DIR = Path(".").resolve()
 
 # Templates directory
 templateDir = os.path.join(BASE_DIR, 'templates')
