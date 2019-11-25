@@ -32,6 +32,7 @@ class BlogRenderer:
     Date: 2018-05-05
     Version: 0.1.0
     """
+
     postdir = None
     """
     Posts Directory
@@ -40,6 +41,7 @@ class BlogRenderer:
     """
     Post Cache; improves the post loading.
     """
+
     def __init__(self, postdir):
         """
         This is the constructor of the blog renderer.
@@ -58,8 +60,10 @@ class BlogRenderer:
         """
         filepath = path.join(self.postdir, filename + ".md")
         if not path.exists(filepath):
-            raise PageNotExistError("{} does not exists in {} directory".format(filename, self.postdir))
-        with open(filepath, 'r') as content_file:
+            raise PageNotExistError(
+                "{} does not exists in {} directory".format(filename, self.postdir)
+            )
+        with open(filepath, "r") as content_file:
             content = content_file.read()
             # Check cache
             content_hash = sha3_512(content.encode())
@@ -76,12 +80,19 @@ class BlogRenderer:
         :param text: Text write in Markdown.
         :return: BlogEntry.
         """
-        md = Markdown(extensions=['meta', 'markdown.extensions.codehilite'])
+        md = Markdown(extensions=["meta", "markdown.extensions.codehilite"])
         entry = BlogEntry(filename, md, text)
         return entry
 
-    def list_posts(self, tags=[], exclusions=["index.md", "404.md"], search="",
-                   category="", author="", orderbydate=True):
+    def list_posts(
+        self,
+        tags=[],
+        exclusions=["index.md", "404.md"],
+        search="",
+        category="",
+        author="",
+        orderbydate=True,
+    ):
         """
         Search a list of Posts returning a list of BlogEntry ordered By Date.
         :param tags: list of tags for searching.
@@ -92,8 +103,9 @@ class BlogRenderer:
         :param orderbydate: If is set to True the List is Date Inverse Ordered (Most new First).
         :return: List of BlogEntry.
         """
-        files = list(filter(lambda l: l.endswith('.md') and l not in
-                            exclusions, listdir(self.postdir)))
+        files = list(
+            filter(lambda l: l.endswith(".md") and l not in exclusions, listdir(self.postdir))
+        )
         mapfilter = list(map(lambda l: path.splitext(l)[0], files))
         entries = list(map(lambda l: self.renderfile(l), mapfilter))
         if tags:
@@ -115,10 +127,9 @@ class BlogRenderer:
         :param postlist: List with BlogEntry.
         :return: String with the HTML list.
         """
-        content = '<ul>'
+        content = "<ul>"
         for post in postlist:
-            entrycontent = "<li><a href='/{}'>{}</a></li>".format(post.name,
-                                                                  post.name)
+            entrycontent = "<li><a href='/{}'>{}</a></li>".format(post.name, post.name)
             content += entrycontent
         content += "</ul>"
         return content
@@ -130,6 +141,7 @@ class BlogEntry:
     Author: Zerasul
     Version: 0.0.1.
     """
+
     content = None
     """Content of the post."""
     date = None
@@ -156,14 +168,14 @@ class BlogEntry:
         self.name = name
         meta = md.Meta
         if meta:
-            self.date = datetime.strptime(meta['date'][0], '%Y-%m-%d')
-            self.tags = meta['tags'][0].split(',')
-            if 'template' in meta.keys():
-                self.template = meta['template'][0]
-            if 'category' in meta.keys():
-                self.category = meta['category'][0]
-            if 'author' in meta.keys():
-                self.author = meta['author'][0]
+            self.date = datetime.strptime(meta["date"][0], "%Y-%m-%d")
+            self.tags = meta["tags"][0].split(",")
+            if "template" in meta.keys():
+                self.template = meta["template"][0]
+            if "category" in meta.keys():
+                self.category = meta["category"][0]
+            if "author" in meta.keys():
+                self.author = meta["author"][0]
 
     def __str__(self):
         """
@@ -172,8 +184,7 @@ class BlogEntry:
         """
         string = "['content': {}, 'name': {}, ".format(self.content, self.name)
         string += "'date': {}, 'tags':[{}], ".format(self.date, self.tags)
-        string += "'author': {}, 'category': {}, ".format(self.author,
-                                                          self.category)
+        string += "'author': {}, 'category': {}, ".format(self.author, self.category)
         string += "'template': {}]".format(self.template)
 
         return string
