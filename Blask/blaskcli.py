@@ -169,7 +169,7 @@ def init():
         cliController.createnotfoundpage(postdir)  # creates a 404 page
         click.echo("Created new Blask project on %s" % getcwd())
         click.echo("Now you can execute: blaskcli run")
-    except FileExistsError as e:
+    except FileExistsError:
         click.echo("There is an existing Blask Project")
 
 
