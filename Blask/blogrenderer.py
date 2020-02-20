@@ -168,8 +168,10 @@ class BlogEntry:
         self.name = name
         meta = md.Meta
         if meta:
-            self.date = datetime.strptime(meta["date"][0], "%Y-%m-%d")
-            self.tags = meta["tags"][0].split(",")
+            if "date" in meta.keys():
+                self.date = datetime.strptime(meta["date"][0], "%Y-%m-%d")
+            if "tags" in meta.keys():
+                self.tags = meta["tags"][0].split(",")
             if "template" in meta.keys():
                 self.template = meta["template"][0]
             if "category" in meta.keys():
