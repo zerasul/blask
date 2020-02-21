@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 from Blask.blasksettings import BlaskSettings
 from Blask.blogrenderer import BlogRenderer
 from Blask.errors import PageNotExistError
@@ -51,6 +51,11 @@ class BlaskApp:
         self.app.add_url_rule("/search", view_func=self.searchpages, methods=["POST"])
         self.app.add_url_rule("/category/<category>", view_func=self._getcategory, methods=["GET"])
         self.app.add_url_rule("/author/<author>", view_func=self._getauthor, methods=["GET"])
+        ## Register the error handler for each setting
+        print(self.settings)
+        for error in self.settings["errors"].keys():
+            self.app.register_error_handler(error, f=self._handle_http_errors)
+
 
     def _index(self):
         """
@@ -72,7 +77,7 @@ class BlaskApp:
         try:
             entry = self.blogrenderer.renderfile(filename)
         except PageNotExistError:
-            entry = self.blogrenderer.renderfile("404")
+          abort(404)
         content = entry.content
         date = entry.date
         template = entry.template
@@ -137,6 +142,16 @@ class BlaskApp:
         return render_template(
             self.settings["defaultLayout"], title=self.settings["title"], content=content
         )
+
+    def _handle_http_errors(self, errorMessage):
+        """
+        Handle the custom http error code; getting the custom url name.
+        :param errorMessage: Message error.
+        :return: rendered custom error page.
+        """
+        page = self.settings['errors'][errorMessage.code]
+        return self._getpage(page)
+
 
     def run(self, **kwargs):
         """

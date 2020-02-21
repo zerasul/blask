@@ -24,6 +24,7 @@ After that, you need to configure Blask, create a file called _settings.py_ file
     defaultLayout = "template.html"
     staticDir = path.join(BASE_DIR, "static")
     title = "Blask"
+    errors = { 404:"404"}
 
 You can export a environment variable that point to this file:
 
@@ -38,7 +39,7 @@ You can run the application using this code:
 
     if __name__ == '__main__':
         b = BlaskApp(templateDir=settings.templateDir, postDir=settings.postDir
-        , defaultLayout=settings.defaultLayout, staticDir=settings.staticDir, title=settings.title)
+        , defaultLayout=settings.defaultLayout, staticDir=settings.staticDir, title=settings.title, errors={404 : "404"})
         
         b.run()
 If you use the environment Variable you can run Blask without arguments:

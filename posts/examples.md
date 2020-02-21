@@ -25,6 +25,8 @@ First if you need to run Blask, need to see the `settings.py` file and set the p
 
     # Website title
     title = 'Blask | A Simple Blog Engine Based on Flask'
+    # custom Error handlers
+    errors = { 404 : "404"}
 
 
 Next you need to run the next code:

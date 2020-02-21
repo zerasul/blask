@@ -17,3 +17,6 @@ staticDir = os.path.join(BASE_DIR, 'static')
 
 # Website title
 title = 'The mantis revenge!'
+
+errors= { 404 : "404"
+        }

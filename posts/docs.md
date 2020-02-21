@@ -8,6 +8,7 @@ In this page we can see all the documentation about the Blask Project:
 * [Post Metadata](#post-metadata)
 * [Create a Template](#create-template)
 * [Special Pages](#special-pages)
+* [Custom Error Pages](#custom-error-pages)
 * [Tag Search](#tag-search)
 * [Category Search](#category-search)
 * [Author Search](#author-search)
@@ -180,6 +181,21 @@ With Blask you can edit the content of 2 Special Pages:
 
 * **index page**: This is the main page. Its markdown contents reside in the _index.md_ file in the posts folder.
 * **404**: This is the _Page Not Found_ response. Its markdown contents reside in the _404.md_ file in the posts folder.
+
+## <a id="custom-error-pages">Custom Error Pages</a>
+
+(**Since 0.1.4**)
+
+With Blask you can set custom error pages for the Http error codes. In the ```settings``` file, you can set the ```errors``` dictionary for link each http error code to the name of the markdown file (without extension), in the post directory.
+
+    :::python
+    # settings.py
+    ...
+    # errors handle dictionary
+    errors = { 404 : '404',
+            500 : 'mycustom500' 
+            }
+
 
 ## <a id="tag-search"></a>Tag Search
 
