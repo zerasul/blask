@@ -24,6 +24,7 @@ postDir = "posts"
 defaultLayout = "template.html"
 staticDir = "static"
 title = "Blask | A Simple Blog Engine Based on Flask"
+errors= { 404: "404"}
 ```
 
 For last, to Run Blask, use the next Code:
@@ -35,7 +36,7 @@ For last, to Run Blask, use the next Code:
     if __name__ == '__main__':
         b = BlaskApp(templateDir=settings.templateDir, postDir=settings.postDir
                   , defaultLayout=settings.defaultLayout,
-              staticDir=settings.staticDir, title=settings.title)
+              staticDir=settings.staticDir, title=settings.title, errors={404:'404'})
         b.run()
 ```
 
