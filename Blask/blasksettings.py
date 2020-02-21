@@ -31,6 +31,8 @@ DEFAULT_SETTINGS = {
     "defaultLayout": str("template.html"),
     "staticDir": str(BASE_DIR / "static"),
     "title": "Blask | A Simple Blog Engine Based on Flask",
+    "errors": {
+        404 : "404"} # Dictionary with errors handler
 }
 
 

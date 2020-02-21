@@ -16,3 +16,7 @@ staticDir = str(BASE_DIR / 'static')
 
 # Website title
 title = 'Blask | A Simple Blog Engine Based on Flask'
+
+errors= { 500 : "500",
+          404 : "404"
+        }

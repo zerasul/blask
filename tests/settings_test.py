@@ -1,5 +1,5 @@
 import os
-
+from pathlib import Path
 from Blask import blasksettings
 from Blask.blasksettings import BlaskSettings
 from pytest import fixture, raises
@@ -17,7 +17,7 @@ class TestBlaskSettings:
         settings = BlaskSettings()
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
             if kw == 'postDir':
-                assert settings[kw] == os.path.join(os.getcwd(), 'posts2')
+                assert settings[kw] == os.path.join(Path('.').resolve(), 'posts2')
             elif kw == 'title':
                 assert settings[kw] == 'The mantis revenge!'
             else:

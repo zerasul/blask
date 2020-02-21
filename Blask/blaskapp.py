@@ -51,8 +51,10 @@ class BlaskApp:
         self.app.add_url_rule("/search", view_func=self.searchpages, methods=["POST"])
         self.app.add_url_rule("/category/<category>", view_func=self._getcategory, methods=["GET"])
         self.app.add_url_rule("/author/<author>", view_func=self._getauthor, methods=["GET"])
-        ## register the 404 error handler
-        self.app.register_error_handler(404,f=self._handle_error_404)
+        ## Register the error handler for each setting
+        print(self.settings)
+        for error in self.settings["errors"].keys():
+            self.app.register_error_handler(error, f=self._handle_http_errors)
 
 
     def _index(self):
@@ -141,13 +143,15 @@ class BlaskApp:
             self.settings["defaultLayout"], title=self.settings["title"], content=content
         )
 
-    def _handle_error_404(self, errorMessage):
+    def _handle_http_errors(self, errorMessage):
         """
-        Render an 404 Not Found Error
-        :param errorMessage. The error Message for shown
-        :return rendered page
+        Handle the custom http error code; getting the custom url name.
+        :param errorMessage: Message error.
+        :return: rendered custom error page.
         """
-        return self._getpage("404")
+        page = self.settings['errors'][errorMessage.code]
+        return self._getpage(page)
+
 
     def run(self, **kwargs):
         """
