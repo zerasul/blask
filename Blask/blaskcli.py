@@ -61,7 +61,7 @@ Blask is currently under development, and we have a lot of things to do.
 
 Wanna help us?
 
-Check [this project at GitHub](https://github.com/zerasul/blask)
+Check [this project at GitHub](https://github.com/zerasul/blask) Or see the documentation in the [project web page](https://getblask.com/docs).
 """
 
     settings = """ 
@@ -82,6 +82,9 @@ Check [this project at GitHub](https://github.com/zerasul/blask)
 
     # Title of the blog
     title='Blask | A Simple Blog Engine Based on Flask' 
+
+    # error handler configuration
+    errors = { 404 : '404' }
     """
 
     not_found = "# 404\n Page not found"
