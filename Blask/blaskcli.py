@@ -143,13 +143,14 @@ def blaskcli():
 @blaskcli.command(help="Run the instance of blask")
 @click.option("--debug", default=False, help="Init with de debug flag")
 @click.option("--port", default=5000, help="Port where the server is listening")
-def run(debug, port):
+@click.option("--host", default="127.0.0.1", help="Default Network interface listening")
+def run(debug, port, host):
     """
     Run the current blask instance
     :param debug: initialice with debug options
     :param port: port where the port is opened
     """
-    blask.run(debug=debug, port=port)
+    blask.run(debug=debug, port=port, host=host)
 
 
 @blaskcli.command(help="Initialize a new Blask Project")
