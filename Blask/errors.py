@@ -28,4 +28,4 @@ class PageNotExistError(Exception):
         Initialize the Error
         :param message: Message to show
         """
-        super(PageNotExistError, self).__init__(message)
+        super().__init__(message)
