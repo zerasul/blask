@@ -26,7 +26,7 @@ with info_file.open() as f:
 
 setup(
     name='Blask',
-    version='0.1.4',
+    version='0.2.0',
     packages=find_packages(exclude=['tests']),
     url='https://getblask.com',
     license='GPL 3.0',
@@ -36,7 +36,6 @@ setup(
     classifiers=[
        'Development Status :: 4 - Beta',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content :: News/Diary',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],

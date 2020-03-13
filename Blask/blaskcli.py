@@ -16,11 +16,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
+from os import makedirs, path, getcwd
+from pkg_resources import get_distribution, DistributionNotFound
+from pathlib import Path
+import shutil
+
 import click
 
 from Blask import BlaskApp, blasksettings
-from os import makedirs, path, getcwd
-from pkg_resources import get_distribution, DistributionNotFound
+
+LIB_DIR = Path(__file__).resolve().parents[0]
 
 
 class CLIController:
@@ -28,99 +33,45 @@ class CLIController:
     Class that controls all the Command Line interface application
     """
 
-    default_template_file = """
-<html>
-    <head>
-        <title>{{title}}</title>
+    default_template_file = str(LIB_DIR / 'index_template.html')
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Hello Bulma!</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-        <style>
-            h1 {
-                font-size: 2em;
-            }
-        </style>
-    </head>
-    <body>
-        <section class="section">
-            <div class="container">
-                {{content|safe}}
-            </div>
-        </section>
-    </body>
-</html>
-"""
+    default_index = str(LIB_DIR / 'markdown_template.md')
 
-    default_index = """# Welcome to Blask!
-This is your `index.md` file, located at `posts` directory. Edit this file to add your own index. You can use Markdown to write it!
+    settings = str(LIB_DIR / 'default_env.env')
 
-Blask is currently under development, and we have a lot of things to do.
+    not_found = str(LIB_DIR / 'default_404.md')
 
-Wanna help us?
-
-Check [this project at GitHub](https://github.com/zerasul/blask) Or see the documentation in the [project web page](https://getblask.com/docs).
-"""
-
-    settings = """ 
-    # Minimal conf for Blask
-    FLASK_APP=main.py                
-
-    # Name of the Template Folder.
-    templateDir="templates"
-
-    # Name of the post Folder
-    postDir="posts"
-
-    # default name of the template file.
-    defaultLayout='template.html'
-
-    # Default name of the static Folder
-    staticDir='static'
-
-    # Title of the blog
-    title='Blask | A Simple Blog Engine Based on Flask' 
-
-    # error handler configuration
-    errors = { 404 : '404' }
-    """
-
-    not_found = "# 404\n Page not found"
+    docker_template = str(LIB_DIR / 'Dockerfile_template')
 
     def createdefaultindexfile(self, filepath):
         """
         create a new default index file.
         :param filepath: file path where the new index file is stored
         """
-        with open(filepath, "w") as indexfile:
-            indexfile.write(self.default_index)
+        shutil.copy(self.default_index, filepath)
 
     def createdefaulttemplatefile(self, filepath):
         """
         Create a new default template.
         :param filepath: file path where the new template file is stored.
         """
-        with open(filepath, "w") as templatefile:
-            templatefile.write(self.default_template_file)
-
-            return True
+        shutil.copy(self.default_template_file, filepath)
 
     def createsettingsfile(self):
         """
         Create a new settings file
         """
-        with open(path.join(getcwd(), ".env"), "w") as settingsFile:
-            settingsFile.write(self.settings)
+        shutil.copy(self.settings, '.env')
 
     def createnotfoundpage(self, filepath):
         """
         Create a new page not found file.
         :param filepath: file path where the page not found is stored
         """
-        with open(path.join(filepath, "404.md"), "w") as page:
-            page.write(self.not_found)
+        shutil.copy(self.not_found, filepath)
+
+    def createdockerfile(self, filepath):
+        shutil.copy(self.docker_template, filepath)
 
 
 blask = BlaskApp()
@@ -141,25 +92,32 @@ def blaskcli():
 
 
 @blaskcli.command(help="Run the instance of blask")
-@click.option("--debug", default=False, help="Init with de debug flag")
-@click.option("--port", default=5000, help="Port where the server is listening")
-def run(debug, port):
+@click.option("--debug", default=False, help="Init with de debug flag", is_flag=True)
+@click.option(
+    "--port", default=5000, help="Port where the server is listening")
+@click.option(
+    "--host", default="127.0.0.1", help="Default Network interface listening")
+def run(debug, port, host):
     """
     Run the current blask instance
     :param debug: initialice with debug options
     :param port: port where the port is opened
     """
-    blask.run(debug=debug, port=port)
+    blask.run(debug=debug, port=port, host=host)
 
 
 @blaskcli.command(help="Initialize a new Blask Project")
-def init():
+@click.option(
+    "--with-docker", default=False, help="Add a DockerFile to the Blask directory",is_flag=True)
+def init(with_docker):
     """
     Inits a new Blask Instance; with the default options.
+    :param with_docker: if is set to True, add a Dockerfile in the root directory.
     """
     click.echo("Initializing new Blask Project")
     click.echo("Using default Settings")
-    postdir = path.basename(path.dirname(str(blasksettings.DEFAULT_SETTINGS["postDir"] + "/")))
+    postdir = path.basename(
+        path.dirname(str(blasksettings.DEFAULT_SETTINGS["postDir"] + "/")))
     templatedir = path.basename(
         path.dirname(str(blasksettings.DEFAULT_SETTINGS["templateDir"] + "/"))
     )
@@ -167,9 +125,12 @@ def init():
         makedirs(postdir)
         cliController.createdefaultindexfile(path.join(postdir, "index.md"))
         makedirs(templatedir)
-        cliController.createdefaulttemplatefile(path.join(templatedir, "template.html"))
-        cliController.createsettingsfile()  # creates a sample settings file
-        cliController.createnotfoundpage(postdir)  # creates a 404 page
+        cliController.createdefaulttemplatefile(
+            path.join(templatedir, "template.html"))
+        cliController.createsettingsfile()
+        cliController.createnotfoundpage(path.join(postdir, '404.md'))
+        if with_docker:
+            CLIController.createdockerfile(path.join("Dockerfile"))
         click.echo("Created new Blask project on %s" % getcwd())
         click.echo("Now you can execute: blaskcli run")
     except FileExistsError:
