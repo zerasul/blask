@@ -159,6 +159,7 @@ Here is the description of the metadata used in posts:
 * **tags**: List of tags separated by comma.
 * **category**: Category of the post.
 * **author**: Author of the post.
+* **title**: Title of the post; it will be shown as the html title of the page. It is not setted, the settings title will be used.
 
 ## <a id="create-template"></a>Create a Template
 
