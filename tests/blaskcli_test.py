@@ -10,7 +10,7 @@ class TestCLI:
 
     def test_init(self, mocker):
         mocker.patch('os.makedirs')
-        mocker.patch('__main__.open')
+        mocker.patch('shutil.copy')
         run = self.runner.invoke(blaskcli.blaskcli, ['init'])
         assert "Initializing new Blask Project" in run.output
 
