@@ -63,7 +63,7 @@ class BlogRenderer:
         if not path.exists(filepath):
             raise PageNotExistError(
                 f"{filename} does not exists in {self.postdir} directory")
-        with open(filepath, "r") as content_file:
+        with open(filepath, "r",encoding='utf-8') as content_file:
             content = content_file.read()
             # Check cache
             content_hash = sha3_512(content.encode())
