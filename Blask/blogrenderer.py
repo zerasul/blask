@@ -16,12 +16,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
-from markdown import Markdown
 from os import path, listdir
-from Blask.errors import PageNotExistError
-from datetime import datetime
 from hashlib import sha3_512
-from functools import lru_cache
+from datetime import datetime
+
+from markdown import Markdown
+
+from Blask.errors import PageNotExistError
 
 
 class BlogRenderer:
@@ -61,8 +62,7 @@ class BlogRenderer:
         filepath = path.join(self.postdir, filename + ".md")
         if not path.exists(filepath):
             raise PageNotExistError(
-                "{} does not exists in {} directory".format(filename, self.postdir)
-            )
+                f"{filename} does not exists in {self.postdir} directory")
         with open(filepath, "r") as content_file:
             content = content_file.read()
             # Check cache
@@ -100,12 +100,13 @@ class BlogRenderer:
         :param search: string with the content what we want of search.
         :param category: list of category of the entry.
         :param author: name of the author of the post
-        :param orderbydate: If is set to True the List is Date Inverse Ordered (Most new First).
+        :param orderbydate: If is set to True the List is Date Inverse Ordered
+            (Most new First).
         :return: List of BlogEntry.
         """
-        files = list(
-            filter(lambda l: l.endswith(".md") and l not in exclusions, listdir(self.postdir))
-        )
+        files = list(filter(
+            lambda l: l.endswith(".md")
+            and l not in exclusions, listdir(self.postdir)))
         mapfilter = list(map(lambda l: path.splitext(l)[0], files))
         entries = list(map(lambda l: self.renderfile(l), mapfilter))
         if tags:
@@ -129,7 +130,7 @@ class BlogRenderer:
         """
         content = "<ul>"
         for post in postlist:
-            entrycontent = "<li><a href='/{}'>{}</a></li>".format(post.name, post.name)
+            entrycontent = f"<li><a href='/{post.name}'>{post.name}</a></li>"
             content += entrycontent
         content += "</ul>"
         return content
@@ -184,9 +185,9 @@ class BlogEntry:
         Convert this object to String
         :return: String with the data of this object.
         """
-        string = "['content': {}, 'name': {}, ".format(self.content, self.name)
-        string += "'date': {}, 'tags':[{}], ".format(self.date, self.tags)
-        string += "'author': {}, 'category': {}, ".format(self.author, self.category)
-        string += "'template': {}]".format(self.template)
+        string = f"['content': {self.content}, 'name': {self.name}, " \
+            f"'date': {self.date}, 'tags':[{self.tags}], " \
+            f"'author': {self.author}, 'category': {self.category}, " \
+            f"'template': {self.template}]"
 
         return string
