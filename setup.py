@@ -36,7 +36,6 @@ setup(
     classifiers=[
        'Development Status :: 4 - Beta',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content :: News/Diary',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
