@@ -21,6 +21,7 @@ from flask import Flask, render_template, request, abort
 from Blask.blasksettings import BlaskSettings
 from Blask.blogrenderer import BlogRenderer
 from Blask.errors import PageNotExistError
+from os.path import join
 
 
 class BlaskApp:
@@ -47,6 +48,7 @@ class BlaskApp:
         )
         self.app.add_url_rule("/", endpoint="index", view_func=self._index, methods=["GET"])
         self.app.add_url_rule("/<filename>", view_func=self._getpage, methods=["GET"])
+        self.app.add_url_rule("/<path:subpath>/<filename>", view_func=self._get_subpage, methods=["GET"])
         self.app.add_url_rule("/tag/<tag>", view_func=self._gettag, methods=["GET"])
         self.app.add_url_rule("/search", view_func=self.searchpages, methods=["POST"])
         self.app.add_url_rule("/category/<category>", view_func=self._getcategory, methods=["GET"])
@@ -95,6 +97,10 @@ class BlaskApp:
             category=category,
             author=author,
         )
+
+    def _get_subpage(self, subpath, filename):
+        subfilename = join(subpath,filename)
+        return self._getpage(subfilename)
 
     def _gettag(self, tag):
         """
