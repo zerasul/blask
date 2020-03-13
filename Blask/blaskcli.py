@@ -92,7 +92,7 @@ def blaskcli():
 
 
 @blaskcli.command(help="Run the instance of blask")
-@click.option("--debug", default=False, help="Init with de debug flag")
+@click.option("--debug", default=False, help="Init with de debug flag", is_flag=True)
 @click.option(
     "--port", default=5000, help="Port where the server is listening")
 @click.option(
