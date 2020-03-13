@@ -231,10 +231,6 @@ Usage of Blask Command Line Tool:
 
     :::bash
     Usage: blaskcli [OPTIONS] COMMAND [ARGS]...
-    Options:
-        --debug
-        --help        Show this message and exit.
-        --port NUMBER (Only for run command) sets the server listening Port.
 
     Commands:
         init  Initialize a new Blask Project
@@ -242,5 +238,22 @@ Usage of Blask Command Line Tool:
         
 There are two commands available:
 
-* _init_: creates a new Blask project creating the default folders and minimum files; in the current directory.
-* _run_: run a new instance of blask in the current directory. You can set the listening port with _--port_ option.
+_init_: creates a new Blask project creating the default folders and minimum files; in the current directory.
+
+    :::bash
+    Usage: blaskcli init [OPTIONS]
+    Initialize a new Blask Project
+    Options:
+        --with-docker  Add a DockerFile to the Blask directory
+
+
+_run_: run a new instance of blask in the current directory.
+
+    :::bash
+    Usage: blaskcli run [OPTIONS]
+    Run the instance of blask!
+    
+    Options:
+        --debug         Init with de debug flag
+        --port INTEGER  Port where the server is listening
+        --host TEXT     Default Network interface listening
