@@ -96,9 +96,14 @@ class BlaskApp:
         author = entry.author
         if template is None:
             template = self.settings["defaultLayout"]
+        if entry.title is None:
+            title = self.settings["title"]
+        else:
+            title = entry.title
+        
         return render_template(
             template,
-            title=self.settings["title"],
+            title=title,
             content=content,
             date=date,
             tags=tags,

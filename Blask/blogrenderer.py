@@ -157,6 +157,8 @@ class BlogEntry:
     """Name of the template file"""
     name = None
     """ Name of the post"""
+    title = None
+    """ Title of the Post"""
 
     def __init__(self, name, md, content):
         """
@@ -179,6 +181,8 @@ class BlogEntry:
                 self.category = meta["category"][0]
             if "author" in meta.keys():
                 self.author = meta["author"][0]
+            if "title" in meta.keys():
+                self.title = meta["title"][0]
 
     def __str__(self):
         """

@@ -8,7 +8,7 @@ from Blask.errors import PageNotExistError
 class TestblogRender:
 
     blogrender = None
-    markdowntest = "---\ndate: 2018-03-03\ntags: test,test2\n ---\n test"
+    markdowntest = "---\nname: test\ndate: 2018-03-03\ntags: test,test2\n ---\n test"
 
     @fixture(autouse=True)
     def initialize(self):
@@ -26,6 +26,7 @@ class TestblogRender:
         entry = self.blogrender.rendertext("test", self.markdowntest)
         assert entry.name == "test"
         assert entry.date == datetime(2018, 3, 3)
+        assert entry.name == "test"
         assert "test" in entry.tags
 
     def test_pagenotexists(self):
