@@ -41,6 +41,8 @@ class CLIController:
 
     not_found = str(LIB_DIR / 'default_404.md')
 
+    docker_template = str(LIB_DIR / 'Dockerfile_template')
+
     def createdefaultindexfile(self, filepath):
         """
         create a new default index file.
@@ -67,6 +69,9 @@ class CLIController:
         :param filepath: file path where the page not found is stored
         """
         shutil.copy(self.not_found, filepath)
+
+    def createdockerfile(self, filepath):
+        shutil.copy(self.docker_template, filepath)
 
 
 blask = BlaskApp()
@@ -102,9 +107,12 @@ def run(debug, port, host):
 
 
 @blaskcli.command(help="Initialize a new Blask Project")
-def init():
+@click.option(
+    "--with-docker", default=False, help="Add a DockerFile to the Blask directory",is_flag=True)
+def init(with_docker):
     """
     Inits a new Blask Instance; with the default options.
+    :param with_docker: if is set to True, add a Dockerfile in the root directory.
     """
     click.echo("Initializing new Blask Project")
     click.echo("Using default Settings")
@@ -121,6 +129,8 @@ def init():
             path.join(templatedir, "template.html"))
         cliController.createsettingsfile()
         cliController.createnotfoundpage(path.join(postdir, '404.md'))
+        if with_docker:
+            CLIController.createdockerfile(path.join("Dockerfile"))
         click.echo("Created new Blask project on %s" % getcwd())
         click.echo("Now you can execute: blaskcli run")
     except FileExistsError:
