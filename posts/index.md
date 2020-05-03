@@ -51,6 +51,7 @@ We also have some [examples](/examples) available.
 
 Here are the release notes of each Blask version:
 
+* [0.2.1](/0.2.1)
 * [0.2.0](/0.2.0)
 * [0.1.4](/0.1.4)
 * [0.1.3](/0.1.3)

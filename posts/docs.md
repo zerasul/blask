@@ -13,6 +13,7 @@ In this page we can see all the documentation about the Blask Project:
 * [Category Search](#category-search)
 * [Author Search](#author-search)
 * [Search pages](#search-function)
+* [Sitemap Generation](#sitemap-generator)
 * [Blask Command Line Tool](#blaskcli)
 * [Using WSGI server with Blask](#wsgi-server)
 * [Using Docker with Blask](#docker-blask)
@@ -223,6 +224,24 @@ With Blask you can search by his Author. To see the posts with one particular Au
 With Blask you can search by post contents. To do this, just send a POST request to `http://< url >/search` with the `search` parameter set to your search criteria.
 
 **Since 0.1.2**: By Default, the list is Date Ordered (Most New First).
+
+## <a id="sitemap-generator"></a>SiteMap Generation
+
+**(since 0.2.1)**
+
+Blask, have an Sitemap.xml file automatic generation. To see the sitemap file generated, open the next URL `http://< url >/sitemap.xml` and the sitemap xml formated file is showed. Here is an example:
+
+    :::xml
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        <url>
+            <loc>http://localhost:5000/</loc>
+            <lastmod>2020/03/13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.5</priority></url>
+        </url>
+    ...
+
+**NOTE:** the date showed is based on the Modification date of the Markdown File.
 
 ## <a id="blaskcli"></a>Blask Command Line Tool 
 **(Since: 0.1.0b12)**
