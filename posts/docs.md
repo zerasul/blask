@@ -17,6 +17,7 @@ In this page we can see all the documentation about the Blask Project:
 * [Blask Command Line Tool](#blaskcli)
 * [Using WSGI server with Blask](#wsgi-server)
 * [Using Docker with Blask](#docker-blask)
+* [Use PythonAnywhere with Blask](#pythonanywhere-tuto)
 
 ## <a id="init-blask"></a>Init Blask
 
@@ -323,3 +324,43 @@ The image expose the port 8000 so you need to make a forwarding with the -p opti
 Now you can see on http://< your domain>:5000 your Blask Docker container working.
 
 For more information about Docker please see the [Docker Documentation](https://docs.docker.com/).
+
+## <a id="pythonanywhere-tuto"></a>Use Python Anywhere with Blask
+
+Python Anywhere its a service that brings you the posibility to deploy and run python scripts and web based applications. For more information about what is Python Anywhere or how to use it, please see [Python Anywhere Web Page](https://www.pythonanywhere.com/).
+
+You can use Python Anywhere to run and deploy you Blask based applications; only you need to do is create a new account, and follow the next steps:
+
+1 Create a new WebApplication based on Flask and select a python version >3.6. Set the python flaskapp.py file with the default address ```/home/<your user>/mysite/flask_app.py```.
+
+![pythonanywhere-flask](static/img/pythonanywhere1.png)
+
+2 Open a bash console on you site directory.
+
+3 Install Blask with your site python version.
+
+```pip3.7 install blask```
+
+**NOTE:** If you are using a virtualenv, follow these [instructions](https://help.pythonanywhere.com/pages/Virtualenvs/).
+
+4 Create a new empty blask project with ```blaskcli init``` command.
+
+```blaskcli init```
+
+**NOTE:** Also, you can copy the files of your existing blask application.
+
+5 change the content of your ```flask_app.py``` file with the next content:
+
+    :::python
+    from Blask import BlaskApp
+
+    app=BlaskApp().app
+
+    if __name__ == '__main__':
+        app.run()
+
+6 Reload your application with the reload button on the web apps section.
+
+![pythonanywhere2](static/img/pythonanywhere2.png)
+
+Now you can see your Blask application on your web app Url on PythonAnywhere.
