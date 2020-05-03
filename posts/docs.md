@@ -14,6 +14,8 @@ In this page we can see all the documentation about the Blask Project:
 * [Author Search](#author-search)
 * [Search pages](#search-function)
 * [Blask Command Line Tool](#blaskcli)
+* [Using WSGI server with Blask](#wsgi-server)
+* [Using Docker with Blask](#docker-blask)
 
 ## <a id="init-blask"></a>Init Blask
 
@@ -258,3 +260,48 @@ _run_: run a new instance of blask in the current directory.
         --debug         Init with de debug flag
         --port INTEGER  Port where the server is listening
         --host TEXT     Default Network interface listening
+
+## <a id="wsgi-server"></a>Using Gunicorn for WSGI server
+
+Using the Blaskcli run command is only recommended for developing pruposes. For production Systems, please use a WSGI server. First, you need to instal ```gunicorn```:
+
+```
+pip install gunicorn
+```
+
+Later, you need to configure your application for use an wsgi server; here is the code for use Blask with WSGI:
+
+    :::python
+    from Blask import Blaskapp
+    application=BlaskApp().app
+    
+    if __name__ == '__main__':
+        application.run()
+
+Now you can save the preivous Python Script, as ```main.py``` and run gunicorn with the next command:
+
+```gunicorn -b 0.0.0.0:8000 --workers 4 main ```
+
+The workers options means that there are 4 workers serving the application; you can change this option following the [gunicorn documentation](https://docs.gunicorn.org/en/stable/run.html).
+
+For last, go to http://< yourdomain >:8000 and see your blog using blask. For more information abount using Flask with WSGI go to [Flask documentation](https://flask.palletsprojects.com/en/1.1.x/deploying/).
+
+## <a id="docker-blask"></a>Using Docker with Blask
+
+You can use Docker with Blask; we create a Docker Image for use with Blask; you can find it in [Docker Hub](https://hub.docker.com/r/zerasul/blask). For use it pull the image with Docker:
+
+```
+docker pull zerasul/blask
+```
+
+and create a new container with the minimum configuration:
+
+```
+docker run -p 5000:8000 zerasul/blask:latest
+```
+
+The image expose the port 8000 so you need to make a forwarding with the -p option.
+
+Now you can see on http://< your domain>:5000 your Blask Docker container working.
+
+For more information about Docker please see the [Docker Documentation](https://docs.docker.com/).
