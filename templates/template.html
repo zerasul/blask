@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,9 +8,11 @@
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" />
     <link rel="stylesheet" href="{{url_for('static', filename='highlitght.css')}}" />
     <link rel="shortcut icon" href="{{url_for('static', filename='img/favicon.png')}}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
+
 <body>
 
     <header>
@@ -20,69 +23,78 @@
     </header>
     <div class="container container-fluid" id="content">
         <div class="row">
-        <div class="col-md-9">
-            <div class="meta">
-                {% if  date %}
-                    <small class="date">Published on: {{date}}</small><br/>
-                {% endif %}
+            <div class="col-md-9">
+                <div class="meta">
+                    {% if  date %}
+                    <small class="date">Published on: {{date}}</small><br />
+                    {% endif %}
 
-                {% if author %}
-                <small class="author">Published by <a href="/author/{{author}}">{{author}}</a></small>
-                {% endif %}
-            </div>
+                    {% if author %}
+                    <small class="author">Published by <a href="/author/{{author}}">{{author}}</a></small>
+                    {% endif %}
+                </div>
 
 
-            {{content|safe}}
+                {{content|safe}}
 
-            <div class="meta">
-                {% if category %}
+                <div class="meta">
+                    {% if category %}
                     <small class="category">
                         Category: <a href="/category/{{category}}">{{category}}</a>
-                    </small><br/>
-                {% endif %}
+                    </small><br />
+                    {% endif %}
 
-                {% if tags %}
+                    {% if tags %}
                     <small class="tags">
                         {% for tag in tags %}
-                            <a href="/tag/{{tag}}">{{tag}}</a>
+                        <a href="/tag/{{tag}}">{{tag}}</a>
                         {% endfor %}
                     </small>
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <aside class="col-md-3">
-            <div class="aside-block">
-                <form method="POST" action="/search">
-                    <div class="input-group mb-2">
-                     <input type="text" name="search" class="form-control" id="inlineFormInputGroup" placeholder="Search" />
-                     </div>
-                </form>
-            </div>
-            <div class="aside-block">
-                <h3>Table of Contents</h3>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/install">Install</a></li>
-                    <li><a href="/examples">Examples</a></li>
-                    <li><a href="/docs">Docs</a></li>
-                    <li><a href="http://github.com/zerasul/blask" target="_blank">Contribute</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                </ul>
+            <aside class="col-md-3">
+                <div class="aside-block">
+                    <form method="POST" action="/search">
+                        <div class="input-group mb-2">
+                            <input type="text" name="search" class="form-control" id="inlineFormInputGroup"
+                                placeholder="Search" />
+                        </div>
+                    </form>
+                </div>
+                <div class="aside-block">
+                    <h3>Table of Contents</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/install">Install</a></li>
+                        <li><a href="/examples">Examples</a></li>
+                        <li><a href="/docs">Docs</a></li>
+                        <li><a href="http://github.com/zerasul/blask" target="_blank">Contribute</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
 
-            </div>
-            <div id="flask-powered">
-                <a class="github-button" href="https://github.com/zerasul/blask" data-size="large" data-show-count="true" aria-label="Star zerasul/blask on GitHub">Star</a>
+                </div>
+                <div id="flask-powered">
+                    <a class="github-button" href="https://github.com/zerasul/blask" data-size="large"
+                        data-show-count="true" aria-label="Star zerasul/blask on GitHub">Star</a>
 
-            </div>
-        </aside>
+                </div>
+            </aside>
         </div>
     </div>
 
-    <footer>&copy; 2020 - All rights reserved - v0.2.0 - Made with Blask.</footer>
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <footer>&copy; 2020 - All rights reserved - v0.2.1 - Made with Blask.</footer>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
