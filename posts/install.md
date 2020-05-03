@@ -30,7 +30,7 @@ You can export a environment variable that point to this file:
 
     :::bash
     export BLASK_SETTINGS=settings
-    
+
 You can run the application using this code:
 
     :::python
@@ -50,9 +50,9 @@ If you use the environment Variable you can run Blask without arguments:
 
     if __name__ == '__main__':
         BlaskApp().run()
-        
+
 Or you can use the BlaskCLI tool:
-    
+
     :::bash
     blaskcli run
 

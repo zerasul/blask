@@ -20,42 +20,47 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 from setuptools import setup, find_packages
 from pathlib import Path
 
-info_file = Path(__file__).resolve().parents[0] / 'README.md'
+info_file = Path(__file__).resolve().parents[0] / "README.md"
 with info_file.open() as f:
     long_desc = f.read()
+# adding nonpython files to package
+mdownfile = Path(__file__).resolve().parents[0] / "Blask" / "markdown_template.md"
+indextempfile = Path(__file__).resolve().parents[0] / "Blask" / "index_template.html"
+Dockerfile_template = Path(__file__).resolve().parents[0] / "Blask" / "Dockerfile_template"
+default404 = Path(__file__).resolve().parents[0] / "Blask" / "default_404.md"
+default_env = Path(__file__).resolve().parents[0] / "Blask" / "default_env.env"
 
 setup(
-    name='Blask',
-    version='0.2.0',
-    packages=find_packages(exclude=['tests']),
-    url='https://getblask.com',
-    license='GPL 3.0',
-    author='zerasul',
-    author_email='zerasul@gmail.com',
-    description='A simple Blog engine using Flask and Markdown.',
+    name="Blask",
+    version="0.2.1",
+    packages=find_packages(exclude=["tests"]),
+    url="https://getblask.com",
+    license="GPL 3.0",
+    author="zerasul",
+    author_email="zerasul@gmail.com",
+    description="A simple Blog engine using Flask and Markdown.",
     classifiers=[
-       'Development Status :: 4 - Beta',
-        'Topic :: Internet :: WWW/HTTP :: Dynamic Content :: News/Diary',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+        "Development Status :: 4 - Beta",
+        "Topic :: Internet :: WWW/HTTP :: Dynamic Content :: News/Diary",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
     ],
-    entry_points='''
+    package_data={
+        "Blask": [
+            str(mdownfile),
+            str(Dockerfile_template),
+            str(indextempfile),
+            str(default404),
+            str(default_env),
+        ]
+    },
+    entry_points="""
         [console_scripts]
         blaskcli=Blask.blaskcli:blaskcli
-    ''',
+    """,
     long_description=long_desc,
-    long_description_content_type='text/markdown',
-    python_requires='>=3',
-    install_requires=[
-          'flask',
-          'markdown',
-          'Pygments',
-          'click'
-    ],
-    test_requires=[
-        'pytest',
-        'pytest-cov',
-        'pylint',
-        'pytest-mock'
-    ]
+    long_description_content_type="text/markdown",
+    python_requires=">=3",
+    install_requires=["flask", "markdown", "Pygments", "click"],
+    test_requires=["pytest", "pytest-cov", "pylint", "pytest-mock"],
 )

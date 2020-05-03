@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 from os import path, listdir
 from hashlib import sha3_512
 from datetime import datetime
+from xml.etree import ElementTree as ET
 
 from markdown import Markdown
 
@@ -30,8 +31,8 @@ class BlogRenderer:
     Class BlogRenderer: This class provides the feature for render posts from
     Markdown to HTML and search features.
     :Author: Zerasul <suarez.garcia.victor@gmail.com>
-    Date: 2018-05-05
-    Version: 0.1.0
+    Date: 2019-05-03
+    Version: 0.2.1
     """
 
     postdir = None
@@ -61,9 +62,8 @@ class BlogRenderer:
         """
         filepath = path.join(self.postdir, filename + ".md")
         if not path.exists(filepath):
-            raise PageNotExistError(
-                f"{filename} does not exists in {self.postdir} directory")
-        with open(filepath, "r",encoding='utf-8') as content_file:
+            raise PageNotExistError(f"{filename} does not exists in {self.postdir} directory")
+        with open(filepath, "r", encoding="utf-8") as content_file:
             content = content_file.read()
             # Check cache
             content_hash = sha3_512(content.encode())
@@ -104,9 +104,12 @@ class BlogRenderer:
             (Most new First).
         :return: List of BlogEntry.
         """
-        files = list(filter(
-            lambda l: l.endswith(".md")
-            and l not in exclusions, listdir(self.postdir)))
+        files = list(
+            filter(
+                lambda l: l.endswith(".md") and l not in exclusions,
+                self._listdirectoriesrecursive(self.postdir),
+            )
+        )
         mapfilter = list(map(lambda l: path.splitext(l)[0], files))
         entries = list(map(lambda l: self.renderfile(l), mapfilter))
         if tags:
@@ -119,8 +122,62 @@ class BlogRenderer:
         if search:
             entries = list(filter(lambda l: search in l.content, entries))
         if orderbydate:
-            entries = list(sorted(entries, key=lambda t: t.date, reverse=True))
+            # create a sublist with only entries with date
+            dateredentries = list(filter(lambda e: e.date is None, entries))
+            notdateredentries = list(filter(lambda d: d.date is not None, entries))
+            entries = list(sorted(dateredentries, key=lambda t: t.date, reverse=True))
+            entries.extend(notdateredentries)
         return entries
+
+    def _listdirectoriesrecursive(self, directory, append=""):
+        """
+        List the directory and subdirectories
+        :param directory: path of the directory where is searching.
+        :return: list with all the paths of the files
+        """
+        posts = []
+        for f in listdir(directory):
+            if path.isdir(path.join(directory, f)):
+                posts.extend(
+                    self._listdirectoriesrecursive(path.join(directory, f), path.join(append, f))
+                )
+            else:
+                posts.append(path.join(append, f))
+        return posts
+
+    def generate_sitemap_xml(self, postlist, baseurl="http://localhost:5000"):
+        """
+        Generate the Sitemap XML format output with all the posts in postdir
+        :param postlist: list with all the posts for the sitemapxml.
+        :return: return the xml output for the Sitemap.xml file.
+        """
+        root = ET.Element("urlset", attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
+        rpostlist = self._listdirectoriesrecursive(postlist)
+        # add index
+        urlindex = ET.SubElement(root, "url")
+        locindex = ET.SubElement(urlindex, "loc")
+        locindex.text = baseurl
+        lastmodif = ET.SubElement(urlindex, "lastmod")
+        tmp = path.getmtime(path.join(postlist, "index.md"))
+        lastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y/%m/%d")
+        changefreq = ET.SubElement(urlindex, "changefreq")
+        changefreq.text = "monthly"
+        priority = ET.SubElement(urlindex, "priority")
+        priority.text = "0.5"
+        for p in rpostlist:
+            title = p.replace(".md", "")
+            title = title.replace("\\", "/")
+            purlindex = ET.SubElement(root, "url")
+            plocindex = ET.SubElement(purlindex, "loc")
+            plocindex.text = baseurl + title
+            plastmodif = ET.SubElement(purlindex, "lastmod")
+            tmp = path.getmtime(path.join(postlist, p))
+            plastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y/%m/%d")
+            pchangefreq = ET.SubElement(purlindex, "changefreq")
+            pchangefreq.text = "monthly"
+            priority = ET.SubElement(purlindex, "priority")
+            priority.text = "0.5"
+        return ET.tostring(root, encoding="UTF-8", method="xml")
 
     def generatetagpage(self, postlist):
         """
@@ -130,7 +187,8 @@ class BlogRenderer:
         """
         content = "<ul>"
         for post in postlist:
-            entrycontent = f"<li><a href='/{post.name}'>{post.name}</a></li>"
+            pname = post.name.replace("\\", "/")
+            entrycontent = f"<li><a href='/{pname}'>{post.name}</a></li>"
             content += entrycontent
         content += "</ul>"
         return content
@@ -189,9 +247,11 @@ class BlogEntry:
         Convert this object to String
         :return: String with the data of this object.
         """
-        string = f"['content': {self.content}, 'name': {self.name}, " \
-            f"'date': {self.date}, 'tags':[{self.tags}], " \
-            f"'author': {self.author}, 'category': {self.category}, " \
+        string = (
+            f"['content': {self.content}, 'name': {self.name}, "
+            f"'date': {self.date}, 'tags':[{self.tags}], "
+            f"'author': {self.author}, 'category': {self.category}, "
             f"'template': {self.template}]"
+        )
 
         return string
