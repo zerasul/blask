@@ -335,7 +335,7 @@ You can use Python Anywhere to run and deploy you Blask based applications; only
 
 ![pythonanywhere-flask](static/img/pythonanywhere1.png)
 
-2 Open a bash console on you site directory.
+2 Open a bash console on your site directory.
 
 3 Install Blask with your site python version.
 
