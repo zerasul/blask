@@ -19,6 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 from os import path, listdir
 from hashlib import sha3_512
 from datetime import datetime
+from xml.etree import ElementTree as ET
 
 from markdown import Markdown
 
@@ -143,6 +144,40 @@ class BlogRenderer:
             else:
                 posts.append(path.join(append, f))
         return posts
+
+    def generate_sitemap_xml(self, postlist, baseurl="http://localhost:5000"):
+        """
+        Generate the Sitemap XML format output with all the posts in postdir
+        :param postlist: list with all the posts for the sitemapxml.
+        :return: return the xml output for the Sitemap.xml file.
+        """
+        root = ET.Element("urlset", attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
+        rpostlist = self._listdirectoriesrecursive(postlist)
+        # add index
+        urlindex = ET.SubElement(root, "url")
+        locindex = ET.SubElement(urlindex, "loc")
+        locindex.text = baseurl
+        lastmodif = ET.SubElement(urlindex, "lastmod")
+        tmp = path.getmtime(path.join(postlist, "index.md"))
+        lastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y/%m/%d")
+        changefreq = ET.SubElement(urlindex, "changefreq")
+        changefreq.text = "monthly"
+        priority = ET.SubElement(urlindex, "priority")
+        priority.text = "0.5"
+        for p in rpostlist:
+            title = p.replace(".md", "")
+            title = title.replace("\\", "/")
+            purlindex = ET.SubElement(root, "url")
+            plocindex = ET.SubElement(purlindex, "loc")
+            plocindex.text = baseurl + title
+            plastmodif = ET.SubElement(purlindex, "lastmod")
+            tmp = path.getmtime(path.join(postlist, p))
+            plastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y/%m/%d")
+            pchangefreq = ET.SubElement(purlindex, "changefreq")
+            pchangefreq.text = "monthly"
+            priority = ET.SubElement(purlindex, "priority")
+            priority.text = "0.5"
+        return ET.tostring(root, encoding="UTF-8", method="xml")
 
     def generatetagpage(self, postlist):
         """
