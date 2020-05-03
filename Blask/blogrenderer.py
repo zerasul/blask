@@ -187,7 +187,8 @@ class BlogRenderer:
         """
         content = "<ul>"
         for post in postlist:
-            entrycontent = f"<li><a href='/{post.name}'>{post.name}</a></li>"
+            pname = post.name.replace("\\", "/")
+            entrycontent = f"<li><a href='/{pname}'>{post.name}</a></li>"
             content += entrycontent
         content += "</ul>"
         return content

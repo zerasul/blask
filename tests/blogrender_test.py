@@ -60,7 +60,7 @@ class TestblogRender:
         entries = self.blogrender.list_posts(["subdir"])
         assert len(entries) == 1
         entrieslist = self.blogrender.generatetagpage(entries)
-        assert "href='/releases\\sub2\\test" in entrieslist
+        assert "href='/releases/sub2/test" in entrieslist
 
     def test_generate_sitemap_xml(self):
         mysxml = self.blogrender.generate_sitemap_xml(postDir)
