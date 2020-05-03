@@ -30,8 +30,8 @@ class BlogRenderer:
     Class BlogRenderer: This class provides the feature for render posts from
     Markdown to HTML and search features.
     :Author: Zerasul <suarez.garcia.victor@gmail.com>
-    Date: 2018-05-05
-    Version: 0.1.0
+    Date: 2019-05-03
+    Version: 0.2.1
     """
 
     postdir = None
@@ -61,9 +61,8 @@ class BlogRenderer:
         """
         filepath = path.join(self.postdir, filename + ".md")
         if not path.exists(filepath):
-            raise PageNotExistError(
-                f"{filename} does not exists in {self.postdir} directory")
-        with open(filepath, "r",encoding='utf-8') as content_file:
+            raise PageNotExistError(f"{filename} does not exists in {self.postdir} directory")
+        with open(filepath, "r", encoding="utf-8") as content_file:
             content = content_file.read()
             # Check cache
             content_hash = sha3_512(content.encode())
@@ -104,9 +103,12 @@ class BlogRenderer:
             (Most new First).
         :return: List of BlogEntry.
         """
-        files = list(filter(
-            lambda l: l.endswith(".md")
-            and l not in exclusions, listdir(self.postdir)))
+        files = list(
+            filter(
+                lambda l: l.endswith(".md") and l not in exclusions,
+                self._listdirectoriesrecursive(self.postdir),
+            )
+        )
         mapfilter = list(map(lambda l: path.splitext(l)[0], files))
         entries = list(map(lambda l: self.renderfile(l), mapfilter))
         if tags:
@@ -119,8 +121,28 @@ class BlogRenderer:
         if search:
             entries = list(filter(lambda l: search in l.content, entries))
         if orderbydate:
-            entries = list(sorted(entries, key=lambda t: t.date, reverse=True))
+            # create a sublist with only entries with date
+            dateredentries = list(filter(lambda e: e.date is None, entries))
+            notdateredentries = list(filter(lambda d: d.date is not None, entries))
+            entries = list(sorted(dateredentries, key=lambda t: t.date, reverse=True))
+            entries.extend(notdateredentries)
         return entries
+
+    def _listdirectoriesrecursive(self, directory, append=""):
+        """
+        List the directory and subdirectories
+        :param directory: path of the directory where is searching.
+        :return: list with all the paths of the files
+        """
+        posts = []
+        for f in listdir(directory):
+            if path.isdir(path.join(directory, f)):
+                posts.extend(
+                    self._listdirectoriesrecursive(path.join(directory, f), path.join(append, f))
+                )
+            else:
+                posts.append(path.join(append, f))
+        return posts
 
     def generatetagpage(self, postlist):
         """
@@ -189,9 +211,11 @@ class BlogEntry:
         Convert this object to String
         :return: String with the data of this object.
         """
-        string = f"['content': {self.content}, 'name': {self.name}, " \
-            f"'date': {self.date}, 'tags':[{self.tags}], " \
-            f"'author': {self.author}, 'category': {self.category}, " \
+        string = (
+            f"['content': {self.content}, 'name': {self.name}, "
+            f"'date': {self.date}, 'tags':[{self.tags}], "
+            f"'author': {self.author}, 'category': {self.category}, "
             f"'template': {self.template}]"
+        )
 
         return string
