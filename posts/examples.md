@@ -28,19 +28,18 @@ First if you need to run Blask, need to see the `settings.py` file and set the p
     # custom Error handlers
     errors = { 404 : "404"}
 
-
 Next you need to run the next code:
 
     :::python
     from Blask import BlaskApp
     
     BlaskApp().run()
-    
+
 To get the properly Configuration, you need to export the enviorement variable BLASK_SETTINGS to select the properly _settings_ module:
 
     :::bash
     > export BLASK_SETTINGS=settings
-    
+
 You can also, run Blask from the Command Line Tool:
 
     :::bash
@@ -75,5 +74,5 @@ include the Jinja2 template `content`. Here is an example:
 
 Once you create a new template, you can reference it in two ways:
 
-  * First, using the default template setting in the `settings.py` file.
-  * Second, using the metadata space of the Markdown documents.
+* First, using the default template setting in the `settings.py` file.
+* Second, using the metadata space of the Markdown documents.

@@ -268,7 +268,6 @@ _init_: creates a new Blask project creating the default folders and minimum fil
     Options:
         --with-docker  Add a DockerFile to the Blask directory
 
-
 _run_: run a new instance of blask in the current directory.
 
     :::bash

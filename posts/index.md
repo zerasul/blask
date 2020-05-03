@@ -21,7 +21,6 @@ Before you run the code you have to export the BLASK_SETTINGS enviorement variab
     :::bash
     export BLASK_SETTINGS=settings
 
-
 Only you need to run the next code:
 
     :::python
@@ -68,11 +67,3 @@ Also, you can see:
 
 * [Authors](https://github.com/zerasul/blask/graphs/contributors)
 * [Issue Tracker](https://github.com/zerasul/blask/issues)
-
-
-
-
-
-
-
-
