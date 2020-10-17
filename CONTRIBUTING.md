@@ -6,6 +6,8 @@ First of all, if you want to contribute to Blask, see our [Web Page](https://get
 
 Of course, you can create new issues with improvements or questions in [Github Issues](https://github.com/zerasul/blask/issues).
 
+Please use the branch ```develop``` as base branch for your pull requests. In this branch is where the next features will be developed.
+
 Lastly, you can send pull requests, using Github [Pull Request](https://github.com/zerasul/blask/pulls), but it is important to check the Code Coverage.
 
 And there is one more thing: Thanks for contributing to the Blask project.

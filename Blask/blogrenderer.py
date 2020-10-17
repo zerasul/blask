@@ -20,6 +20,8 @@ from os import path, listdir
 from hashlib import sha3_512
 from datetime import datetime
 from xml.etree import ElementTree as ET
+from flask.helpers import safe_join
+from werkzeug.exceptions import NotFound
 
 from markdown import Markdown
 
@@ -58,11 +60,16 @@ class BlogRenderer:
             content.
         :param filename: Number of the file without extension.
         :return: BlogEntry.
-        :raises PageNotExistError Raise this error if file does not exists.
+        :raises PageNotExistError Raise this error if file does not exist or
+            would fall out of the posts directory.
         """
-        filepath = path.join(self.postdir, filename + ".md")
+        page_not_exist_exception = PageNotExistError(f"{filename} does not exists in {self.postdir} directory")
+        try:
+            filepath = safe_join(self.postdir, filename + ".md")
+        except NotFound:  # file would fall out of given directory
+            raise page_not_exist_exception
         if not path.exists(filepath):
-            raise PageNotExistError(f"{filename} does not exists in {self.postdir} directory")
+            raise page_not_exist_exception
         with open(filepath, "r", encoding="utf-8") as content_file:
             content = content_file.read()
             # Check cache
