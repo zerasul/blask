@@ -5,7 +5,7 @@ addons:
 python:
     - "3.6"
 install:
-    - "pip install -r requirements.txt"
+    - "pipenv install"
     - "pip install pylint"
 script: 
     - export PYTHONPATH=$PYTHONPATH:$(pwd) && pytest --cov=Blask --cov-report=xml && pylint Blask --exit-zero
