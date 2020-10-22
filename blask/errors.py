@@ -1,5 +1,5 @@
 """
-Blask
+blask
 
 Copyright (C) 2018  https://github.com/zerasul/blask
 
@@ -17,4 +17,8 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from Blask.blaskapp import BlaskApp
+
+class PageNotExistError(Exception):
+    """
+    Error that is raised if the page that is looking for does not exists.
+    """

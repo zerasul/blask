@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
-from Blask import blasksettings
-from Blask.blasksettings import BlaskSettings
+from blask import blasksettings
+from blask.blasksettings import BlaskSettings
 from pytest import fixture, raises
 
 

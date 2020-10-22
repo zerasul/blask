@@ -30,7 +30,7 @@ errors= { 404: "404"}
 For last, to Run Blask, use the next Code:
 
 ```python
-    from Blask import BlaskApp
+    from blask import BlaskApp
     import settings
 
     if __name__ == '__main__':

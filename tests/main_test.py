@@ -1,5 +1,5 @@
 from pytest import fixture
-from Blask import BlaskApp
+from blask import BlaskApp
 import settings
 
 
@@ -21,12 +21,12 @@ class TestMain:
 
     def test_index(self):
         response = self.testClient.get("/")
-        assert b"Blask is a blogging engine" in response.data
+        assert b"blask is a blogging engine" in response.data
 
     def test_page(self):
         response = self.testClient.get("/about")
         assert response.status_code == 200
-        assert b"To use Blask, you only need to edit" in response.data
+        assert b"To use blask, you only need to edit" in response.data
 
     def test_nopage(self):
         response = self.testClient.get("/nopageerror")
