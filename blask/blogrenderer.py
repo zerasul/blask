@@ -1,5 +1,5 @@
 """
-Blask
+blask
 
 Copyright (C) 2018  https://github.com/zerasul/blask
 
@@ -25,7 +25,7 @@ from werkzeug.exceptions import NotFound
 
 from markdown import Markdown
 
-from Blask.errors import PageNotExistError
+from blask.errors import PageNotExistError
 
 
 class BlogRenderer:
@@ -80,6 +80,7 @@ class BlogRenderer:
 
         return self.cache[content_hash]
 
+    # pylint: disable=R0201
     def rendertext(self, filename, text):
         """
          Render a Markdown Text and returns the BlogEntry.
@@ -87,18 +88,19 @@ class BlogRenderer:
         :param text: Text write in Markdown.
         :return: BlogEntry.
         """
-        md = Markdown(extensions=["meta", "markdown.extensions.codehilite"])
-        entry = BlogEntry(filename, md, text)
+        mark_down = Markdown(extensions=["meta", "markdown.extensions.codehilite"])
+        entry = BlogEntry(filename, mark_down, text)
         return entry
 
+    #pylint: disable=dangerous-default-value
     def list_posts(
-        self,
-        tags=[],
-        exclusions=["index.md", "404.md"],
-        search="",
-        category="",
-        author="",
-        orderbydate=True,
+            self,
+            tags=None,
+            exclusions=["index.md", "404.md"],
+            search="",
+            category="",
+            author="",
+            orderbydate=True,
     ):
         """
         Search a list of Posts returning a list of BlogEntry ordered By Date.
@@ -118,10 +120,10 @@ class BlogRenderer:
             )
         )
         mapfilter = list(map(lambda l: path.splitext(l)[0], files))
-        entries = list(map(lambda l: self.renderfile(l), mapfilter))
+        entries = list(map(self.renderfile(mapfilter)))
         if tags:
             for tag in tags:
-                entries = list(filter(lambda l: tag in l.tags, entries))
+                entries = list(filter(lambda l=tag: l.tags, entries))
         if category:
             entries = list(filter(lambda c: c.category == category, entries))
         if author:
@@ -143,13 +145,14 @@ class BlogRenderer:
         :return: list with all the paths of the files
         """
         posts = []
-        for f in listdir(directory):
-            if path.isdir(path.join(directory, f)):
+        for file in listdir(directory):
+            if path.isdir(path.join(directory, file)):
                 posts.extend(
-                    self._listdirectoriesrecursive(path.join(directory, f), path.join(append, f))
+                    self._listdirectoriesrecursive(path.join(directory, file),
+                                                   path.join(append, file))
                 )
             else:
-                posts.append(path.join(append, f))
+                posts.append(path.join(append, file))
         return posts
 
     def generate_sitemap_xml(self, postlist, baseurl="http://localhost:5000"):
@@ -171,14 +174,14 @@ class BlogRenderer:
         changefreq.text = "monthly"
         priority = ET.SubElement(urlindex, "priority")
         priority.text = "0.5"
-        for p in rpostlist:
-            title = p.replace(".md", "")
+        for post in rpostlist:
+            title = post.replace(".md", "")
             title = title.replace("\\", "/")
             purlindex = ET.SubElement(root, "url")
             plocindex = ET.SubElement(purlindex, "loc")
             plocindex.text = baseurl + title
             plastmodif = ET.SubElement(purlindex, "lastmod")
-            tmp = path.getmtime(path.join(postlist, p))
+            tmp = path.getmtime(path.join(postlist, post))
             plastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y/%m/%d")
             pchangefreq = ET.SubElement(purlindex, "changefreq")
             pchangefreq.text = "monthly"
@@ -186,6 +189,7 @@ class BlogRenderer:
             priority.text = "0.5"
         return ET.tostring(root, encoding="UTF-8", method="xml")
 
+    # pylint: disable=R0201
     def generatetagpage(self, postlist):
         """
         Get a HTML with links of the entries.
@@ -201,6 +205,8 @@ class BlogRenderer:
         return content
 
 
+# pylint: disable=too-many-instance-attributes
+# pylint: disable=too-few-public-methods
 class BlogEntry:
     """"
     This class has the information about the Blog Posts.

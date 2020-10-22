@@ -1,8 +1,8 @@
-from Blask.blogrenderer import BlogRenderer
+from blask.blogrenderer import BlogRenderer
 from settings import postDir
 from pytest import fixture, raises
 from datetime import datetime
-from Blask.errors import PageNotExistError
+from blask.errors import PageNotExistError
 
 
 class TestblogRender:

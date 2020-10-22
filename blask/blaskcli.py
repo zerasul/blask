@@ -1,5 +1,5 @@
 """
-Blask
+blask
 
 Copyright (C) 2018  https://github.com/zerasul/blask
 
@@ -17,13 +17,13 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 from os import makedirs, path, getcwd
-from pkg_resources import get_distribution, DistributionNotFound
 from pathlib import Path
 import shutil
+from pkg_resources import get_distribution, DistributionNotFound
 
 import click
 
-from Blask import BlaskApp, blasksettings
+from blask import BlaskApp, blasksettings
 
 LIB_DIR = Path(__file__).resolve().parents[0]
 
@@ -70,12 +70,15 @@ class CLIController:
         """
         shutil.copy(self.not_found, filepath)
 
-    def createdockerfile(self, filepath):
+    def createdockerfile(self, filepath="Dockerfile"):
+        """
+        Create a docker file
+        """
         shutil.copy(self.docker_template, filepath)
 
 
 blask = BlaskApp()
-isdebug = False
+IS_DEBUG = False
 cliController = CLIController()
 
 
@@ -85,10 +88,10 @@ def blaskcli():
     Initialice the command Line Interface Objects.
     """
     try:
-        version = get_distribution("Blask").version
+        version = get_distribution("blask").version
     except DistributionNotFound:
         version = "test_version"
-    click.echo("Blask (C) version %s" % version)
+    click.echo("blask (C) version %s" % version)
 
 
 @blaskcli.command(help="Run the instance of blask")
@@ -106,15 +109,15 @@ def run(debug, port, host):
     blask.run(debug=debug, port=port, host=host)
 
 
-@blaskcli.command(help="Initialize a new Blask Project")
+@blaskcli.command(help="Initialize a new blask Project")
 @click.option(
-    "--with-docker", default=False, help="Add a DockerFile to the Blask directory",is_flag=True)
+    "--with-docker", default=False, help="Add a DockerFile to the blask directory", is_flag=True)
 def init(with_docker):
     """
-    Inits a new Blask Instance; with the default options.
+    Inits a new blask Instance; with the default options.
     :param with_docker: if is set to True, add a Dockerfile in the root directory.
     """
-    click.echo("Initializing new Blask Project")
+    click.echo("Initializing new blask Project")
     click.echo("Using default Settings")
     postdir = path.basename(
         path.dirname(str(blasksettings.DEFAULT_SETTINGS["postDir"] + "/")))
@@ -131,10 +134,10 @@ def init(with_docker):
         cliController.createnotfoundpage(path.join(postdir, '404.md'))
         if with_docker:
             CLIController.createdockerfile(path.join("Dockerfile"))
-        click.echo("Created new Blask project on %s" % getcwd())
+        click.echo("Created new blask project on %s" % getcwd())
         click.echo("Now you can execute: blaskcli run")
     except FileExistsError:
-        click.echo("There is an existing Blask Project")
+        click.echo("There is an existing blask Project")
 
 
 if __name__ == "__main__":
