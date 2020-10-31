@@ -164,6 +164,7 @@ Here is the description of the metadata used in posts:
 * **category**: Category of the post.
 * **author**: Author of the post.
 * **title**: Title of the post; it will be shown as the html title of the page. It is not setted, the settings title will be used.
+* **periodicity**: the value of the _changefreq_ tag on the sitemap Screen. The values of this metadata are: _always, hourly, daily, weekly, monthly(default), yearly, never_.
 
 ## <a id="create-template"></a>Create a Template
 
