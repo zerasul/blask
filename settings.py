@@ -1,6 +1,10 @@
-templateDir = "templates"
+from pathlib import Path
+
+BASE_DIR = Path('.').resolve()
+
+templateDir = str(BASE_DIR / "templates")
 postDir = "posts"
 defaultLayout = "template.html"
-staticDir = "static"
+staticDir = str(BASE_DIR /"static")
 title = "blask | A Simple Blog Engine Based on Flask"
-errors= { 404: "404"}
+errors = {404: "404"}

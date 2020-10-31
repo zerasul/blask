@@ -21,12 +21,12 @@ class TestMain:
 
     def test_index(self):
         response = self.testClient.get("/")
-        assert b"blask is a blogging engine" in response.data
+        assert b"Blask is a blogging engine" in response.data
 
     def test_page(self):
         response = self.testClient.get("/about")
         assert response.status_code == 200
-        assert b"To use blask, you only need to edit" in response.data
+        assert b"Blask is a simple Blogging engine " in response.data
 
     def test_nopage(self):
         response = self.testClient.get("/nopageerror")
@@ -55,7 +55,7 @@ class TestMain:
     def test_sub_page(self):
         response = self.testClient.get("/releases/sub2/test")
         assert response.status_code == 200
-        assert b"subdirectory test" in response.data
+        assert b"subdirectory" in response.data
 
     def test_get_sitemap(self):
         response = self.testClient.get("/sitemap.xml")

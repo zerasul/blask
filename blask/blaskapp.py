@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
-from os.path import join
+from flask.helpers import safe_join
 from flask import Flask, render_template, request, abort, Response
 from blask.blasksettings import BlaskSettings
 from blask.blogrenderer import BlogRenderer
@@ -106,7 +106,7 @@ class BlaskApp:
         )
 
     def _get_subpage(self, subpath, filename):
-        subfilename = join(subpath, filename)
+        subfilename = safe_join(subpath, filename)
         return self._getpage(subfilename)
 
     def _get_sitemap(self):

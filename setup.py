@@ -32,7 +32,7 @@ default_env = Path(__file__).resolve().parents[0] / "blask" / "default_env.env"
 
 setup(
     name="blask",
-    version="0.2.1",
+    version="0.2.2",
     packages=find_packages(exclude=["tests"]),
     url="https://getblask.com",
     license="GPL 3.0",

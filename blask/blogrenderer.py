@@ -58,25 +58,27 @@ class BlogRenderer:
             Render a markdown and returns the blogEntry.
             Note: This method uses a cache based on a SHA-256 hash of the
             content.
-        :param filename: Number of the file without extension.
+        :param filename: Name of the file without extension.
         :return: BlogEntry.
         :raises PageNotExistError Raise this error if file does not exist or
             would fall out of the posts directory.
         """
         page_not_exist_exception = PageNotExistError(f"{filename} does not exists in {self.postdir} directory")
         try:
-            filepath = safe_join(self.postdir, filename + ".md")
+            file = f"{filename}.md"
+            filepath = safe_join(self.postdir, file)
         except NotFound:  # file would fall out of given directory
             raise page_not_exist_exception
-        if not path.exists(filepath):
+        try:
+            with open(filepath, "r", encoding="utf-8") as content_file:
+                content = content_file.read()
+                # Check cache
+                content_hash = sha3_512(content.encode())
+                if content_hash not in self.cache:
+                    entry = self.rendertext(filename, content)
+                    self.cache[content_hash] = entry
+        except FileNotFoundError:
             raise page_not_exist_exception
-        with open(filepath, "r", encoding="utf-8") as content_file:
-            content = content_file.read()
-            # Check cache
-            content_hash = sha3_512(content.encode())
-            if content_hash not in self.cache:
-                entry = self.rendertext(filename, content)
-                self.cache[content_hash] = entry
 
         return self.cache[content_hash]
 
@@ -120,10 +122,10 @@ class BlogRenderer:
             )
         )
         mapfilter = list(map(lambda l: path.splitext(l)[0], files))
-        entries = list(map(self.renderfile(mapfilter)))
+        entries = list(map(lambda l: self.renderfile(l), mapfilter))
         if tags:
             for tag in tags:
-                entries = list(filter(lambda l=tag: l.tags, entries))
+                entries = list(filter(lambda l ,t=tag: t in l.tags, entries))
         if category:
             entries = list(filter(lambda c: c.category == category, entries))
         if author:
@@ -146,13 +148,13 @@ class BlogRenderer:
         """
         posts = []
         for file in listdir(directory):
-            if path.isdir(path.join(directory, file)):
+            if path.isdir(safe_join(directory, file)):
                 posts.extend(
-                    self._listdirectoriesrecursive(path.join(directory, file),
-                                                   path.join(append, file))
+                    self._listdirectoriesrecursive(safe_join(directory, file),
+                                                   safe_join(append, file))
                 )
             else:
-                posts.append(path.join(append, file))
+                posts.append(safe_join(append, file))
         return posts
 
     def generate_sitemap_xml(self, postlist, baseurl="http://localhost:5000"):
