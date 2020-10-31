@@ -7,7 +7,6 @@ the contents of blog posts.
 
 Blask uses the Jinja2 template engine to render the web templates.
 
-
 To install Blask, use ```pip```:
 
 ```pip install blask```
@@ -18,7 +17,7 @@ or download the source code:
 
 Later, you need to create a ```settings.py``` file:
 
-```python    
+```python
 templateDir = "templates"
 postDir = "posts"
 defaultLayout = "template.html"
