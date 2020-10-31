@@ -8,9 +8,13 @@ Also, you can use git to download the source code:
 
 ```git clone https://github.com/zerasul/blask/```
 
-Then (If you clone the source code), you need to install the dependencies using _pip_:
+Then (If you clone the source code), you need to install the dependencies using ```pipenv``:
 
-```pip install -r requirements.txt```
+```pipenv install```
+
+If you need to install the development dependencies too, add the ```--dev``` flag:
+
+```pipenv install --dev```
 
 After that, you need to configure Blask, create a file called _settings.py_ file:
 
