@@ -1,5 +1,5 @@
 """
-Blask
+blask
 
 Copyright (C) 2018  https://github.com/zerasul/blask
 
@@ -22,7 +22,6 @@ from pathlib import Path
 from sys import path
 from importlib import import_module
 
-
 BASE_DIR = Path(".").resolve()
 
 DEFAULT_SETTINGS = {
@@ -30,19 +29,19 @@ DEFAULT_SETTINGS = {
     "postDir": str(BASE_DIR / "posts"),
     "defaultLayout": str("template.html"),
     "staticDir": str(BASE_DIR / "static"),
-    "title": "Blask | A Simple Blog Engine Based on Flask",
+    "title": "blask | A Simple Blog Engine Based on Flask",
     "errors": {404: "404"}  # Dictionary with errors handler
 }
 
 
-class BlaskSettings(object):
+class BlaskSettings():  # pylint: disable=too-few-public-methods
     """
-    Blask configuration helper class
+    blask configuration helper class
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         """
-        Initialice the Blask Settigns. First, look for the BLASK_SETTINGS
+        Initialice the blask Settigns. First, look for the BLASK_SETTINGS
         enviroment variable and try to load the module.
         If there is not environment variable, try to load the current settings
         from the default values.
@@ -58,7 +57,7 @@ class BlaskSettings(object):
                 os.environ["BLASK_SETTINGS"], os.environ["BLASK_SETTINGS"])
 
             self.settings = {}
-            for key in DEFAULT_SETTINGS.keys():
+            for key in DEFAULT_SETTINGS:
                 value = getattr(settings_mod, key, DEFAULT_SETTINGS[key])
                 self.settings[key] = value
         else:
@@ -66,9 +65,9 @@ class BlaskSettings(object):
             self.settings = DEFAULT_SETTINGS.copy()
 
         # Keyword arguments always override default and environment settings
-        for kw in kwargs.keys():
-            if kw in DEFAULT_SETTINGS:
-                self.settings[kw] = kwargs[kw]
+        for kwarg in kwargs:
+            if kwarg in DEFAULT_SETTINGS:
+                self.settings[kwarg] = kwargs[kwarg]
 
     def __getitem__(self, key):
         """

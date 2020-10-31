@@ -36,9 +36,17 @@ You also need the following dependencies (Only if you clone the source code):
 * Markdown-full-yaml-metadata
 * Pygments
 
-Theses dependencies can be easily installed using _pip_ (Only if you clone the source code). Invoke it with the `-r <file>` parameter:
+These dependencies can be easily installed using _pipenv_:
 
-```pip install -r requirements.txt```
+    :::bash
+    pipenv install
+
+If you need to install the development dependencies, use ```--dev``` flag.
+
+    :::bash
+    pipenv install --dev
+
+**NOTE:** Requirements.txt its no longer available.
  
 If you want to run Blask, use the next code to create a standalone app:
 
@@ -164,6 +172,7 @@ Here is the description of the metadata used in posts:
 * **category**: Category of the post.
 * **author**: Author of the post.
 * **title**: Title of the post; it will be shown as the html title of the page. It is not setted, the settings title will be used.
+* **periodicity**: the value of the _changefreq_ tag on the sitemap Screen. The values of this metadata are: _always, hourly, daily, weekly, monthly(default), yearly, never_.
 
 ## <a id="create-template"></a>Create a Template
 
@@ -236,7 +245,7 @@ Blask, have an Sitemap.xml file automatic generation. To see the sitemap file ge
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         <url>
             <loc>http://localhost:5000/</loc>
-            <lastmod>2020/03/13</lastmod>
+            <lastmod>2020-03-13</lastmod>
             <changefreq>monthly</changefreq>
             <priority>0.5</priority></url>
         </url>

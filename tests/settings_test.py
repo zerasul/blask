@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
-from Blask import blasksettings
-from Blask.blasksettings import BlaskSettings
+from blask import blasksettings
+from blask.blasksettings import BlaskSettings
 from pytest import fixture, raises
 
 
@@ -13,7 +13,7 @@ class TestBlaskSettings:
             assert settings[kw] == blasksettings.DEFAULT_SETTINGS[kw]
 
     def test_from_environ(self):
-        os.environ['BLASK_SETTINGS'] = 'testsettings'  # changed for new pytest
+        os.environ['BLASK_SETTINGS'] = 'tests.testsettings'  # changed for new pytest
         settings = BlaskSettings()
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
             if kw == 'postDir':

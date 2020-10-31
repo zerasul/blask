@@ -1,5 +1,5 @@
 """
-Blask
+blask
 
 Copyright (C) 2018  https://github.com/zerasul/blask
 
@@ -20,10 +20,12 @@ from os import path, listdir
 from hashlib import sha3_512
 from datetime import datetime
 from xml.etree import ElementTree as ET
+from flask.helpers import safe_join
+from werkzeug.exceptions import NotFound
 
 from markdown import Markdown
 
-from Blask.errors import PageNotExistError
+from blask.errors import PageNotExistError
 
 
 class BlogRenderer:
@@ -56,23 +58,31 @@ class BlogRenderer:
             Render a markdown and returns the blogEntry.
             Note: This method uses a cache based on a SHA-256 hash of the
             content.
-        :param filename: Number of the file without extension.
+        :param filename: Name of the file without extension.
         :return: BlogEntry.
-        :raises PageNotExistError Raise this error if file does not exists.
+        :raises PageNotExistError Raise this error if file does not exist or
+            would fall out of the posts directory.
         """
-        filepath = path.join(self.postdir, filename + ".md")
-        if not path.exists(filepath):
-            raise PageNotExistError(f"{filename} does not exists in {self.postdir} directory")
-        with open(filepath, "r", encoding="utf-8") as content_file:
-            content = content_file.read()
-            # Check cache
-            content_hash = sha3_512(content.encode())
-            if content_hash not in self.cache:
-                entry = self.rendertext(filename, content)
-                self.cache[content_hash] = entry
+        page_not_exist_exception = PageNotExistError(f"{filename} does not exists in {self.postdir} directory")
+        try:
+            file = f"{filename}.md"
+            filepath = safe_join(self.postdir, file)
+        except NotFound:  # file would fall out of given directory
+            raise page_not_exist_exception
+        try:
+            with open(filepath, "r", encoding="utf-8") as content_file:
+                content = content_file.read()
+                # Check cache
+                content_hash = sha3_512(content.encode())
+                if content_hash not in self.cache:
+                    entry = self.rendertext(filename, content)
+                    self.cache[content_hash] = entry
+        except FileNotFoundError:
+            raise page_not_exist_exception
 
         return self.cache[content_hash]
 
+    # pylint: disable=R0201
     def rendertext(self, filename, text):
         """
          Render a Markdown Text and returns the BlogEntry.
@@ -80,18 +90,19 @@ class BlogRenderer:
         :param text: Text write in Markdown.
         :return: BlogEntry.
         """
-        md = Markdown(extensions=["meta", "markdown.extensions.codehilite"])
-        entry = BlogEntry(filename, md, text)
+        mark_down = Markdown(extensions=["meta", "markdown.extensions.codehilite"])
+        entry = BlogEntry(filename, mark_down, text)
         return entry
 
+    #pylint: disable=dangerous-default-value
     def list_posts(
-        self,
-        tags=[],
-        exclusions=["index.md", "404.md"],
-        search="",
-        category="",
-        author="",
-        orderbydate=True,
+            self,
+            tags=None,
+            exclusions=["index.md", "404.md"],
+            search="",
+            category="",
+            author="",
+            orderbydate=True,
     ):
         """
         Search a list of Posts returning a list of BlogEntry ordered By Date.
@@ -114,7 +125,7 @@ class BlogRenderer:
         entries = list(map(lambda l: self.renderfile(l), mapfilter))
         if tags:
             for tag in tags:
-                entries = list(filter(lambda l: tag in l.tags, entries))
+                entries = list(filter(lambda l ,t=tag: t in l.tags, entries))
         if category:
             entries = list(filter(lambda c: c.category == category, entries))
         if author:
@@ -136,13 +147,14 @@ class BlogRenderer:
         :return: list with all the paths of the files
         """
         posts = []
-        for f in listdir(directory):
-            if path.isdir(path.join(directory, f)):
+        for file in listdir(directory):
+            if path.isdir(safe_join(directory, file)):
                 posts.extend(
-                    self._listdirectoriesrecursive(path.join(directory, f), path.join(append, f))
+                    self._listdirectoriesrecursive(safe_join(directory, file),
+                                                   safe_join(append, file))
                 )
             else:
-                posts.append(path.join(append, f))
+                posts.append(safe_join(append, file))
         return posts
 
     def generate_sitemap_xml(self, postlist, baseurl="http://localhost:5000"):
@@ -153,32 +165,43 @@ class BlogRenderer:
         """
         root = ET.Element("urlset", attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
         rpostlist = self._listdirectoriesrecursive(postlist)
+        rpostlist.remove("index.md")
+        rpostlist = list(map(lambda l: path.splitext(l)[0], rpostlist))
+        rpostlist = list(map(lambda l: self.renderfile(l), rpostlist))
         # add index
         urlindex = ET.SubElement(root, "url")
         locindex = ET.SubElement(urlindex, "loc")
         locindex.text = baseurl
         lastmodif = ET.SubElement(urlindex, "lastmod")
         tmp = path.getmtime(path.join(postlist, "index.md"))
-        lastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y/%m/%d")
+        lastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y-%m-%d")
         changefreq = ET.SubElement(urlindex, "changefreq")
         changefreq.text = "monthly"
         priority = ET.SubElement(urlindex, "priority")
         priority.text = "0.5"
-        for p in rpostlist:
-            title = p.replace(".md", "")
-            title = title.replace("\\", "/")
+        for post in rpostlist:
+            if post.name:
+                title = post.name
+
             purlindex = ET.SubElement(root, "url")
             plocindex = ET.SubElement(purlindex, "loc")
             plocindex.text = baseurl + title
             plastmodif = ET.SubElement(purlindex, "lastmod")
-            tmp = path.getmtime(path.join(postlist, p))
-            plastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y/%m/%d")
+            filetitle = f"{post.name}.md"
+            tmp = path.getmtime(safe_join(self.postdir, filetitle))
+            plastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y-%m-%d")
             pchangefreq = ET.SubElement(purlindex, "changefreq")
-            pchangefreq.text = "monthly"
+            if post.periodicity:
+                pchangefreq.text = post.periodicity
+            else:
+                pchangefreq.text= "monthly"
+            
             priority = ET.SubElement(purlindex, "priority")
+            
             priority.text = "0.5"
         return ET.tostring(root, encoding="UTF-8", method="xml")
 
+    # pylint: disable=R0201
     def generatetagpage(self, postlist):
         """
         Get a HTML with links of the entries.
@@ -194,6 +217,8 @@ class BlogRenderer:
         return content
 
 
+# pylint: disable=too-many-instance-attributes
+# pylint: disable=too-few-public-methods
 class BlogEntry:
     """"
     This class has the information about the Blog Posts.
@@ -217,6 +242,8 @@ class BlogEntry:
     """ Name of the post"""
     title = None
     """ Title of the Post"""
+    periodicity = None
+    """ periodicity of the post for sitemap"""
 
     def __init__(self, name, md, content):
         """
@@ -241,6 +268,8 @@ class BlogEntry:
                 self.author = meta["author"][0]
             if "title" in meta.keys():
                 self.title = meta["title"][0]
+            if "periodicity" in meta.keys():
+                self.periodicity = meta["periodicity"][0]
 
     def __str__(self):
         """

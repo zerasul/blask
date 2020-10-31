@@ -1,0 +1,41 @@
+name: blask Build
+on:
+  push:
+    branches:
+      - master
+      - githubactions
+
+env: 
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+
+      - name: Setup python 3.6
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+
+      - name: Setup sonarqube
+        uses: warchant/setup-sonar-scanner@v1
+
+      - name: pip install
+        run : |
+            pip install pipenv
+            pipenv install --dev
+            pip install pylint
+
+      - name: Code coverage
+        run : pipenv run test
+      
+      - name: PyLint
+        run : pipenv run linter
+
+      - name: Sonar cube
+        run: sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=blask-project-key -Dsonar.sources=Blask/ -Dsonar.organization=zerasul-github -Dsonar.python.coverage.reportPaths=coverage.xml -Dsonar.projectName=Blask

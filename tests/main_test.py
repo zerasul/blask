@@ -1,5 +1,5 @@
 from pytest import fixture
-from Blask import BlaskApp
+from blask import BlaskApp
 import settings
 
 
@@ -26,7 +26,7 @@ class TestMain:
     def test_page(self):
         response = self.testClient.get("/about")
         assert response.status_code == 200
-        assert b"To use Blask, you only need to edit" in response.data
+        assert b"Blask is a simple Blogging engine " in response.data
 
     def test_nopage(self):
         response = self.testClient.get("/nopageerror")
@@ -55,9 +55,11 @@ class TestMain:
     def test_sub_page(self):
         response = self.testClient.get("/releases/sub2/test")
         assert response.status_code == 200
-        assert b"subdirectory test" in response.data
+        assert b"subdirectory" in response.data
 
     def test_get_sitemap(self):
         response = self.testClient.get("/sitemap.xml")
         assert response.status_code == 200
         assert b"<url><loc>http://localhost" in response.data
+        assert b"/index" not in response.data
+        

@@ -5,10 +5,12 @@ addons:
 python:
     - "3.6"
 install:
-    - "pip install -r requirements.txt"
+    - "pip install pipenv"
+    - "pipenv install --dev"
     - "pip install pylint"
 script: 
-    - export PYTHONPATH=$PYTHONPATH:$(pwd) && pytest --cov=Blask --cov-report=xml && pylint Blask --exit-zero
-    - sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=blask-project-key -Dsonar.sources=Blask/ -Dsonar.organization=zerasul-github -Dsonar.python.coverage.reportPaths=coverage.xml -Dsonar.projectName=Blask
+    - pipenv run test
+    - pipenv run linter
+    - sonar-scanner -Dsonar.login=${SONAR_TOKEN} -Dsonar.projectKey=blask-project-key -Dsonar.sources=blask/ -Dsonar.organization=zerasul-github -Dsonar.python.coverage.reportPaths=coverage.xml -Dsonar.projectName=blask
 after_success:
   coveralls

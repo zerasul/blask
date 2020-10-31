@@ -1,5 +1,5 @@
 """
-Blask
+blask
 
 Copyright (C) 2018  https://github.com/zerasul/blask
 
@@ -16,17 +16,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
-
+from flask.helpers import safe_join
 from flask import Flask, render_template, request, abort, Response
-from Blask.blasksettings import BlaskSettings
-from Blask.blogrenderer import BlogRenderer
-from Blask.errors import PageNotExistError
-from os.path import join
+from blask.blasksettings import BlaskSettings
+from blask.blogrenderer import BlogRenderer
+from blask.errors import PageNotExistError
+
 
 
 class BlaskApp:
     """
-    Blask Application Main Class
+    blask Application Main Class
     :Author: Zerasul <suarez.garcia.victor@gmail.com>
     date: 2018-05-05
     """
@@ -36,7 +36,7 @@ class BlaskApp:
 
     def __init__(self, **kwargs):
         """
-        Initialices a new Blask Instance
+        Initialices a new blask Instance
         :param kwargs: Dictionary with all the required settings;
             for more info see :settings
         """
@@ -106,7 +106,7 @@ class BlaskApp:
         )
 
     def _get_subpage(self, subpath, filename):
-        subfilename = join(subpath, filename)
+        subfilename = safe_join(subpath, filename)
         return self._getpage(subfilename)
 
     def _get_sitemap(self):
@@ -177,7 +177,7 @@ class BlaskApp:
 
     def run(self, **kwargs):
         """
-        Run the current instance of Blask
+        Run the current instance of blask
         :param kwargs: Dictionary with all the required settings.
         """
         self.app.run(**kwargs)
