@@ -22,3 +22,8 @@ pylint = ">=2.4.4"
 
 [requires]
 python_version = "python 3.7"
+
+[scripts]
+
+test = "pytest --cov=blask --cov-report=xml"
+linter =  "pylint blask --exit-zero"

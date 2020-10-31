@@ -32,7 +32,10 @@ jobs:
             pip install pylint
 
       - name: Code coverage
-        run : pipenv run pytest --cov=Blask --cov-report=xml && pylint Blask --exit-zero
+        run : pipenv run test
+      
+      - name: PyLint
+        run : pipenv run linter
 
       - name: Sonar cube
         run: sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=blask-project-key -Dsonar.sources=Blask/ -Dsonar.organization=zerasul-github -Dsonar.python.coverage.reportPaths=coverage.xml -Dsonar.projectName=Blask
