@@ -28,7 +28,7 @@ jobs:
       - name: pip install
         run : |
             pip install pipenv
-            pipenv install
+            pipenv install --dev
             pip install pylint
 
       - name: Code coverage
