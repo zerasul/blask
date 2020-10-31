@@ -13,12 +13,9 @@ pygments = ">=2.2.0"
 
 
 [dev-packages]
-flake8 = ">=3.7.9"
-mypy = ">=0.761"
 pytest = ">=5.3.0"
 pytest-cov = ">=2.7.1"
 pytest-mock = ">=1.10.4"
-pylint = ">=2.4.4"
 
 [requires]
 python_version = "python 3.7"
