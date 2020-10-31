@@ -165,29 +165,39 @@ class BlogRenderer:
         """
         root = ET.Element("urlset", attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
         rpostlist = self._listdirectoriesrecursive(postlist)
+        rpostlist.remove("index.md")
+        rpostlist = list(map(lambda l: path.splitext(l)[0], rpostlist))
+        rpostlist = list(map(lambda l: self.renderfile(l), rpostlist))
         # add index
         urlindex = ET.SubElement(root, "url")
         locindex = ET.SubElement(urlindex, "loc")
         locindex.text = baseurl
         lastmodif = ET.SubElement(urlindex, "lastmod")
         tmp = path.getmtime(path.join(postlist, "index.md"))
-        lastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y/%m/%d")
+        lastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y-%m-%d")
         changefreq = ET.SubElement(urlindex, "changefreq")
         changefreq.text = "monthly"
         priority = ET.SubElement(urlindex, "priority")
         priority.text = "0.5"
         for post in rpostlist:
-            title = post.replace(".md", "")
-            title = title.replace("\\", "/")
+            if post.name:
+                title = post.name
+
             purlindex = ET.SubElement(root, "url")
             plocindex = ET.SubElement(purlindex, "loc")
             plocindex.text = baseurl + title
             plastmodif = ET.SubElement(purlindex, "lastmod")
-            tmp = path.getmtime(path.join(postlist, post))
-            plastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y/%m/%d")
+            filetitle = f"{post.name}.md"
+            tmp = path.getmtime(safe_join(self.postdir, filetitle))
+            plastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y-%m-%d")
             pchangefreq = ET.SubElement(purlindex, "changefreq")
-            pchangefreq.text = "monthly"
+            if post.periodicity:
+                pchangefreq.text = post.periodicity
+            else:
+                pchangefreq.text= "monthly"
+            
             priority = ET.SubElement(purlindex, "priority")
+            
             priority.text = "0.5"
         return ET.tostring(root, encoding="UTF-8", method="xml")
 
@@ -232,6 +242,8 @@ class BlogEntry:
     """ Name of the post"""
     title = None
     """ Title of the Post"""
+    periodicity = None
+    """ periodicity of the post for sitemap"""
 
     def __init__(self, name, md, content):
         """
@@ -256,6 +268,8 @@ class BlogEntry:
                 self.author = meta["author"][0]
             if "title" in meta.keys():
                 self.title = meta["title"][0]
+            if "periodicity" in meta.keys():
+                self.periodicity = meta["periodicity"][0]
 
     def __str__(self):
         """

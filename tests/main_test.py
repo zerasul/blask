@@ -61,3 +61,5 @@ class TestMain:
         response = self.testClient.get("/sitemap.xml")
         assert response.status_code == 200
         assert b"<url><loc>http://localhost" in response.data
+        assert b"/index" not in response.data
+        
