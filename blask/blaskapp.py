@@ -23,7 +23,6 @@ from blask.blogrenderer import BlogRenderer
 from blask.errors import PageNotExistError
 
 
-
 class BlaskApp:
     """
     blask Application Main Class
@@ -47,16 +46,26 @@ class BlaskApp:
             template_folder=self.settings["templateDir"],
             static_folder=self.settings["staticDir"],
         )
-        self.app.add_url_rule("/", endpoint="index", view_func=self._index, methods=["GET"])
-        self.app.add_url_rule("/sitemap.xml", view_func=self._get_sitemap, methods=["GET"])
-        self.app.add_url_rule("/<filename>", view_func=self._getpage, methods=["GET"])
         self.app.add_url_rule(
-            "/<path:subpath>/<filename>", view_func=self._get_subpage, methods=["GET"]
+            "/", endpoint="index", view_func=self._index, methods=["GET"])
+        self.app.add_url_rule(
+            "/sitemap.xml", view_func=self._get_sitemap, methods=["GET"])
+        self.app.add_url_rule(
+            "/<filename>", view_func=self._getpage, methods=["GET"])
+        self.app.add_url_rule(
+            "/<path:subpath>/<filename>",
+            view_func=self._get_subpage, methods=["GET"]
         )
-        self.app.add_url_rule("/tag/<tag>", view_func=self._gettag, methods=["GET"])
-        self.app.add_url_rule("/search", view_func=self.searchpages, methods=["POST"])
-        self.app.add_url_rule("/category/<category>", view_func=self._getcategory, methods=["GET"])
-        self.app.add_url_rule("/author/<author>", view_func=self._getauthor, methods=["GET"])
+        self.app.add_url_rule(
+            "/tag/<tag>", view_func=self._gettag, methods=["GET"])
+        self.app.add_url_rule(
+            "/search", view_func=self.searchpages, methods=["POST"])
+        self.app.add_url_rule(
+            "/category/<category>",
+            view_func=self._getcategory, methods=["GET"]
+        )
+        self.app.add_url_rule(
+            "/author/<author>", view_func=self._getauthor, methods=["GET"])
         # Register the error handler for each setting
         for error in self.settings["errors"].keys():
             self.app.register_error_handler(error, f=self._handle_http_errors)
@@ -70,7 +79,8 @@ class BlaskApp:
         template = entry.template
         if template is None:
             template = self.settings["defaultLayout"]
-        return render_template(template, title=self.settings["title"], content=entry.content)
+        return render_template(
+            template, title=self.settings["title"], content=entry.content)
 
     def _getpage(self, filename):
         """
@@ -115,7 +125,8 @@ class BlaskApp:
         :returns: prints the sitemapfile
         """
         return Response(
-            self.blogrenderer.generate_sitemap_xml(self.settings["postDir"], request.url_root),
+            self.blogrenderer.generate_sitemap_xml(
+                self.settings["postDir"], request.url_root),
             content_type="text/xml",
         )
 
@@ -128,7 +139,9 @@ class BlaskApp:
         postlist = self.blogrenderer.list_posts([tag])
         content = self.blogrenderer.generatetagpage(postlist)
         return render_template(
-            self.settings["defaultLayout"], title=self.settings["title"], content=content
+            self.settings["defaultLayout"],
+            title=self.settings["title"],
+            content=content
         )
 
     def searchpages(self):
@@ -139,7 +152,9 @@ class BlaskApp:
         postlist = self.blogrenderer.list_posts(search=request.form["search"])
         content = self.blogrenderer.generatetagpage(postlist)
         return render_template(
-            self.settings["defaultLayout"], title=self.settings["title"], content=content
+            self.settings["defaultLayout"],
+            title=self.settings["title"],
+            content=content
         )
 
     def _getcategory(self, category):
@@ -151,7 +166,9 @@ class BlaskApp:
         postlist = self.blogrenderer.list_posts(category=category)
         content = self.blogrenderer.generatetagpage(postlist)
         return render_template(
-            self.settings["defaultLayout"], title=self.settings["title"], content=content
+            self.settings["defaultLayout"],
+            title=self.settings["title"],
+            content=content
         )
 
     def _getauthor(self, author):
@@ -163,7 +180,9 @@ class BlaskApp:
         postlist = self.blogrenderer.list_posts(author=author)
         content = self.blogrenderer.generatetagpage(postlist)
         return render_template(
-            self.settings["defaultLayout"], title=self.settings["title"], content=content
+            self.settings["defaultLayout"],
+            title=self.settings["title"],
+            content=content
         )
 
     def _handle_http_errors(self, error_message):
