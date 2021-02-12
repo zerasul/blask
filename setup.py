@@ -20,15 +20,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 from setuptools import setup, find_packages
 from pathlib import Path
 
-info_file = Path(__file__).resolve().parents[0] / "README.md"
+base_dir = Path(__file__).resolve().parents[0]
+
+info_file = base_dir / "README.md"
 with info_file.open() as f:
     long_desc = f.read()
 # adding nonpython files to package
-mdownfile = Path(__file__).resolve().parents[0] / "blask" / "markdown_template.md"
-indextempfile = Path(__file__).resolve().parents[0] / "blask" / "index_template.html"
-Dockerfile_template = Path(__file__).resolve().parents[0] / "blask" / "Dockerfile_template"
-default404 = Path(__file__).resolve().parents[0] / "blask" / "default_404.md"
-default_env = Path(__file__).resolve().parents[0] / "blask" / "default_env.env"
+mdownfile = base_dir / "blask" / "markdown_template.md"
+indextempfile = base_dir / "blask" / "index_template.html"
+Dockerfile_template = base_dir / "blask" / "Dockerfile_template"
+default404 = base_dir / "blask" / "default_404.md"
+default_env = base_dir / "blask" / "default_env.env"
 
 setup(
     name="blask",

@@ -8,7 +8,8 @@ from blask.errors import PageNotExistError
 class TestblogRender:
 
     blogrender = None
-    markdowntest = "---\ntitle: test\ndate: 2018-03-03\ntags: test,test2\n ---\n test"
+    markdowntest = (
+        "---\ntitle: test\ndate: 2018-03-03\ntags: test,test2\n ---\n test")
 
     @fixture(autouse=True)
     def initialize(self):
@@ -54,9 +55,9 @@ class TestblogRender:
 
     def test_str(self):
         entry = self.blogrender.renderfile("index")
-        str(entry)
+        str(entry)  # TODO: Test incompleted
 
-    def test_listDirectories(self):
+    def test_list_directories(self):
         entries = self.blogrender.list_posts(["subdir"])
         assert len(entries) == 1
         entrieslist = self.blogrender.generatetagpage(entries)

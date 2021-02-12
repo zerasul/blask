@@ -2,7 +2,7 @@ import argparse
 import logging
 from blask import BlaskApp
 
-application=BlaskApp().app
+application = BlaskApp().app
 
 if __name__ == '__main__':
     # Argument parsing
