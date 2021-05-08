@@ -7,6 +7,7 @@ on:
 
 env: 
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
   test:
@@ -16,10 +17,10 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v2
 
-      - name: Setup python 3.6
+      - name: Setup python 3.7
         uses: actions/setup-python@v2
         with:
-          python-version: '3.6' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          python-version: '3.7' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
 
       - name: Setup sonarqube
