@@ -53,7 +53,7 @@ If you want to run Blask, use the next code to create a standalone app:
     :::python
     import argparse
     import logging
-    from Blask import BlaskApp
+    from blask import BlaskApp
 
 
     if __name__ == '__main__':
@@ -300,7 +300,7 @@ pip install gunicorn
 Later, you need to configure your application for use an wsgi server; here is the code for use Blask with WSGI:
 
     :::python
-    from Blask import Blaskapp
+    from blask import Blaskapp
     application=BlaskApp().app
     
     if __name__ == '__main__':
@@ -361,7 +361,7 @@ You can use Python Anywhere to run and deploy you Blask based applications; only
 5 change the content of your ```flask_app.py``` file with the next content:
 
     :::python
-    from Blask import BlaskApp
+    from blask import BlaskApp
 
     app=BlaskApp().app
 
