@@ -135,7 +135,7 @@ def init(with_docker):
         cliController.createsettingsfile()
         cliController.createnotfoundpage(path.join(postdir, '404.md'))
         if with_docker:
-            CLIController.createdockerfile(path.join("Dockerfile"))
+            cliController.createdockerfile(path.join("Dockerfile"))
         click.echo("Created new blask project on %s" % getcwd())
         click.echo("Now you can execute: blaskcli run")
     except FileExistsError:

@@ -34,7 +34,7 @@ default_env = base_dir / "blask" / "default_env.env"
 
 setup(
     name="blask",
-    version="0.2.2",
+    version="0.2.3",
     packages=find_packages(exclude=["tests"]),
     url="https://getblask.com",
     license="GPL 3.0",
@@ -46,6 +46,8 @@ setup(
         "Topic :: Internet :: WWW/HTTP :: Dynamic Content :: News/Diary",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     package_data={
         "blask": [
@@ -62,7 +64,7 @@ setup(
     """,
     long_description=long_desc,
     long_description_content_type="text/markdown",
-    python_requires=">=3",
+    python_requires=">=3.6",
     install_requires=["flask", "markdown", "Pygments", "click"],
     test_requires=["pytest", "pytest-cov", "pylint", "pytest-mock"],
 )
