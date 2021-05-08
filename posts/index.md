@@ -24,7 +24,7 @@ Before you run the code you have to export the BLASK_SETTINGS enviorement variab
 Only you need to run the next code:
 
     :::python
-      from Blask import BlaskApp
+      from blask import BlaskApp
     
       if __name__== '__main__':
           BlaskApp().run() 

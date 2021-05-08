@@ -38,7 +38,7 @@ You can export a environment variable that point to this file:
 You can run the application using this code:
 
     :::python
-    from Blask.Blask import BlaskApp
+    from blask.Blask import BlaskApp
     import settings
 
     if __name__ == '__main__':
@@ -49,7 +49,7 @@ You can run the application using this code:
 If you use the environment Variable you can run Blask without arguments:
 
     :::python
-    from Blask.Blask import BlaskApp
+    from blask.Blask import BlaskApp
     import settings
 
     if __name__ == '__main__':
