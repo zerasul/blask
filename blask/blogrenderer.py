@@ -63,7 +63,8 @@ class BlogRenderer:
         :raises PageNotExistError Raise this error if file does not exist or
             would fall out of the posts directory.
         """
-        page_not_exist_exception = PageNotExistError(f"{filename} does not exists in {self.postdir} directory")
+        page_not_exist_exception = PageNotExistError(
+            f"{filename} does not exists in {self.postdir} directory")
         try:
             file = f"{filename}.md"
             filepath = safe_join(self.postdir, file)
@@ -90,11 +91,12 @@ class BlogRenderer:
         :param text: Text write in Markdown.
         :return: BlogEntry.
         """
-        mark_down = Markdown(extensions=["meta", "markdown.extensions.codehilite"])
+        mark_down = Markdown(
+            extensions=["meta", "markdown.extensions.codehilite"])
         entry = BlogEntry(filename, mark_down, text)
         return entry
 
-    #pylint: disable=dangerous-default-value
+    # pylint: disable=dangerous-default-value
     def list_posts(
             self,
             tags=None,
@@ -125,7 +127,7 @@ class BlogRenderer:
         entries = list(map(lambda l: self.renderfile(l), mapfilter))
         if tags:
             for tag in tags:
-                entries = list(filter(lambda l ,t=tag: t in l.tags, entries))
+                entries = list(filter(lambda l, t=tag: t in l.tags, entries))
         if category:
             entries = list(filter(lambda c: c.category == category, entries))
         if author:
@@ -135,8 +137,10 @@ class BlogRenderer:
         if orderbydate:
             # create a sublist with only entries with date
             dateredentries = list(filter(lambda e: e.date is None, entries))
-            notdateredentries = list(filter(lambda d: d.date is not None, entries))
-            entries = list(sorted(dateredentries, key=lambda t: t.date, reverse=True))
+            notdateredentries = list(
+                filter(lambda d: d.date is not None, entries))
+            entries = list(
+                sorted(dateredentries, key=lambda t: t.date, reverse=True))
             entries.extend(notdateredentries)
         return entries
 
@@ -163,7 +167,9 @@ class BlogRenderer:
         :param postlist: list with all the posts for the sitemapxml.
         :return: return the xml output for the Sitemap.xml file.
         """
-        root = ET.Element("urlset", attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
+        root = ET.Element(
+            "urlset",
+            attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
         rpostlist = self._listdirectoriesrecursive(postlist)
         rpostlist.remove("index.md")
         rpostlist = list(map(lambda l: path.splitext(l)[0], rpostlist))
@@ -182,7 +188,6 @@ class BlogRenderer:
         for post in rpostlist:
             if post.name:
                 title = post.name
-
             purlindex = ET.SubElement(root, "url")
             plocindex = ET.SubElement(purlindex, "loc")
             plocindex.text = baseurl + title
@@ -194,10 +199,8 @@ class BlogRenderer:
             if post.periodicity:
                 pchangefreq.text = post.periodicity
             else:
-                pchangefreq.text= "monthly"
-            
+                pchangefreq.text = "monthly"
             priority = ET.SubElement(purlindex, "priority")
-            
             priority.text = "0.5"
         return ET.tostring(root, encoding="UTF-8", method="xml")
 

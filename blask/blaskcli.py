@@ -95,7 +95,8 @@ def blaskcli():
 
 
 @blaskcli.command(help="Run the instance of blask")
-@click.option("--debug", default=False, help="Init with de debug flag", is_flag=True)
+@click.option(
+    "--debug", default=False, help="Init with de debug flag", is_flag=True)
 @click.option(
     "--port", default=5000, help="Port where the server is listening")
 @click.option(
@@ -111,11 +112,12 @@ def run(debug, port, host):
 
 @blaskcli.command(help="Initialize a new blask Project")
 @click.option(
-    "--with-docker", default=False, help="Add a DockerFile to the blask directory", is_flag=True)
+    "--with-docker", default=False,
+    help="Add a DockerFile to the blask directory", is_flag=True)
 def init(with_docker):
     """
     Inits a new blask Instance; with the default options.
-    :param with_docker: if is set to True, add a Dockerfile in the root directory.
+    :param with_docker: if is True, add a Dockerfile in the root directory.
     """
     click.echo("Initializing new blask Project")
     click.echo("Using default Settings")
@@ -133,7 +135,7 @@ def init(with_docker):
         cliController.createsettingsfile()
         cliController.createnotfoundpage(path.join(postdir, '404.md'))
         if with_docker:
-            CLIController.createdockerfile(path.join("Dockerfile"))
+            cliController.createdockerfile(path.join("Dockerfile"))
         click.echo("Created new blask project on %s" % getcwd())
         click.echo("Now you can execute: blaskcli run")
     except FileExistsError:
