@@ -50,6 +50,7 @@ We also have some [examples](/examples) available.
 
 Here are the release notes of each Blask version:
 
+* [0.2.3](/0.2.3)
 * [0.2.2](/0.2.2)
 * [0.2.1](/0.2.1)
 * [0.2.0](/0.2.0)
