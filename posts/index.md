@@ -21,7 +21,7 @@ Before you run the code you have to export the BLASK_SETTINGS enviorement variab
     :::bash
     export BLASK_SETTINGS=settings
 
-Only you need to run the next code:
+You only need to run the next code:
 
     :::python
       from blask import BlaskApp
@@ -29,7 +29,7 @@ Only you need to run the next code:
       if __name__== '__main__':
           BlaskApp().run() 
 
-Or You can use the _Blask Command Line Tool_:
+Or use the _Blask Command Line Tool_:
 
     :::bash
     blaskcli run
@@ -65,7 +65,7 @@ Here are the release notes of each Blask version:
 
 Blask is Open Source under the [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) license. You can see the source code in our [Github repository](https://github.com/zerasul/blask).
 
-Also, you can see:
+You can also see:
 
 * [Authors](https://github.com/zerasul/blask/graphs/contributors)
 * [Issue Tracker](https://github.com/zerasul/blask/issues)
