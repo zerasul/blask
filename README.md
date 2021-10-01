@@ -15,7 +15,7 @@ or download the source code:
 
 ```git clone https://github.com/zerasul/blask/```
 
-Later, you need to create a ```settings.py``` file:
+After downloading you need to create a ```settings.py``` file:
 
 ```python
 templateDir = "templates"
@@ -26,7 +26,13 @@ title = "Blask | A Simple Blog Engine Based on Flask"
 errors= { 404: "404"}
 ```
 
-For last, to Run Blask, use the next Code:
+You can also use an environment variable to set the settings:
+
+```bash
+   export BLASK_SETTINGS=settings
+```
+
+To Run Blask, use the following Code:
 
 ```python
     from blask import BlaskApp
@@ -37,12 +43,6 @@ For last, to Run Blask, use the next Code:
                   , defaultLayout=settings.defaultLayout,
               staticDir=settings.staticDir, title=settings.title, errors={404:'404'})
         b.run()
-```
-
-Also, you can use a environment variable to set the settings:
-
-```bash
-   export BLASK_SETTINGS=settings
 ```
 
 You can use the Blask Command Line Tool to run the site:
