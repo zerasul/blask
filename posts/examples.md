@@ -70,7 +70,7 @@ Once we save the previous file, we can point the browser to http://localhost:500
 To create a new template, create a new HTML file in the templates folder, and inside the HTML code
 include the Jinja2 template `content`. Here is an example:
 
-![precode-html](static/img/precodehtml.png)
+![precode-html](../static/img/precodehtml.png)
 
 Once you create a new template, you can reference it in two ways:
 
