@@ -26,7 +26,7 @@ title = "Blask | A Simple Blog Engine Based on Flask"
 errors= { 404: "404"}
 ```
 
-You can also use a environment variable to set the settings:
+You can also use an environment variable to set the settings:
 
 ```bash
    export BLASK_SETTINGS=settings
