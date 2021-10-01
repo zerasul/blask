@@ -21,7 +21,7 @@ In this page we can see all the documentation about the Blask Project:
 
 ## <a id="init-blask"></a>Init Blask
 
-To init and use Blask you need **Python 3.4 or later**. you can use `pip` to install Blask.
+To init and use Blask you need **Python 3.6 or later**. you can use `pip` to install Blask.
 
     pip install blask
     
