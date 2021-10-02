@@ -27,6 +27,7 @@ from markdown import Markdown
 
 from blask.errors import PageNotExistError
 
+INDEX = "index.md"
 
 class BlogRenderer:
     """
@@ -100,7 +101,7 @@ class BlogRenderer:
     def list_posts(
             self,
             tags=None,
-            exclusions=["index.md", "404.md"],
+            exclusions=[INDEX, "404.md"],
             search="",
             category="",
             author="",
@@ -171,7 +172,7 @@ class BlogRenderer:
             "urlset",
             attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
         rpostlist = self._listdirectoriesrecursive(postlist)
-        rpostlist.remove("index.md")
+        rpostlist.remove(INDEX)
         rpostlist = list(map(lambda l: path.splitext(l)[0], rpostlist))
         rpostlist = list(map(lambda l: self.renderfile(l), rpostlist))
         # add index
@@ -179,8 +180,8 @@ class BlogRenderer:
         locindex = ET.SubElement(urlindex, "loc")
         locindex.text = baseurl
         lastmodif = ET.SubElement(urlindex, "lastmod")
-        tmp = path.getmtime(path.join(postlist, "index.md"))
-        lastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y-%m-%d")
+        tmp = path.getmtime(path.join(postlist, INDEX))
+        lastmodif.text = datetime.fromtimestamp(tmp).strftime(self.date_format)
         changefreq = ET.SubElement(urlindex, "changefreq")
         changefreq.text = "monthly"
         priority = ET.SubElement(urlindex, "priority")
@@ -194,7 +195,7 @@ class BlogRenderer:
             plastmodif = ET.SubElement(purlindex, "lastmod")
             filetitle = f"{post.name}.md"
             tmp = path.getmtime(safe_join(self.postdir, filetitle))
-            plastmodif.text = datetime.fromtimestamp(tmp).strftime("%Y-%m-%d")
+            plastmodif.text = datetime.fromtimestamp(tmp).strftime(self.date_format)
             pchangefreq = ET.SubElement(purlindex, "changefreq")
             if post.periodicity:
                 pchangefreq.text = post.periodicity
@@ -220,6 +221,7 @@ class BlogRenderer:
         return content
 
 
+# pylint: disable=too-few-public-methods
 class BlogEntry:
     """"
     This class has the information about the Blog Posts.
@@ -245,6 +247,8 @@ class BlogEntry:
     """ Title of the Post"""
     periodicity = None
     """ periodicity of the post for sitemap"""
+    date_format = "%Y-%m-%d"
+    """ date format for the post"""
 
     def __init__(self, name, md, content):
         """
@@ -258,7 +262,7 @@ class BlogEntry:
         meta = md.Meta
         if meta:
             if "date" in meta.keys():
-                self.date = datetime.strptime(meta["date"][0], "%Y-%m-%d")
+                self.date = datetime.strptime(meta["date"][0], self.date_format)
             if "tags" in meta.keys():
                 self.tags = meta["tags"][0].split(",")
             if "template" in meta.keys():
