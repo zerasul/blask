@@ -53,6 +53,23 @@ You can use the Blask Command Line Tool to run the site:
 
 For more information, see the [Blask web page](http://getblask.com/). Also, you can subscribe to our [Mailing List](https://www.freelists.org/archive/blask_mail_list).
 
+## Development with Docker
+
+To use Docker to provide a development environment, make sure you have Docker installed, along with docker-compose of at least version 1.27.
+
+Run this command to start your development environment:
+
+```bash
+docker-compose up -d
+```
+
+To shut down your development environment, run this command:
+
+```bash
+docker-compose down
+```
+
+You can access your Blask development site by visiting http://localhost:8000 in your browser.
 
 ---
 
