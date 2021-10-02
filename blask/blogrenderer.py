@@ -220,8 +220,6 @@ class BlogRenderer:
         return content
 
 
-# pylint: disable=too-many-instance-attributes
-# pylint: disable=too-few-public-methods
 class BlogEntry:
     """"
     This class has the information about the Blog Posts.
