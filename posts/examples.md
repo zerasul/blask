@@ -25,7 +25,8 @@ First if you need to run Blask, need to see the `settings.py` file and set the p
 
     # Website title
     title = 'Blask | A Simple Blog Engine Based on Flask'
-
+    # custom Error handlers
+    errors = { 404 : "404"}
 
 Next you need to run the next code:
 
@@ -33,12 +34,12 @@ Next you need to run the next code:
     from Blask import BlaskApp
     
     BlaskApp().run()
-    
+
 To get the properly Configuration, you need to export the enviorement variable BLASK_SETTINGS to select the properly _settings_ module:
 
     :::bash
     > export BLASK_SETTINGS=settings
-    
+
 You can also, run Blask from the Command Line Tool:
 
     :::bash
@@ -69,9 +70,9 @@ Once we save the previous file, we can point the browser to http://localhost:500
 To create a new template, create a new HTML file in the templates folder, and inside the HTML code
 include the Jinja2 template `content`. Here is an example:
 
-![precode-html](static/img/precodehtml.png)
+![precode-html](../static/img/precodehtml.png)
 
 Once you create a new template, you can reference it in two ways:
 
-  * First, using the default template setting in the `settings.py` file.
-  * Second, using the metadata space of the Markdown documents.
+* First, using the default template setting in the `settings.py` file.
+* Second, using the metadata space of the Markdown documents.

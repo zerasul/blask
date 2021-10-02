@@ -1,5 +1,5 @@
 """
-Blask
+blask
 
 Copyright (C) 2018  https://github.com/zerasul/blask
 
@@ -22,39 +22,42 @@ from pathlib import Path
 from sys import path
 from importlib import import_module
 
-
-BASE_DIR = Path('.').resolve()
+BASE_DIR = Path(".").resolve()
 
 DEFAULT_SETTINGS = {
-    'templateDir': str(BASE_DIR / 'templates'),
-    'postDir': str(BASE_DIR / 'posts'),
-    'defaultLayout': str('template.html'),
-    'staticDir': str(BASE_DIR / 'static'),
-    'title': 'Blask | A Simple Blog Engine Based on Flask'
+    "templateDir": str(BASE_DIR / "templates"),
+    "postDir": str(BASE_DIR / "posts"),
+    "defaultLayout": str("template.html"),
+    "staticDir": str(BASE_DIR / "static"),
+    "title": "blask | A Simple Blog Engine Based on Flask",
+    "errors": {404: "404"}  # Dictionary with errors handler
 }
 
 
-class BlaskSettings(object):
+class BlaskSettings():  # pylint: disable=too-few-public-methods
     """
-    Blask configuration helper class
+    blask configuration helper class
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         """
-        Initialice the Blask Settigns. First, look for the BLASK_SETTINGS enviroment variable and try to load the module.
-        If there is not environment variable, try to load the current settings from the default values.
+        Initialice the blask Settigns. First, look for the BLASK_SETTINGS
+        enviroment variable and try to load the module.
+        If there is not environment variable, try to load the current settings
+        from the default values.
         :param args:
         :param kwargs:
         """
         # Check environment variable for settings module
-        if 'BLASK_SETTINGS' in os.environ:
-            #add current Dir to Path
+        if "BLASK_SETTINGS" in os.environ:
+            # add current Dir to Path
             path.append(os.getcwd())
             # Load settings from the module in environment variable
-            settings_mod = import_module(os.environ['BLASK_SETTINGS'], os.environ['BLASK_SETTINGS'])
+            settings_mod = import_module(
+                os.environ["BLASK_SETTINGS"], os.environ["BLASK_SETTINGS"])
 
             self.settings = {}
-            for key in DEFAULT_SETTINGS.keys():
+            for key in DEFAULT_SETTINGS:
                 value = getattr(settings_mod, key, DEFAULT_SETTINGS[key])
                 self.settings[key] = value
         else:
@@ -62,9 +65,9 @@ class BlaskSettings(object):
             self.settings = DEFAULT_SETTINGS.copy()
 
         # Keyword arguments always override default and environment settings
-        for kw in kwargs.keys():
-            if kw in DEFAULT_SETTINGS:
-                self.settings[kw] = kwargs[kw]
+        for kwarg in kwargs:
+            if kwarg in DEFAULT_SETTINGS:
+                self.settings[kwarg] = kwargs[kwarg]
 
     def __getitem__(self, key):
         """
@@ -72,4 +75,4 @@ class BlaskSettings(object):
         """
         if key in self.settings:
             return self.settings[key]
-        raise KeyError('There is no blask setting called %s' % key)
+        raise KeyError("There is no blask setting called %s" % key)

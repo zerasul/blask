@@ -4,6 +4,8 @@ template: template.html
 tags: about,blask
 category: page
 author: zerasul
+title: About Blask
+periodicity: weekly
 ---
 # About
 

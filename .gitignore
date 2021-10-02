@@ -113,3 +113,6 @@ callsonarblask.bat
 
 # Mac OS X
 .DS_Store
+
+blaskenv/
+.pytest_cache/

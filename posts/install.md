@@ -8,9 +8,13 @@ Also, you can use git to download the source code:
 
 ```git clone https://github.com/zerasul/blask/```
 
-Then (If you clone the source code), you need to install the dependencies using _pip_:
+If you clone the source code, you need to install the dependencies using ```pipenv```:
 
-```pip install -r requirements.txt```
+```pipenv install```
+
+If you need to install the development dependencies too, add the ```--dev``` flag:
+
+```pipenv install --dev```
 
 After that, you need to configure Blask, create a file called _settings.py_ file:
 
@@ -24,34 +28,35 @@ After that, you need to configure Blask, create a file called _settings.py_ file
     defaultLayout = "template.html"
     staticDir = path.join(BASE_DIR, "static")
     title = "Blask"
+    errors = { 404:"404"}
 
 You can export a environment variable that point to this file:
 
     :::bash
     export BLASK_SETTINGS=settings
-    
+
 You can run the application using this code:
 
     :::python
-    from Blask.Blask import BlaskApp
+    from blask.Blask import BlaskApp
     import settings
 
     if __name__ == '__main__':
         b = BlaskApp(templateDir=settings.templateDir, postDir=settings.postDir
-        , defaultLayout=settings.defaultLayout, staticDir=settings.staticDir, title=settings.title)
+        , defaultLayout=settings.defaultLayout, staticDir=settings.staticDir, title=settings.title, errors={404 : "404"})
         
         b.run()
 If you use the environment Variable you can run Blask without arguments:
 
     :::python
-    from Blask.Blask import BlaskApp
+    from blask.Blask import BlaskApp
     import settings
 
     if __name__ == '__main__':
         BlaskApp().run()
-        
+
 Or you can use the BlaskCLI tool:
-    
+
     :::bash
     blaskcli run
 

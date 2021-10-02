@@ -1,7 +1,8 @@
 import argparse
 import logging
-from Blask import BlaskApp
+from blask import BlaskApp
 
+application = BlaskApp().app
 
 if __name__ == '__main__':
     # Argument parsing
@@ -18,4 +19,4 @@ if __name__ == '__main__':
         debug = True
     else:
         debug = False
-    BlaskApp().run(debug=debug)
+    application.run(debug=debug)

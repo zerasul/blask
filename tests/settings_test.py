@@ -1,8 +1,8 @@
 import os
-
-from Blask import blasksettings
-from Blask.blasksettings import BlaskSettings
-from pytest import fixture, raises
+from pathlib import Path
+from blask import blasksettings
+from blask.blasksettings import BlaskSettings
+from pytest import raises
 
 
 class TestBlaskSettings:
@@ -13,11 +13,13 @@ class TestBlaskSettings:
             assert settings[kw] == blasksettings.DEFAULT_SETTINGS[kw]
 
     def test_from_environ(self):
-        os.environ['BLASK_SETTINGS'] = 'testsettings'  # changed for new pytest
+        # changed for new pytest
+        os.environ['BLASK_SETTINGS'] = 'tests.testsettings'
+
         settings = BlaskSettings()
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
             if kw == 'postDir':
-                assert settings[kw] == os.path.join(os.getcwd(), 'posts2')
+                assert settings[kw] == str(Path('.').resolve() / 'posts2')
             elif kw == 'title':
                 assert settings[kw] == 'The mantis revenge!'
             else:
@@ -26,15 +28,14 @@ class TestBlaskSettings:
 
     def test_kwargs(self):
         kwsettings = {
-            'postDir': os.path.join(os.getcwd(), 'mantispostdir'),
+            'postDir': str(Path.cwd() / 'mantispostdir'),
             'title': 'The mantis has you!',
         }
         settings = BlaskSettings(**kwsettings)
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
             if kw == 'postDir':
 
-                assert settings[kw] == os.path.join(
-                    os.getcwd(), 'mantispostdir')
+                assert settings[kw] == str(Path.cwd() / 'mantispostdir')
             elif kw == 'title':
                 assert settings[kw] == 'The mantis has you!'
             else:

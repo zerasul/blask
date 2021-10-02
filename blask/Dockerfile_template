@@ -1,0 +1,13 @@
+# Blask example Dockerfile
+
+FROM zerasul/blask:latest
+
+WORKDIR /opt/blask
+
+EXPOSE 8000
+
+COPY . /opt/blask
+
+VOLUME blask /opt/blask
+
+CMD ["gunicorn", "-b", "0.0.0.0:8000","--workers", "2", "main"]

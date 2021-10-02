@@ -1,14 +1,15 @@
-from Blask.blogrenderer import BlogRenderer
+from blask.blogrenderer import BlogRenderer
 from settings import postDir
 from pytest import fixture, raises
 from datetime import datetime
-from Blask.errors import PageNotExistError
+from blask.errors import PageNotExistError
 
 
 class TestblogRender:
 
     blogrender = None
-    markdowntest = "---\ndate: 2018-03-03\ntags: test,test2\n ---\n test"
+    markdowntest = (
+        "---\ntitle: test\ndate: 2018-03-03\ntags: test,test2\n ---\n test")
 
     @fixture(autouse=True)
     def initialize(self):
@@ -19,13 +20,14 @@ class TestblogRender:
         assert entry.name == "index"
 
     def test_tagslist(self):
-        entries = self.blogrender.list_posts(["blask"])
+        entries = self.blogrender.list_posts(["about"])
         assert len(entries) == 1
 
     def test_rendercontent(self):
         entry = self.blogrender.rendertext("test", self.markdowntest)
         assert entry.name == "test"
         assert entry.date == datetime(2018, 3, 3)
+        assert entry.title == "test"
         assert "test" in entry.tags
 
     def test_pagenotexists(self):
@@ -46,11 +48,21 @@ class TestblogRender:
         assert len(entries) == 1
 
     def test_search(self):
-        entries = self.blogrender.list_posts(search='documentation')
+        entries = self.blogrender.list_posts(search="documentation")
         assert len(entries) == 1
         entrieslist = self.blogrender.generatetagpage(entries)
         assert "href='/docs'" in entrieslist
 
     def test_str(self):
         entry = self.blogrender.renderfile("index")
-        str(entry)
+        str(entry)  # TODO: Test incompleted
+
+    def test_list_directories(self):
+        entries = self.blogrender.list_posts(["subdir"])
+        assert len(entries) == 1
+        entrieslist = self.blogrender.generatetagpage(entries)
+        assert "href='/releases/sub2/test" in entrieslist
+
+    def test_generate_sitemap_xml(self):
+        mysxml = self.blogrender.generate_sitemap_xml(postDir)
+        assert b"<url><loc>http://localhost:5000" in mysxml
