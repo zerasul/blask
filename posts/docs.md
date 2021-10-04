@@ -19,9 +19,9 @@ In this page we can see all the documentation about the Blask Project:
 * [Using Docker with Blask](#docker-blask)
 * [Use PythonAnywhere with Blask](#pythonanywhere-tuto)
 
-## <a id="init-blask"></a>Init Blask
+## <a id="init-blask">Init Blask</a>
 
-To init and use Blask you need **Python 3.4 or later**. you can use `pip` to install Blask.
+To init and use Blask you need **Python 3.6 or later**. you can use `pip` to install Blask.
 
     pip install blask
     
@@ -84,7 +84,7 @@ There is an alternative for manual running; using the Blask CLI Tool:
 
 Now you can browse to http://localhost:5000.
   
-## <a id="configure-blask"></a>Configure Blask
+## <a id="configure-blask">Configure Blask</a>
 
 Blask needs a settings file with all the configuration of the application; you need to create a `settings.py` file.
 
@@ -109,6 +109,11 @@ Here is an example:
 
     # Website title
     title = 'Blask | A Simple Blog Engine Based on Flask'
+    
+    # errors handle dictionary
+    errors = { 404 : '404',
+        500 : 'mycustom500' 
+        }
 
 
 Here is the description of each configuration:
@@ -119,6 +124,7 @@ Here is the description of each configuration:
 * **defaultLayout**: Default template file. This file must be in the _templateDir_ folder.
 * **staticDir**: Static resources folder. All the _css_, _js_, _img_ must be here.
 * **title**: Default title for the site.
+* **errors**: To set up custom errors for HTTP error codes.
 
 **Since: 0.10.**
 
@@ -129,7 +135,7 @@ Blask uses the enviorement variable _BLASK_SETTINGS_ to get the entire configura
     
 where ```settings``` have the configuration module of Blask.
 
-If you want to use the default values; you can see then here:
+If you want to use the default values; you can see them here:
 
 * **TemplatesDir**: _templates_.
 * **postDir**: _posts_.
@@ -137,9 +143,9 @@ If you want to use the default values; you can see then here:
 * **staticDir**: _static_
 * **tittle**: _Blask | A Simple Blog Engine Based on Flask_
      
-## <a id="create-post"></a>Create a Post
+## <a id="create-post">Create a Post</a>
 
-Creating a new blog post is very easy with Blask. First you need to create a Markdown file with `.md` extension on the *Posts Folder* 
+Creating a new blog post is very easy with Blask. First you need to create a Markdown file with `.md` extension in the *Posts Folder* 
 (See configuration). Here is an example:
 
 <pre>
@@ -151,18 +157,18 @@ tags: about,blask
 ---
 This is an example of **post** in blask.
 
-With _MarkDown_ you can create easyly great posts.
+With _MarkDown_ you can easily create great posts.
 </pre>
 
 In the previous Markdown text, we can see 2 parts:
 
 *  The first part is between "---" characters. This is the Metadata part, which contains information about the
-post, like the date, the template file that we want to use, or the tags associated with this post.
+post, like the date, the template file that we want to use, and the tags associated with this post.
 
 * The second part is the content of the post; here you can use Markdown to write all the text that you need. If you need 
 more information about the Markdown syntax, check the [Markdown Documentation](https://daringfireball.net/projects/markdown/syntax).
 
-## <a id="post-metadata"></a>Post Metadata
+## <a id="post-metadata">Post Metadata</a>
 
 Here is the description of the metadata used in posts:
 
@@ -171,10 +177,10 @@ Here is the description of the metadata used in posts:
 * **tags**: List of tags separated by comma.
 * **category**: Category of the post.
 * **author**: Author of the post.
-* **title**: Title of the post; it will be shown as the html title of the page. It is not setted, the settings title will be used.
+* **title**: Title of the post; it will be shown as the html title of the page. If no value is provided the settings title will be used.
 * **periodicity**: the value of the _changefreq_ tag on the sitemap Screen. The values of this metadata are: _always, hourly, daily, weekly, monthly(default), yearly, never_.
 
-## <a id="create-template"></a>Create a Template
+## <a id="create-template">Create a Template</a>
 
 Blask uses _Jinja2_ to render the HTML templates. To create a template, you have to create a new HTML file in templates folder.
 
@@ -189,7 +195,7 @@ Also, if you need to show the metadata information you can add some additional v
 * ```{{category}}```: variable with the category of the post.
 * ```{{author}}```: variable with the author of the post.
 
-## <a id="special-pages"></a>Special Pages
+## <a id="special-pages">Special Pages</a>
 
 With Blask you can edit the content of 2 Special Pages:
 
@@ -200,7 +206,7 @@ With Blask you can edit the content of 2 Special Pages:
 
 (**Since 0.1.4**)
 
-With Blask you can set custom error pages for the Http error codes. In the ```settings``` file, you can set the ```errors``` dictionary for link each http error code to the name of the markdown file (without extension), in the post directory.
+With Blask you can set custom error pages for the HTTP error codes. In the ```settings``` file, you can set the ```errors``` dictionary for link each HTTP error code to the name of the markdown file (without extension), in the post directory.
 
     :::python
     # settings.py
@@ -211,31 +217,31 @@ With Blask you can set custom error pages for the Http error codes. In the ```se
             }
 
 
-## <a id="tag-search"></a>Tag Search
+## <a id="tag-search">Tag Search</a>
 
 With Blask you can search posts by their tags. To see the posts with one particular tag, browse `http://< url >/tag/< tag-name >`.
 
 **Since 0.1.2**: By Default, the list is Date Ordered (Most New First).
 
-## <a id="category-search"></a>Category Search
+## <a id="category-search">Category Search</a>
 
 With Blask you can search posts by his category. To see the posts with one particular Category, browse `http://<url>/category/<category-name>`.
 
 **Since 0.1.2**: By Default, the list is Date Ordered (Most New First).
 
-## <a id="author-search"></a>Author Search
+## <a id="author-search">Author Search</a>
 
-With Blask you can search by his Author. To see the posts with one particular Author, browse `http://<url>/author/<author-name>`.
+With Blask you can search by Author. To see the posts with one particular Author, browse `http://<url>/author/<author-name>`.
 
 **Since 0.1.2**: By Default, the list is Date Ordered (Most New First).
 
-## <a id="search-function"></a>Page Search
+## <a id="search-function">Page Search</a>
 
 With Blask you can search by post contents. To do this, just send a POST request to `http://< url >/search` with the `search` parameter set to your search criteria.
 
 **Since 0.1.2**: By Default, the list is Date Ordered (Most New First).
 
-## <a id="sitemap-generator"></a>SiteMap Generation
+## <a id="sitemap-generator">SiteMap Generation</a>
 
 **(since 0.2.1)**
 
@@ -253,7 +259,7 @@ Blask, have an Sitemap.xml file automatic generation. To see the sitemap file ge
 
 **NOTE:** the date showed is based on the Modification date of the Markdown File.
 
-## <a id="blaskcli"></a>Blask Command Line Tool 
+## <a id="blaskcli">Blask Command Line Tool</a>
 **(Since: 0.1.0b12)**
 
 The Blask Command Line Tool, is a program that you can use for control Blask and have some features. For example for create a new Blask project.
@@ -289,15 +295,15 @@ _run_: run a new instance of blask in the current directory.
         --port INTEGER  Port where the server is listening
         --host TEXT     Default Network interface listening
 
-## <a id="wsgi-server"></a>Using Gunicorn for WSGI server
+## <a id="wsgi-server">Using Gunicorn for WSGI server</a>
 
-Using the Blaskcli run command is only recommended for developing pruposes. For production Systems, please use a WSGI server. First, you need to instal ```gunicorn```:
+Using the Blaskcli run command is only recommended for developing pruposes. For production Systems, please use a WSGI server. First, you need to install ```gunicorn```:
 
 ```
 pip install gunicorn
 ```
 
-Later, you need to configure your application for use an wsgi server; here is the code for use Blask with WSGI:
+After installing you need to configure your application to use an wsgi server; here is the code to use Blask with WSGI:
 
     :::python
     from blask import Blaskapp
@@ -312,11 +318,11 @@ Now you can save the preivous Python Script, as ```main.py``` and run gunicorn w
 
 The workers options means that there are 4 workers serving the application; you can change this option following the [gunicorn documentation](https://docs.gunicorn.org/en/stable/run.html).
 
-For last, go to http://< yourdomain >:8000 and see your blog using blask. For more information abount using Flask with WSGI go to [Flask documentation](https://flask.palletsprojects.com/en/1.1.x/deploying/).
+Lastly, go to http://< yourdomain >:8000 and see your blog using blask. For more information about using Flask with WSGI go to [Flask documentation](https://flask.palletsprojects.com/en/1.1.x/deploying/).
 
-## <a id="docker-blask"></a>Using Docker with Blask
+## <a id="docker-blask">Using Docker with Blask</a>
 
-You can use Docker with Blask; we create a Docker Image for use with Blask; you can find it in [Docker Hub](https://hub.docker.com/r/zerasul/blask). For use it pull the image with Docker:
+To use Docker with Blask; you need create a Docker Image to use with Blask; you can find it in [Docker Hub](https://hub.docker.com/r/zerasul/blask). To use it pull the image with Docker:
 
 ```
 docker pull zerasul/blask
@@ -334,13 +340,13 @@ Now you can see on http://< your domain>:5000 your Blask Docker container workin
 
 For more information about Docker please see the [Docker Documentation](https://docs.docker.com/).
 
-## <a id="pythonanywhere-tuto"></a>Use Python Anywhere with Blask
+## <a id="pythonanywhere-tuto">Use Python Anywhere with Blask</a>
 
-Python Anywhere its a service that brings you the posibility to deploy and run python scripts and web based applications. For more information about what is Python Anywhere or how to use it, please see [Python Anywhere Web Page](https://www.pythonanywhere.com/).
+Python Anywhere is a service that brings you the posibility to deploy and run python scripts and web based applications. For more information about what is Python Anywhere and how to use it, please see [Python Anywhere Web Page](https://www.pythonanywhere.com/).
 
-You can use Python Anywhere to run and deploy you Blask based applications; only you need to do is create a new account, and follow the next steps:
+You can use Python Anywhere to run and deploy you Blask based applications; all you need to do is create a new account, and follow the next steps:
 
-1 Create a new WebApplication based on Flask and select a python version >3.6. Set the python flaskapp.py file with the default address ```/home/<your user>/mysite/flask_app.py```.
+1 Create a new Web Application based on Flask and select a python version >3.6. Set the python flaskapp.py file with the default address ```/home/<your user>/mysite/flask_app.py```.
 
 ![pythonanywhere-flask](static/img/pythonanywhere1.png)
 
@@ -358,7 +364,7 @@ You can use Python Anywhere to run and deploy you Blask based applications; only
 
 **NOTE:** Also, you can copy the files of your existing blask application.
 
-5 change the content of your ```flask_app.py``` file with the next content:
+5 change the content of your ```flask_app.py``` file with the following lines of code:
 
     :::python
     from blask import BlaskApp
