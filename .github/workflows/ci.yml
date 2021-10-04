@@ -44,9 +44,9 @@ jobs:
         run: |
           sonar-scanner \
             -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.projectKey=SebGoliot_blask \
+            -Dsonar.projectKey=blask-project-key \
             -Dsonar.sources=blask/ \
-            -Dsonar.organization=sebgoliot-org \
+            -Dsonar.organization=zerasul-github \
             -Dsonar.python.coverage.reportPaths=coverage.xml \
             -Dsonar.projectName=Blask \
             -Dsonar.host.url=https://sonarcloud.io
