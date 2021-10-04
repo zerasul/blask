@@ -7,6 +7,7 @@ on:
 
 env: 
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
@@ -24,11 +25,12 @@ jobs:
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
 
       - name: Setup sonarqube
-        uses: warchant/setup-sonar-scanner@v1
+        uses: warchant/setup-sonar-scanner@v3
 
       - name: pip install
         run : |
             pip install pipenv
+            pipenv install importlib-metadata
             pipenv install --dev
             pip install pylint
 
@@ -39,4 +41,12 @@ jobs:
         run : pipenv run linter
 
       - name: Sonar cube
-        run: sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=blask-project-key -Dsonar.sources=Blask/ -Dsonar.organization=zerasul-github -Dsonar.python.coverage.reportPaths=coverage.xml -Dsonar.projectName=Blask
+        run: |
+          sonar-scanner \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.projectKey=blask-project-key \
+            -Dsonar.sources=blask/ \
+            -Dsonar.organization=zerasul-github \
+            -Dsonar.python.coverage.reportPaths=coverage.xml \
+            -Dsonar.projectName=Blask \
+            -Dsonar.host.url=https://sonarcloud.io
