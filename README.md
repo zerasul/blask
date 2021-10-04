@@ -54,6 +54,26 @@ blaskcli run --port 4444 #sets the port to 4444
 
 For more information, see the [Blask web page](http://getblask.com/). Also, you can subscribe to our [Mailing List](https://www.freelists.org/archive/blask_mail_list).
 
+
+## Development with Docker
+
+To use Docker to provide a development environment, make sure you have Docker installed, along with docker-compose of at least version 1.27.
+
+Run this command to start your development environment:
+
+```bash
+docker-compose up -d
+```
+
+To shut down your development environment, run this command:
+
+```bash
+docker-compose down
+```
+
+You can access your Blask development site by visiting http://localhost:8000 in your browser.
+
+
 ---
 
 You can see the [Code of Participation](https://www.mozilla.org/en-US/about/governance/policies/participation/) of this project.
