@@ -4,6 +4,7 @@ on:
     branches:
       - master
       - githubactions
+      - develop
 
 env: 
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
