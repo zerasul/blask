@@ -1,4 +1,4 @@
-from click.testing import CliRunner
+from typer.testing import CliRunner
 from blask import blaskcli
 from pytest_mock import mocker
 
