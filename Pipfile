@@ -4,7 +4,7 @@ name = "pypi"
 url = "https://pypi.python.org/simple"
 
 [packages]
-click = ">=6.7"
+typer = ">=0.4"
 coveralls = ">=1.3.0"
 cryptography = ">=3.3.2"
 flask = ">=1.1.1"
