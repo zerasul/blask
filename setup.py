@@ -65,6 +65,6 @@ setup(
     long_description=long_desc,
     long_description_content_type="text/markdown",
     python_requires=">=3.6",
-    install_requires=["flask", "markdown", "Pygments", "typer"],
+    install_requires=["flask", "markdown", "Pygments", "typer", "Flask-WTF"],
     test_requires=["pytest", "pytest-cov", "pylint", "pytest-mock"],
 )
