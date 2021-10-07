@@ -28,6 +28,7 @@ from markdown import Markdown
 from blask.errors import PageNotExistError
 
 INDEX = "index.md"
+DATE_FORMAT = "%Y-%m-%d"
 
 class BlogRenderer:
     """
@@ -181,7 +182,7 @@ class BlogRenderer:
         locindex.text = baseurl
         lastmodif = ET.SubElement(urlindex, "lastmod")
         tmp = path.getmtime(path.join(postlist, INDEX))
-        lastmodif.text = datetime.fromtimestamp(tmp).strftime(self.date_format)
+        lastmodif.text = datetime.fromtimestamp(tmp).strftime(DATE_FORMAT)
         changefreq = ET.SubElement(urlindex, "changefreq")
         changefreq.text = "monthly"
         priority = ET.SubElement(urlindex, "priority")
@@ -195,7 +196,7 @@ class BlogRenderer:
             plastmodif = ET.SubElement(purlindex, "lastmod")
             filetitle = f"{post.name}.md"
             tmp = path.getmtime(safe_join(self.postdir, filetitle))
-            plastmodif.text = datetime.fromtimestamp(tmp).strftime(self.date_format)
+            plastmodif.text = datetime.fromtimestamp(tmp).strftime(DATE_FORMAT)
             pchangefreq = ET.SubElement(purlindex, "changefreq")
             if post.periodicity:
                 pchangefreq.text = post.periodicity
@@ -247,8 +248,6 @@ class BlogEntry:
     """ Title of the Post"""
     periodicity = None
     """ periodicity of the post for sitemap"""
-    date_format = "%Y-%m-%d"
-    """ date format for the post"""
 
     def __init__(self, name, md, content):
         """
@@ -262,7 +261,7 @@ class BlogEntry:
         meta = md.Meta
         if meta:
             if "date" in meta.keys():
-                self.date = datetime.strptime(meta["date"][0], self.date_format)
+                self.date = datetime.strptime(meta["date"][0], DATE_FORMAT)
             if "tags" in meta.keys():
                 self.tags = meta["tags"][0].split(",")
             if "template" in meta.keys():
