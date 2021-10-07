@@ -20,6 +20,8 @@ class TestMain:
             title=settings.title,
         )
         b.app.testing = True
+        b.app.config["SECRET_KEY"] = "supersecretkeyfortesting"
+
         self.test_client = b.app.test_client()
 
     def test_index(self):
