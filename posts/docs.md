@@ -74,10 +74,19 @@ If you want to run Blask, use the next code to create a standalone app:
             debug = False
         BlaskApp().run(debug=debug)
         
-There is an alternative for manual running; using the Blask CLI Tool:
- 
-    :::bash
+There is an alternative for manual running; using the *Blask CLI Tool*:
+
+1. Initialize the minimal folders required. This creates the _posts_ and _templates_ directory. 
+
+    ```
+    blaskcli init
+    ```
+
+2. Run the main code.
+
+    ```
     blaskcli run
+    ```
     
 
 **NOTE**: The Blask CLI Tool is only available if you install Blask using setup.py (or using pip).
@@ -128,7 +137,7 @@ Here is the description of each configuration:
 
 **Since: 0.10.**
 
-Blask uses the enviorement variable _BLASK_SETTINGS_ to get the entire configuration.
+Blask uses the environment variable _BLASK_SETTINGS_ to get the entire configuration.
 
     :::bash
     export BLASK_SETTINGS=settings
