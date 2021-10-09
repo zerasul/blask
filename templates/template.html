@@ -56,7 +56,7 @@
             <aside class="col-md-3">
                 <div class="aside-block">
                     <form method="POST" action="/search">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                         <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
                         <div class="input-group mb-2">
                             <input type="text" name="search" class="form-control" id="inlineFormInputGroup"
                                 placeholder="Search" />

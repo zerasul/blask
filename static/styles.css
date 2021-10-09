@@ -1,6 +1,7 @@
 header {
     background:#0066ff;
     color: white;
+    padding-top: 1em;
     padding-bottom: 0.5em;
     padding-left: 1em;
 }
@@ -58,3 +59,5 @@ footer {
     margin-right:1em;
     padding-bottom: 1.5em;
 }
+
+img[alt=New-Post] { width: 100%; }
