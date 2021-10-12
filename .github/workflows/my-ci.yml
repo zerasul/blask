@@ -28,7 +28,6 @@ jobs:
             pip install pipenv
             pipenv install importlib-metadata
             pipenv install --dev
-            pipenv install coveralls
 
       - name: PyLint
         run : pipenv run linter
@@ -39,5 +38,4 @@ jobs:
       - name: Coveralls GitHub Action
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          coveralls --service=github
+        run: pipenv run coveralls --service=github
