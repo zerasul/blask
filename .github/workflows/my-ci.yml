@@ -1,4 +1,4 @@
-name: blask Build
+name: My blask Build
 on:
   push:
     branches:
