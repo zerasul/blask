@@ -37,6 +37,9 @@ jobs:
       - name: Code coverage
         run : pipenv run test
 
+      - name: Coveralls GitHub Action
+        run: pipenv run coveralls --service=github
+
       - name: PyLint
         run : pipenv run linter
 
@@ -50,6 +53,3 @@ jobs:
             -Dsonar.python.coverage.reportPaths=coverage.xml \
             -Dsonar.projectName=Blask \
             -Dsonar.host.url=https://sonarcloud.io
-
-      - name: Coveralls GitHub Action
-        run: pipenv run coveralls --service=github
