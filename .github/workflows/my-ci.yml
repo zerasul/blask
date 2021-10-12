@@ -30,14 +30,14 @@ jobs:
             pipenv install --dev
             pip install pylint
 
+      - name: PyLint
+        run : pipenv run linter
+
       - name: Code coverage
         run : pipenv run test
 
       - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@1.1.3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: coverage.xml
-
-      - name: PyLint
-        run : pipenv run linter
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          coveralls --service=github
