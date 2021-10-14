@@ -35,7 +35,7 @@ Next you need to run the next code:
     
     BlaskApp().run()
 
-To get the properly Configuration, you need to export the enviorement variable BLASK_SETTINGS to select the properly _settings_ module:
+To get the properly Configuration, you need to export the environment variable BLASK_SETTINGS to select the properly _settings_ module:
 
     :::bash
     > export BLASK_SETTINGS=settings
@@ -54,7 +54,6 @@ To create a new post, all you need to do is create a new markdown file in the po
 File: `newpost.md`
 
 <pre>
-
 ---
 date: 2018-04-04
 template: template.html
@@ -64,6 +63,8 @@ This is an example of **MarkDown**. This is a test _web page_.
 </pre>
 
 Once we save the previous file, we can point the browser to http://localhost:5000/newpost and see the results.
+
+![New-Post](static\img\New-Post-Demo.PNG)
 
 ## Create a template
 
