@@ -1,65 +1,63 @@
-header{
-background:#0066ff;
-color: white;
-padding-bottom: 0.5em;
-padding-left: 1em;
+header {
+    background:#0066ff;
+    color: white;
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
 }
-header h1 a, header h1 a:hover{
+
+header h1 a, header h1 a:hover {
     text-decoration: none;
     color: white
 }
-footer{
-position: fixed;
-bottom: 0;
-width: 100%;
-background: #595959;
-color: white;
-padding: 0.5em;
-}
 
-.aside-block{
-margin: 0.5em;
-background: #595959;
-border-radius: 0.5em;
-padding-top: 0.5em;
-padding-bottom: 0.5em;
-}
-.aside-block h3
-{
-   margin-left: 1em;
-   color: white;
-}
-
-.aside-block ul li{
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #595959;
     color: white;
+    padding: 0.5em;
 }
 
-.aside-block input{
+.aside-block {
+    margin: 0.5em;
+    border-radius: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+.aside-block h3 {
+   margin-left: 1em;
+}
+
+.aside-block input {
     margin-left: 1em;
     margin-right: 1em;
 }
-#content{
+#content {
     padding-bottom: 2em;
 }
 
-.meta{
+.meta {
     padding-bottom: 1.5em;
     padding-top: 0.5em;
     color: #585858;
 }
-.meta .date{
-    position: relative;
-    float: right;
-}
-
-.meta .tags{
+.meta .date {
     position: relative;
     float: left;
 }
 
-#flask-powered{
+.meta .tags {
+    position: relative;
+    float: left;
+}
+
+#flask-powered {
     float:right;
     padding-top:0.5em;
     margin-right:1em;
     padding-bottom: 1.5em;
 }
+
+img[alt=New-Post] { width: 100%; }
