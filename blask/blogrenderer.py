@@ -30,6 +30,7 @@ from blask.errors import PageNotExistError
 INDEX = "index.md"
 DATE_FORMAT = "%Y-%m-%d"
 
+
 class BlogRenderer:
     """
     Class BlogRenderer: This class provides the feature for render posts from
@@ -66,7 +67,8 @@ class BlogRenderer:
             would fall out of the posts directory.
         """
         page_not_exist_exception = PageNotExistError(
-            f"{filename} does not exists in {self.postdir} directory")
+            f"{filename} does not exists in {self.postdir} directory"
+        )
         try:
             file = f"{filename}.md"
             filepath = safe_join(self.postdir, file)
@@ -93,20 +95,19 @@ class BlogRenderer:
         :param text: Text write in Markdown.
         :return: BlogEntry.
         """
-        mark_down = Markdown(
-            extensions=["meta", "markdown.extensions.codehilite"])
+        mark_down = Markdown(extensions=["meta", "markdown.extensions.codehilite"])
         entry = BlogEntry(filename, mark_down, text)
         return entry
 
     # pylint: disable=dangerous-default-value
     def list_posts(
-            self,
-            tags=None,
-            exclusions=[INDEX, "404.md"],
-            search="",
-            category="",
-            author="",
-            orderbydate=True,
+        self,
+        tags=None,
+        exclusions=[INDEX, "404.md"],
+        search="",
+        category="",
+        author="",
+        orderbydate=True,
     ):
         """
         Search a list of Posts returning a list of BlogEntry ordered By Date.
@@ -139,10 +140,8 @@ class BlogRenderer:
         if orderbydate:
             # create a sublist with only entries with date
             dateredentries = list(filter(lambda e: e.date is None, entries))
-            notdateredentries = list(
-                filter(lambda d: d.date is not None, entries))
-            entries = list(
-                sorted(dateredentries, key=lambda t: t.date, reverse=True))
+            notdateredentries = list(filter(lambda d: d.date is not None, entries))
+            entries = list(sorted(dateredentries, key=lambda t: t.date, reverse=True))
             entries.extend(notdateredentries)
         return entries
 
@@ -156,8 +155,9 @@ class BlogRenderer:
         for file in listdir(directory):
             if path.isdir(safe_join(directory, file)):
                 posts.extend(
-                    self._listdirectoriesrecursive(safe_join(directory, file),
-                                                   safe_join(append, file))
+                    self._listdirectoriesrecursive(
+                        safe_join(directory, file), safe_join(append, file)
+                    )
                 )
             else:
                 posts.append(safe_join(append, file))
@@ -170,8 +170,8 @@ class BlogRenderer:
         :return: return the xml output for the Sitemap.xml file.
         """
         root = ET.Element(
-            "urlset",
-            attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
+            "urlset", attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        )
         rpostlist = self._listdirectoriesrecursive(postlist)
         rpostlist.remove(INDEX)
         rpostlist = list(map(lambda l: path.splitext(l)[0], rpostlist))
@@ -224,7 +224,7 @@ class BlogRenderer:
 
 # pylint: disable=too-few-public-methods
 class BlogEntry:
-    """"
+    """ "
     This class has the information about the Blog Posts.
     Author: Zerasul
     Version: 0.0.1.
