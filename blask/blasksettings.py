@@ -41,9 +41,9 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
 
     def __init__(self, **kwargs):
         """
-        Initialice the blask Settigns. First, look for the BLASK_SETTINGS
-        enviroment variable and try to load the module.
-        If there is not environment variable, try to load the current settings
+        Initialize the blask Settings. First, look for the BLASK_SETTINGS
+        environment variable and try to load the module.
+        If there is no environment variable, try to load the current settings
         from the default values.
         :param args:
         :param kwargs:
@@ -52,12 +52,20 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
         if "BLASK_SETTINGS" in os.environ:
             # add current Dir to Path
             path.append(os.getcwd())
+
             # Load settings from the module in environment variable
             settings_mod = import_module(
                 os.environ["BLASK_SETTINGS"], os.environ["BLASK_SETTINGS"])
+            # settings are stored in settings_mod.BASE_DIR,
+            # settings_mod.templateDir, etc.
 
             self.settings = {}
             for key in DEFAULT_SETTINGS:
+                # for each of default attributes, try first to read the value
+                # in settings_mod and if not defined, use the default
+                # Note: settings_mod attributes which are not
+                # DEFAULT_SETTINGS are ignored
+
                 value = getattr(settings_mod, key, DEFAULT_SETTINGS[key])
                 self.settings[key] = value
         else:
