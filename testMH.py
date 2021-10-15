@@ -1,23 +1,23 @@
-from dotenv import dotenv_values, load_dotenv
-import os
+from dotenv import dotenv_values
 from importlib import import_module
+from collections import namedtuple
 
-# TO DO: update dependencies to include dotenv
+# TO DO: update dependencies to include dotenv, collections
 
-config = dotenv_values(".env")
+settings_mod1 = import_module('settings', 'settings')
+# this is used in the code, it imports the module, and each variable
+# in the module is added as an attribute of the result:
+# settings_mod1.vble_name1 = val1, ..., settings_mod1.vble_nameN = valN
 
-print(config)
+print(settings_mod1.defaultLayout)
 
-load_dotenv()
+# This achieves the same from an .env file:
 
-MHTEST2 = os.getenv('MHTEST2')
-
-print(MHTEST2)
-
-MHTEST3 = import_module('settings', 'settings')
-# this imports the module, for the variables they are created as attributes:
-# MHTEST3.vble_1_name = vble_1_value,
-# ...
-# MHTEST3.vble_N_name = vble_N_value
-
-print(MHTEST3.BASE_DIR)
+# Step 1) read variables into an OrderedDict as key,value pairs:
+settings = dotenv_values(".env.example")
+# yields: settings = {'vble_name1':val1 ... 'vble_nameN':'valN'}
+# Step 2) convert key, value pairs into attributes of an object:
+settings_mod2 = namedtuple("DotEnvSettings",
+                           settings.keys())(*settings.values())
+# yields: settings_mod2.vble_name1 = val1, ..., settings_mod2.vble_nameN = valN
+print(settings_mod2.defaultLayout)
