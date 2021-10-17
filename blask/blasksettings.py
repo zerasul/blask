@@ -43,8 +43,11 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
         """
         Initialize the blask Settings. First, look for the BLASK_SETTINGS
         environment variable and try to load the module.
-        If there is no environment variable, try to load the current settings
+        If BLASK_SETTINGS is not defined try to load the current
+        settings from environment variables (defined in .env) and finally
         from the default values.
+        Settings provided as arguments to the constructor always take
+        precedence.
         :param args:
         :param kwargs:
         """
@@ -72,7 +75,12 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
             # Copy default settings
             self.settings = DEFAULT_SETTINGS.copy()
 
-        # Keyword arguments always override default and environment settings
+            # replace default settings with environment vars defined in .env
+            for key in DEFAULT_SETTINGS:
+                if key in os.environ:
+                    self.settings[key] = os.environ[key]
+
+        # arguments always override default and environment settings
         for kwarg in kwargs:
             if kwarg in DEFAULT_SETTINGS:
                 self.settings[kwarg] = kwargs[kwarg]
