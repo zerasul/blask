@@ -86,7 +86,7 @@ blaskcli = typer.Typer(add_completion=False, no_args_is_help=True)
 @blaskcli.callback()
 def main() -> None:
     """
-    Initialice the command Line Interface Objects.
+    Initialize the command Line Interface Objects.
     """
     try:
         version = get_distribution("blask").version
@@ -97,13 +97,16 @@ def main() -> None:
 
 @blaskcli.command(help="Run the instance of blask")
 def run(
-    debug: bool = typer.Option(False, "--debug", help="Init with de debug flag", is_flag=True),
-    port: int = typer.Option(5000, "--port", help="Port where the server is listening"),
-    host: str = typer.Option("127.0.0.1", "--host", help="Default Network interface listening"),
+    debug: bool = typer.Option(False, "--debug",
+                               help="Init with the debug flag", is_flag=True),
+    port: int = typer.Option(5000, "--port",
+                             help="Port where the server is listening"),
+    host: str = typer.Option("127.0.0.1", "--host",
+                             help="Default Network interface listening"),
 ) -> None:
     """
     Run the current blask instance
-    :param debug: initialice with debug options
+    :param debug: initialize with debug options
     :param port: port where the port is opened
     """
     blask.run(debug=debug, port=port, host=host)
@@ -112,12 +115,12 @@ def run(
 @blaskcli.command(help="Initialize a new blask Project")
 def init(
     with_docker: bool = typer.Option(
-        False, "--with-docker", help="Add a DockerFile to the blask directory", is_flag=True
-    )
-) -> None:
+        False, "--with-docker",
+        help="Add a DockerFile to the blask directory",
+        is_flag=True)) -> None:
     """
     Inits a new blask Instance; with the default options.
-    :param with_docker: if is True, add a Dockerfile in the root directory.
+    :param with_docker: if True, add a Dockerfile in the root directory.
     """
     typer.echo("Initializing new blask Project")
     typer.echo("Using default Settings")
