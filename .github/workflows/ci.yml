@@ -53,3 +53,29 @@ jobs:
             -Dsonar.python.coverage.reportPaths=coverage.xml \
             -Dsonar.projectName=Blask \
             -Dsonar.host.url=https://sonarcloud.io
+
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+
+      - name: Setup python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.7"
+          architecture: "x64"
+      - name: Install Black
+        run: pip install black
+
+      - name: Check if changes are Black-compliant
+        run: black --check .
+
+      - name: Auto-format with Black and commit format changes
+        if: failure()
+        run: |
+          black .
+          git config user.name 'autoblack'
+          git config user.email '<autoblack@github.com>'
+          git commit -am "fixup: Format Python code with Black"
+          git push
