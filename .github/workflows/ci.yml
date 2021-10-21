@@ -65,6 +65,7 @@ jobs:
         with:
           python-version: "3.7"
           architecture: "x64"
+
       - name: Install Black
         run: pip install black
 
