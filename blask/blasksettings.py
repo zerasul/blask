@@ -29,6 +29,7 @@ DEFAULT_SETTINGS = {
     "postDir": str(BASE_DIR / "posts"),
     "defaultLayout": str("template.html"),
     "staticDir": str(BASE_DIR / "static"),
+    "theme": None,
     "title": "blask | A Simple Blog Engine Based on Flask",
     "errors": {404: "404"}  # Dictionary with errors handler
 }
@@ -84,6 +85,10 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
         for kwarg in kwargs:
             if kwarg in DEFAULT_SETTINGS:
                 self.settings[kwarg] = kwargs[kwarg]
+
+        # Set theme
+        if self.settings["theme"] != None:
+            self.settings["templateDir"] = str(BASE_DIR / "themes" / self.settings['theme'])
 
     def __getitem__(self, key):
         """

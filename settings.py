@@ -7,5 +7,6 @@ templateDir = path.join(BASE_DIR, "templates")
 postDir = path.join(BASE_DIR, "posts")
 defaultLayout = "template.html"
 staticDir = path.join(BASE_DIR, "static")
+theme = "theme_example"
 title = "blask | A Simple Blog Engine Based on Flask"
 errors = {404: "404"}
