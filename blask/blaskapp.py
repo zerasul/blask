@@ -47,28 +47,28 @@ class BlaskApp:
             template_folder=self.settings["templateDir"],
             static_folder=self.settings["staticDir"],
         )
-        
+
         self.csrf = CSRFProtect()
         self.csrf.init_app(self.app)
 
         self.app.add_url_rule(
-            "/", endpoint="index", view_func=self._index, methods=["GET"])
+            "/", endpoint="index", view_func=self._index, methods=["GET"]
+        )
         self.app.add_url_rule(
-            "/sitemap.xml", view_func=self._get_sitemap, methods=["GET"])
+            "/sitemap.xml", view_func=self._get_sitemap, methods=["GET"]
+        )
+        self.app.add_url_rule("/<filename>", view_func=self._getpage, methods=["GET"])
         self.app.add_url_rule(
-            "/<filename>", view_func=self._getpage, methods=["GET"])
+            "/<path:subpath>/<filename>", view_func=self._get_subpage, methods=["GET"]
+        )
+        self.app.add_url_rule("/tag/<tag>", view_func=self._gettag, methods=["GET"])
+        self.app.add_url_rule("/search", view_func=self.searchpages, methods=["POST"])
         self.app.add_url_rule(
-            "/<path:subpath>/<filename>",
-            view_func=self._get_subpage, methods=["GET"])
+            "/category/<category>", view_func=self._getcategory, methods=["GET"]
+        )
         self.app.add_url_rule(
-            "/tag/<tag>", view_func=self._gettag, methods=["GET"])
-        self.app.add_url_rule(
-            "/search", view_func=self.searchpages, methods=["POST"])
-        self.app.add_url_rule(
-            "/category/<category>",
-            view_func=self._getcategory, methods=["GET"])
-        self.app.add_url_rule(
-            "/author/<author>", view_func=self._getauthor, methods=["GET"])
+            "/author/<author>", view_func=self._getauthor, methods=["GET"]
+        )
         # Register the error handler for each setting
         for error in self.settings["errors"].keys():
             self.app.register_error_handler(error, f=self._handle_http_errors)
@@ -83,7 +83,8 @@ class BlaskApp:
         if template is None:
             template = self.settings["defaultLayout"]
         return render_template(
-            template, title=self.settings["title"], content=entry.content)
+            template, title=self.settings["title"], content=entry.content
+        )
 
     def _getpage(self, filename):
         """
@@ -129,7 +130,8 @@ class BlaskApp:
         """
         return Response(
             self.blogrenderer.generate_sitemap_xml(
-                self.settings["postDir"], request.url_root),
+                self.settings["postDir"], request.url_root
+            ),
             content_type="text/xml",
         )
 
@@ -144,7 +146,7 @@ class BlaskApp:
         return render_template(
             self.settings["defaultLayout"],
             title=self.settings["title"],
-            content=content
+            content=content,
         )
 
     def searchpages(self):
@@ -157,7 +159,7 @@ class BlaskApp:
         return render_template(
             self.settings["defaultLayout"],
             title=self.settings["title"],
-            content=content
+            content=content,
         )
 
     def _getcategory(self, category):
@@ -171,7 +173,7 @@ class BlaskApp:
         return render_template(
             self.settings["defaultLayout"],
             title=self.settings["title"],
-            content=content
+            content=content,
         )
 
     def _getauthor(self, author):
@@ -185,7 +187,7 @@ class BlaskApp:
         return render_template(
             self.settings["defaultLayout"],
             title=self.settings["title"],
-            content=content
+            content=content,
         )
 
     def _handle_http_errors(self, error_message):

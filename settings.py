@@ -1,6 +1,6 @@
 from pathlib import Path
 
-BASE_DIR = Path('.').resolve()
+BASE_DIR = Path(".").resolve()
 
 templateDir = str(BASE_DIR / "templates")
 postDir = "posts"

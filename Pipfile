@@ -17,7 +17,11 @@ pytest-cov = ">=2.7.1"
 pytest-mock = ">=1.10.4"
 coveralls = ">=1.3.0"
 pylint = "*"
+black = "*"
 
 [scripts]
 test = "pytest --cov=blask --cov-report=xml"
 linter =  "pylint blask --exit-zero"
+
+[pipenv]
+allow_prereleases = true

@@ -21,7 +21,7 @@ class TestMain:
         )
         b.app.testing = True
         b.app.config["SECRET_KEY"] = "supersecretkeyfortesting"
-        b.app.config['WTF_CSRF_METHODS'] = []
+        b.app.config["WTF_CSRF_METHODS"] = []
 
         self.test_client = b.app.test_client()
 

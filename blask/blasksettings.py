@@ -31,11 +31,11 @@ DEFAULT_SETTINGS = {
     "staticDir": str(BASE_DIR / "static"),
     "theme": None,
     "title": "blask | A Simple Blog Engine Based on Flask",
-    "errors": {404: "404"}  # Dictionary with errors handler
+    "errors": {404: "404"},  # Dictionary with errors handler
 }
 
 
-class BlaskSettings():  # pylint: disable=too-few-public-methods
+class BlaskSettings:  # pylint: disable=too-few-public-methods
     """
     blask configuration helper class
     """
@@ -55,7 +55,8 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
             path.append(os.getcwd())
             # Load settings from the module in environment variable
             settings_mod = import_module(
-                os.environ["BLASK_SETTINGS"], os.environ["BLASK_SETTINGS"])
+                os.environ["BLASK_SETTINGS"], os.environ["BLASK_SETTINGS"]
+            )
 
             self.settings = {}
             for key in DEFAULT_SETTINGS:
