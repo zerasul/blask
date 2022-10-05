@@ -1,12 +1,12 @@
 name: blask Build
 on:
-  push:
+  pull_request:
     branches:
       - master
       - githubactions
       - develop
 
-env: 
+env:
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
@@ -32,6 +32,7 @@ jobs:
         run : |
             pip install pipenv
             pipenv install importlib-metadata
+            pipenv install python-dotenv
             pipenv install --dev
 
       - name: Code coverage
