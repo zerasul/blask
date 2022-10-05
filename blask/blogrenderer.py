@@ -20,7 +20,7 @@ from os import path, listdir
 from hashlib import sha3_512
 from datetime import datetime
 from xml.etree import ElementTree as ET
-from flask.helpers import safe_join
+from werkzeug.utils import safe_join
 from werkzeug.exceptions import NotFound
 
 from markdown import Markdown

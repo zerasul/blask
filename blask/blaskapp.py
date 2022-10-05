@@ -16,8 +16,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
-from flask.helpers import safe_join
 from flask import Flask, render_template, request, abort, Response
+from werkzeug.utils import safe_join
 from blask.blasksettings import BlaskSettings
 from blask.blogrenderer import BlogRenderer
 from blask.errors import PageNotExistError
