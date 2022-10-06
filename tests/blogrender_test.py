@@ -49,9 +49,9 @@ class TestblogRender:
 
     def test_search(self):
         entries = self.blogrender.list_posts(search="documentation")
-        assert len(entries) == 1
+        assert len(entries) == 2
         entrieslist = self.blogrender.generatetagpage(entries)
-        assert "href='/docs'" in entrieslist
+        assert "href='/./docs'" in entrieslist
 
     def test_str(self):
         entry = self.blogrender.renderfile("index")
