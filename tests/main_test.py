@@ -3,7 +3,7 @@ from blask import BlaskApp
 import settings
 
 
-RESPONSE_DATA = b"href='/about'"
+RESPONSE_DATA = b"href='/./about'"
 
 
 class TestMain:
