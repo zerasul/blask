@@ -27,7 +27,7 @@ from markdown import Markdown
 
 from blask.errors import PageNotExistError
 
-INDEX = "index.md"
+INDEX = "./index.md"
 DATE_FORMAT = "%Y-%m-%d"
 
 class BlogRenderer:
