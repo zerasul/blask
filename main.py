@@ -1,7 +1,6 @@
 import argparse
 import logging
 from blask import BlaskApp
-
 application = BlaskApp().app
 
 if __name__ == '__main__':

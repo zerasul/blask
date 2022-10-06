@@ -21,7 +21,7 @@ from pathlib import Path
 import shutil
 from pkg_resources import get_distribution, DistributionNotFound
 
-import click
+import typer
 
 from blask import BlaskApp, blasksettings
 
@@ -80,47 +80,50 @@ class CLIController:
 blask = BlaskApp()
 IS_DEBUG = False
 cliController = CLIController()
+blaskcli = typer.Typer(add_completion=False, no_args_is_help=True)
 
 
-@click.group()
-def blaskcli():
+@blaskcli.callback()
+def main() -> None:
     """
-    Initialice the command Line Interface Objects.
+    Initialize the command Line Interface Objects.
     """
     try:
         version = get_distribution("blask").version
     except DistributionNotFound:
         version = "test_version"
-    click.echo("blask (C) version %s" % version)
+    typer.echo("blask (C) version %s" % version)
 
 
 @blaskcli.command(help="Run the instance of blask")
-@click.option(
-    "--debug", default=False, help="Init with de debug flag", is_flag=True)
-@click.option(
-    "--port", default=5000, help="Port where the server is listening")
-@click.option(
-    "--host", default="127.0.0.1", help="Default Network interface listening")
-def run(debug, port, host):
+def run(
+    debug: bool = typer.Option(False, "--debug",
+                               help="Init with the debug flag", is_flag=True),
+    port: int = typer.Option(5000, "--port",
+                             help="Port where the server is listening"),
+    host: str = typer.Option("127.0.0.1", "--host",
+                             help="Default Network interface listening"),
+) -> None:
     """
     Run the current blask instance
-    :param debug: initialice with debug options
+    :param debug: initialize with debug options
     :param port: port where the port is opened
     """
     blask.run(debug=debug, port=port, host=host)
 
 
 @blaskcli.command(help="Initialize a new blask Project")
-@click.option(
-    "--with-docker", default=False,
-    help="Add a DockerFile to the blask directory", is_flag=True)
-def init(with_docker):
+def init(
+    with_docker: bool = typer.Option(
+        False, "--with-docker",
+        help="Add a DockerFile to the blask directory",
+        is_flag=True)) -> None:
     """
     Inits a new blask Instance; with the default options.
-    :param with_docker: if is True, add a Dockerfile in the root directory.
+    :param with_docker: if True, add a Dockerfile in the root directory.
     """
-    click.echo("Initializing new blask Project")
-    click.echo("Using default Settings")
+    typer.echo("Initializing new blask Project")
+    typer.echo("Using default Settings")
     postdir = path.basename(
         path.dirname(str(blasksettings.DEFAULT_SETTINGS["postDir"] + "/")))
     templatedir = path.basename(
@@ -136,10 +139,10 @@ def init(with_docker):
         cliController.createnotfoundpage(path.join(postdir, '404.md'))
         if with_docker:
             cliController.createdockerfile(path.join("Dockerfile"))
-        click.echo("Created new blask project on %s" % getcwd())
-        click.echo("Now you can execute: blaskcli run")
+        typer.echo("Created new blask project on %s" % getcwd())
+        typer.echo("Now you can execute: blaskcli run")
     except FileExistsError:
-        click.echo("There is an existing blask Project")
+        typer.echo("There is an existing blask Project")
 
 
 if __name__ == "__main__":

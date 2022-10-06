@@ -9,9 +9,7 @@ periodicity: weekly
 ---
 # About
 
-Blask is a simple Blogging engine that uses the Flask MicroFramework to render a blog, and uses MarkDown to render the posts
-information. With Blask, it is very easy to create a blog using only HTML and Markdown. Also, the rendering happens
-dynamically at runtime, so there is no need to generate HTML upfront.
+Blask is a simple Blogging engine that uses the Flask Microframework to render a blog, and uses Markdown to render the post's information. With Blask, it is very easy to create a blog using only HTML and Markdown. Also, the rendering happens dynamically at runtime, so there is no need to generate HTML upfront.
 
 To use Blask, you only need to edit the `settings.py` file to configure the engine with the posts directory, the template
 directory, the static assets directory, and, of course, the title of the site.

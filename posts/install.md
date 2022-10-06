@@ -8,7 +8,7 @@ Also, you can use git to download the source code:
 
 ```git clone https://github.com/zerasul/blask/```
 
-Then (If you clone the source code), you need to install the dependencies using ```pipenv``:
+If you clone the source code, you need to install the dependencies using ```pipenv```:
 
 ```pipenv install```
 

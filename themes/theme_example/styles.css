@@ -1,0 +1,47 @@
+header,
+header h1 a, heder h1 a:hover{
+    color: #000000;
+    font-size: 36pt;
+    text-decoration: none;
+}
+
+.aside-block {
+    font-family: 'Lobster', cursive;
+}
+
+footer {
+    color: #1f1f1f;
+}
+
+.aside-block h3 {
+    float: right;
+}
+
+.aside-block input {
+    width: 100%;
+}
+
+#content {
+    color: #000000;
+    float: right;
+    font-size: 26pt;
+    margin-right: 20px;
+}
+
+.meta {
+    margin-bottom: 70px;
+}
+
+.meta .date {
+    color: #ffffff;
+}
+
+.meta .tags {
+    float: right;
+}
+
+#flask-powered {
+    color: #2dc200;
+    background: none;
+    border-color: #009bc2;
+}

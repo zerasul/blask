@@ -18,6 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 from werkzeug.utils import safe_join
 from flask import Flask, render_template, request, abort, Response
+from flask_wtf import CSRFProtect
 from blask.blasksettings import BlaskSettings
 from blask.blogrenderer import BlogRenderer
 from blask.errors import PageNotExistError
@@ -46,6 +47,10 @@ class BlaskApp:
             template_folder=self.settings["templateDir"],
             static_folder=self.settings["staticDir"],
         )
+        
+        self.csrf = CSRFProtect()
+        self.csrf.init_app(self.app)
+
         self.app.add_url_rule(
             "/", endpoint="index", view_func=self._index, methods=["GET"])
         self.app.add_url_rule(
@@ -54,16 +59,14 @@ class BlaskApp:
             "/<filename>", view_func=self._getpage, methods=["GET"])
         self.app.add_url_rule(
             "/<path:subpath>/<filename>",
-            view_func=self._get_subpage, methods=["GET"]
-        )
+            view_func=self._get_subpage, methods=["GET"])
         self.app.add_url_rule(
             "/tag/<tag>", view_func=self._gettag, methods=["GET"])
         self.app.add_url_rule(
             "/search", view_func=self.searchpages, methods=["POST"])
         self.app.add_url_rule(
             "/category/<category>",
-            view_func=self._getcategory, methods=["GET"]
-        )
+            view_func=self._getcategory, methods=["GET"])
         self.app.add_url_rule(
             "/author/<author>", view_func=self._getauthor, methods=["GET"])
         # Register the error handler for each setting

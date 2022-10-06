@@ -1,8 +1,8 @@
 # Blask
 
-Blask is a blogging engine based on [Flask](http://flask.pocoo.org/), that uses MarkDown to show posts. This MicroFramework grants the possibility to create a blog using only MarkDown and HTML.
+Blask is a blogging engine based on [Flask](http://flask.pocoo.org/), that uses Markdown to show posts. This Microframework grants the possibility to create a blog using only MarkDown and HTML.
 
-Using the Flask MicroFramework and the [Jinja2](http://jinja.pocoo.org/) template engine, you can easily create a blog with only a few steps.
+Using the Flask Microframework and the [Jinja2](http://jinja.pocoo.org/) template engine, you can easily create a blog with only a few steps.
 
 For Blask to find a new post, all you have to do is write a markdown file and store it in the posts directory.
 
@@ -16,12 +16,15 @@ Once you've written the markdown file, you can view it on your site:
 
     https://myfancysite.com/hello-world
 
+
+**Configuration using  _Environment Variables_:**
+
 Before you run the code you have to export the BLASK_SETTINGS enviorement variable.
 
     :::bash
     export BLASK_SETTINGS=settings
 
-Only you need to run the next code:
+You only need to run the next code:
 
     :::python
       from blask import BlaskApp
@@ -29,10 +32,19 @@ Only you need to run the next code:
       if __name__== '__main__':
           BlaskApp().run() 
 
-Or You can use the _Blask Command Line Tool_:
+**Configuration using  _Blask Command Line Tool_:**
 
-    :::bash
+1. Initialize the minimal folders required. This creates the _posts_ and _templates_ directory. 
+
+    ```
+    blaskcli init
+    ```
+
+2. Run the main code.
+
+    ```
     blaskcli run
+    ```
 
 **Note**: This project is in alpha stage; it is not suitable for production environments.
 
@@ -65,7 +77,7 @@ Here are the release notes of each Blask version:
 
 Blask is Open Source under the [GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) license. You can see the source code in our [Github repository](https://github.com/zerasul/blask).
 
-Also, you can see:
+You can also see:
 
 * [Authors](https://github.com/zerasul/blask/graphs/contributors)
 * [Issue Tracker](https://github.com/zerasul/blask/issues)
