@@ -140,7 +140,7 @@ class BlogRenderer:
             notdateredentries = list(
                 filter(lambda d: d.date is not None, entries))
             entries = list(
-                sorted(dateredentries, key=lambda t: t.date, reverse=True))
+               sorted(dateredentries, key=lambda t: t.date is not None, reverse=True))
             entries.extend(notdateredentries)
         return entries
 
