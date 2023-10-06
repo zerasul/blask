@@ -136,9 +136,9 @@ class BlogRenderer:
             entries = list(filter(lambda l: search in l.content, entries))
         if orderbydate:
             # create a sublist with only entries with date
-            dateredentries = list(filter(lambda e: e.date is None, entries))
+            dateredentries = list(filter(lambda e: e.date is not None, entries))
             notdateredentries = list(
-                filter(lambda d: d.date is not None, entries))
+                filter(lambda d: d.date is None, entries))
             entries = list(
                 sorted(dateredentries, key=lambda t: t.date, reverse=True))
             entries.extend(notdateredentries)
@@ -171,7 +171,8 @@ class BlogRenderer:
             "urlset",
             attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
         rpostlist = self._listdirectoriesrecursive(postlist)
-        rpostlist.remove("index.md")
+        if "index.md" in rpostlist:
+            rpostlist.remove("index.md")
         rpostlist = list(map(lambda l: path.splitext(l)[0], rpostlist))
         rpostlist = list(map(lambda l: self.renderfile(l), rpostlist))
         # add index
@@ -213,7 +214,7 @@ class BlogRenderer:
         """
         content = "<ul>"
         for post in postlist:
-            pname = post.name.replace("\\", "/")
+            pname = post.name.replace("\\", "/").replace("./", "")
             entrycontent = f"<li><a href='/{pname}'>{post.name}</a></li>"
             content += entrycontent
         content += "</ul>"
