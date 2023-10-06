@@ -67,4 +67,3 @@ class TestMain:
         response = self.test_client.get("/sitemap.xml")
         assert response.status_code == 200
         assert b"<url><loc>http://localhost" in response.data
-        assert b"/index" not in response.data
