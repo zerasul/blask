@@ -16,12 +16,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
-from os import makedirs, path, getcwd
-from pathlib import Path
 import shutil
-from pkg_resources import get_distribution, DistributionNotFound
+from os import getcwd, makedirs, path
+from pathlib import Path
 
 import typer
+from pkg_resources import DistributionNotFound, get_distribution
 
 from blask import BlaskApp, blasksettings
 
@@ -33,15 +33,15 @@ class CLIController:
     Class that controls all the Command Line interface application
     """
 
-    default_template_file = str(LIB_DIR / 'index_template.html')
+    default_template_file = str(LIB_DIR / "index_template.html")
 
-    default_index = str(LIB_DIR / 'markdown_template.md')
+    default_index = str(LIB_DIR / "markdown_template.md")
 
-    settings = str(LIB_DIR / 'default_env.env')
+    settings = str(LIB_DIR / "default_env.env")
 
-    not_found = str(LIB_DIR / 'default_404.md')
+    not_found = str(LIB_DIR / "default_404.md")
 
-    docker_template = str(LIB_DIR / 'Dockerfile_template')
+    docker_template = str(LIB_DIR / "Dockerfile_template")
 
     def createdefaultindexfile(self, filepath):
         """
@@ -61,7 +61,7 @@ class CLIController:
         """
         Create a new settings file
         """
-        shutil.copy(self.settings, '.env')
+        shutil.copy(self.settings, ".env")
 
     def createnotfoundpage(self, filepath):
         """
@@ -92,17 +92,18 @@ def main() -> None:
         version = get_distribution("blask").version
     except DistributionNotFound:
         version = "test_version"
-    typer.echo("blask (C) version %s" % version)
+    typer.echo(f"blask (C) version {version}")
 
 
 @blaskcli.command(help="Run the instance of blask")
 def run(
-    debug: bool = typer.Option(False, "--debug",
-                               help="Init with the debug flag", is_flag=True),
-    port: int = typer.Option(5000, "--port",
-                             help="Port where the server is listening"),
-    host: str = typer.Option("127.0.0.1", "--host",
-                             help="Default Network interface listening"),
+    debug: bool = typer.Option(
+        False, "--debug", help="Init with the debug flag", is_flag=True
+    ),
+    port: int = typer.Option(5000, "--port", help="Port where the server is listening"),
+    host: str = typer.Option(
+        "127.0.0.1", "--host", help="Default Network interface listening"
+    ),
 ) -> None:
     """
     Run the current blask instance
@@ -115,9 +116,12 @@ def run(
 @blaskcli.command(help="Initialize a new blask Project")
 def init(
     with_docker: bool = typer.Option(
-        False, "--with-docker",
+        False,
+        "--with-docker",
         help="Add a DockerFile to the blask directory",
-        is_flag=True)) -> None:
+        is_flag=True,
+    )
+) -> None:
     """
     Inits a new blask Instance; with the default options.
     :param with_docker: if True, add a Dockerfile in the root directory.
@@ -125,7 +129,8 @@ def init(
     typer.echo("Initializing new blask Project")
     typer.echo("Using default Settings")
     postdir = path.basename(
-        path.dirname(str(blasksettings.DEFAULT_SETTINGS["postDir"] + "/")))
+        path.dirname(str(blasksettings.DEFAULT_SETTINGS["postDir"] + "/"))
+    )
     templatedir = path.basename(
         path.dirname(str(blasksettings.DEFAULT_SETTINGS["templateDir"] + "/"))
     )
@@ -133,13 +138,14 @@ def init(
         makedirs(postdir)
         cliController.createdefaultindexfile(path.join(postdir, "index.md"))
         makedirs(templatedir)
-        cliController.createdefaulttemplatefile(
-            path.join(templatedir, "template.html"))
+        cliController.createdefaulttemplatefile(path.join(templatedir, "template.html"))
         cliController.createsettingsfile()
-        cliController.createnotfoundpage(path.join(postdir, '404.md'))
+        cliController.createnotfoundpage(path.join(postdir, "404.md"))
         if with_docker:
             cliController.createdockerfile(path.join("Dockerfile"))
-        typer.echo("Created new blask project on %s" % getcwd())
+
+        current_dir = getcwd()
+        typer.echo(f"Created new blask project on {current_dir}")
         typer.echo("Now you can execute: blaskcli run")
     except FileExistsError:
         typer.echo("There is an existing blask Project")

@@ -18,9 +18,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import os
+from importlib import import_module
 from pathlib import Path
 from sys import path
-from importlib import import_module
 
 BASE_DIR = Path(".").resolve()
 
@@ -31,11 +31,11 @@ DEFAULT_SETTINGS = {
     "staticDir": str(BASE_DIR / "static"),
     "theme": None,
     "title": "blask | A Simple Blog Engine Based on Flask",
-    "errors": {404: "404"}  # Dictionary with errors handler
+    "errors": {404: "404"},  # Dictionary with errors handler
 }
 
 
-class BlaskSettings():  # pylint: disable=too-few-public-methods
+class BlaskSettings:  # pylint: disable=too-few-public-methods
     """
     blask configuration helper class
     """
@@ -59,18 +59,19 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
 
             # Load settings from the module in environment variable
             settings_mod = import_module(
-                os.environ["BLASK_SETTINGS"], os.environ["BLASK_SETTINGS"])
+                os.environ["BLASK_SETTINGS"], os.environ["BLASK_SETTINGS"]
+            )
             # settings are stored in settings_mod.BASE_DIR,
             # settings_mod.templateDir, etc.
 
             self.settings = {}
-            for key in DEFAULT_SETTINGS:
+            for key, value in DEFAULT_SETTINGS.items():
                 # for each of default attributes, try first to read the value
                 # in settings_mod and if not defined, use the default
                 # Note: settings_mod attributes which are not
                 # DEFAULT_SETTINGS are ignored
 
-                value = getattr(settings_mod, key, DEFAULT_SETTINGS[key])
+                value = getattr(settings_mod, key, value)
                 self.settings[key] = value
         else:
             # Copy default settings
@@ -82,13 +83,15 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
                     self.settings[key] = os.environ[key]
 
         # arguments always override default and environment settings
-        for kwarg in kwargs:
+        for kwarg, value in kwargs.items():
             if kwarg in DEFAULT_SETTINGS:
-                self.settings[kwarg] = kwargs[kwarg]
+                self.settings[kwarg] = value
 
         # Set theme
-        if self.settings["theme"] != None:
-            self.settings["templateDir"] = str(BASE_DIR / "themes" / self.settings['theme'])
+        if self.settings["theme"] is not None:
+            self.settings["templateDir"] = str(
+                BASE_DIR / "themes" / self.settings["theme"]
+            )
 
     def __getitem__(self, key):
         """
@@ -96,4 +99,4 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
         """
         if key in self.settings:
             return self.settings[key]
-        raise KeyError("There is no blask setting called %s" % key)
+        raise KeyError(f"There is no blask setting called {key}")
