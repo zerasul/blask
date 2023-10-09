@@ -7,6 +7,7 @@ on:
       - develop
 
 env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 jobs:
@@ -44,6 +45,4 @@ jobs:
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.BLASK_TOKEN }}
