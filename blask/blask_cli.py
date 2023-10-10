@@ -23,7 +23,7 @@ from pkg_resources import get_distribution, DistributionNotFound
 
 import typer
 
-from blask import BlaskApp, blasksettings
+from blask import BlaskApp, blask_settings
 
 LIB_DIR = Path(__file__).resolve().parents[0]
 
@@ -125,9 +125,9 @@ def init(
     typer.echo("Initializing new blask Project")
     typer.echo("Using default Settings")
     post_dir = path.basename(
-        path.dirname(str(blasksettings.DEFAULT_SETTINGS["post_dir"] + "/")))
+        path.dirname(str(blask_settings.DEFAULT_SETTINGS["post_dir"] + "/")))
     template_dir = path.basename(
-        path.dirname(str(blasksettings.DEFAULT_SETTINGS["template_dir"] + "/"))
+        path.dirname(str(blask_settings.DEFAULT_SETTINGS["template_dir"] + "/"))
     )
     try:
         makedirs(post_dir)
