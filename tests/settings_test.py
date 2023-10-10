@@ -41,7 +41,7 @@ class TestBlaskSettings:
 
         settings = BlaskSettings()
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
-            if kw == 'postDir':
+            if kw == 'post_dir':
                 assert settings[kw] == str(Path('.').resolve() / 'posts2')
             elif kw == 'title':
                 assert settings[kw] == 'The mantis revenge!'
@@ -68,7 +68,7 @@ class TestBlaskSettings:
         # changed for new pytest
         settings = BlaskSettings()
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
-            if kw == 'postDir':
+            if kw == 'post_dir':
                 assert settings[kw] == 'posts-env'
             elif kw == 'title':
                 assert settings[kw] == "The mantis with dotenv?!"
@@ -93,14 +93,14 @@ class TestBlaskSettings:
                 value = os.environ.pop(key)
                 removed_vars[key] = value
         kwsettings = {
-            'postDir': str(Path.cwd() / 'mantispostdir'),
+            'post_dir': str(Path.cwd() / 'mantispost_dir'),
             'title': 'The mantis has you!',
         }
         settings = BlaskSettings(**kwsettings)
 
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
-            if kw == 'postDir':
-                assert settings[kw] == str(Path.cwd() / 'mantispostdir')
+            if kw == 'post_dir':
+                assert settings[kw] == str(Path.cwd() / 'mantispost_dir')
             elif kw == 'title':
                 assert settings[kw] == 'The mantis has you!'
             else:

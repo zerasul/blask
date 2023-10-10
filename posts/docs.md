@@ -105,16 +105,16 @@ Here is an example:
     BASE_DIR = os.getcwd()
 
     # Templates directory
-    templateDir = os.path.join(BASE_DIR, 'templates')
+    template_dir = os.path.join(BASE_DIR, 'templates')
 
     # Posts directory
-    postDir = os.path.join(BASE_DIR, 'posts')
+    post_dir = os.path.join(BASE_DIR, 'posts')
 
     # Default layout template
     defaultLayout = "template.html"
 
     # Static files directory
-    staticDir = os.path.join(BASE_DIR, 'static')
+    static_dir = os.path.join(BASE_DIR, 'static')
 
     # Website title
     title = 'Blask | A Simple Blog Engine Based on Flask'
@@ -128,10 +128,10 @@ Here is an example:
 Here is the description of each configuration:
 
 * **BASE_DIR**: Where is the working directory.
-* **templateDir**: Templates Folder. All the HTML for the templates must be there.
-* **postDir**: Posts Dir. All the markdown blog posts must be there.
-* **defaultLayout**: Default template file. This file must be in the _templateDir_ folder.
-* **staticDir**: Static resources folder. All the _css_, _js_, _img_ must be here.
+* **template_dir**: Templates Folder. All the HTML for the templates must be there.
+* **post_dir**: Posts Dir. All the markdown blog posts must be there.
+* **defaultLayout**: Default template file. This file must be in the _template_dir_ folder.
+* **static_dir**: Static resources folder. All the _css_, _js_, _img_ must be here.
 * **title**: Default title for the site.
 * **errors**: To set up custom errors for HTTP error codes.
 
@@ -147,9 +147,9 @@ where ```settings``` have the configuration module of Blask.
 If you want to use the default values; you can see them here:
 
 * **TemplatesDir**: _templates_.
-* **postDir**: _posts_.
+* **post_dir**: _posts_.
 * **defaultLayout**: _template.html_.
-* **staticDir**: _static_
+* **static_dir**: _static_
 * **tittle**: _Blask | A Simple Blog Engine Based on Flask_
      
 ## <a id="create-post">Create a Post</a>

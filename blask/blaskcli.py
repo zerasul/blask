@@ -124,19 +124,19 @@ def init(
     """
     typer.echo("Initializing new blask Project")
     typer.echo("Using default Settings")
-    postdir = path.basename(
-        path.dirname(str(blasksettings.DEFAULT_SETTINGS["postDir"] + "/")))
-    templatedir = path.basename(
-        path.dirname(str(blasksettings.DEFAULT_SETTINGS["templateDir"] + "/"))
+    post_dir = path.basename(
+        path.dirname(str(blasksettings.DEFAULT_SETTINGS["post_dir"] + "/")))
+    template_dir = path.basename(
+        path.dirname(str(blasksettings.DEFAULT_SETTINGS["template_dir"] + "/"))
     )
     try:
-        makedirs(postdir)
-        cliController.createdefaultindexfile(path.join(postdir, "index.md"))
-        makedirs(templatedir)
+        makedirs(post_dir)
+        cliController.createdefaultindexfile(path.join(post_dir, "index.md"))
+        makedirs(template_dir)
         cliController.createdefaulttemplatefile(
-            path.join(templatedir, "template.html"))
+            path.join(template_dir, "template.html"))
         cliController.createsettingsfile()
-        cliController.createnotfoundpage(path.join(postdir, '404.md'))
+        cliController.createnotfoundpage(path.join(post_dir, '404.md'))
         if with_docker:
             cliController.createdockerfile(path.join("Dockerfile"))
         typer.echo("Created new blask project on %s" % getcwd())

@@ -12,16 +12,16 @@ First if you need to run Blask, need to see the `settings.py` file and set the p
     BASE_DIR = os.getcwd()
 
     # Templates directory
-    templateDir = os.path.join(BASE_DIR, 'templates')
+    template_dir = os.path.join(BASE_DIR, 'templates')
 
     # Posts directory
-    postDir = os.path.join(BASE_DIR, 'posts')
+    post_dir = os.path.join(BASE_DIR, 'posts')
 
     # Default layout template
     defaultLayout = "template.html"
 
     # Static files directory
-    staticDir = os.path.join(BASE_DIR, 'static')
+    static_dir = os.path.join(BASE_DIR, 'static')
 
     # Website title
     title = 'Blask | A Simple Blog Engine Based on Flask'

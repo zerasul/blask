@@ -25,10 +25,10 @@ from importlib import import_module
 BASE_DIR = Path(".").resolve()
 
 DEFAULT_SETTINGS = {
-    "templateDir": str(BASE_DIR / "templates"),
-    "postDir": str(BASE_DIR / "posts"),
-    "defaultLayout": str("template.html"),
-    "staticDir": str(BASE_DIR / "static"),
+    "template_dir": str(BASE_DIR / "templates"),
+    "post_dir": str(BASE_DIR / "posts"),
+    "default_layout": str("template.html"),
+    "static_dir": str(BASE_DIR / "static"),
     "theme": None,
     "title": "blask | A Simple Blog Engine Based on Flask",
     "errors": {404: "404"}  # Dictionary with errors handler
@@ -40,15 +40,13 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
     blask configuration helper class
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, settings: dict):
         """
-        Initialize the blask Settings. First, look for the BLASK_SETTINGS
-        environment variable and try to load the module.
-        If BLASK_SETTINGS is not defined try to load the current
-        settings from environment variables (defined in .env) and finally
-        from the default values.
-        Settings provided as arguments to the constructor always take
-        precedence.
+        Initialize Blask settings module. First, look for the BLASK_SETTINGS environment variable 
+        and try to load the module. If BLASK_SETTINGS is not defined try to load the current 
+        settings from environment variables (defined in .env) and finally from the default values.
+        Settings provided as arguments to the constructor always take precedence.
+
         :param args:
         :param kwargs:
         """
@@ -61,7 +59,7 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
             settings_mod = import_module(
                 os.environ["BLASK_SETTINGS"], os.environ["BLASK_SETTINGS"])
             # settings are stored in settings_mod.BASE_DIR,
-            # settings_mod.templateDir, etc.
+            # settings_mod.template_dir, etc.
 
             self.settings = {}
             for key in DEFAULT_SETTINGS:
@@ -82,13 +80,13 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
                     self.settings[key] = os.environ[key]
 
         # arguments always override default and environment settings
-        for kwarg in kwargs:
-            if kwarg in DEFAULT_SETTINGS:
-                self.settings[kwarg] = kwargs[kwarg]
+        for setting in settings:
+            if setting in DEFAULT_SETTINGS:
+                self.settings[setting] = settings[setting]
 
         # Set theme
         if self.settings["theme"] != None:
-            self.settings["templateDir"] = str(BASE_DIR / "themes" / self.settings['theme'])
+            self.settings["template_dir"] = str(BASE_DIR / "themes" / self.settings['theme'])
 
     def __getitem__(self, key):
         """
