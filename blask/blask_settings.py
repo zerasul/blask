@@ -88,10 +88,11 @@ class BlaskSettings():  # pylint: disable=too-few-public-methods
         if self.settings["theme"] != None:
             self.settings["template_dir"] = str(BASE_DIR / "themes" / self.settings['theme'])
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: str):
         """
         Dictionary like settings access
         """
         if key in self.settings:
             return self.settings[key]
-        raise KeyError("There is no blask setting called %s" % key)
+        
+        raise KeyError(f"There is no setting named {key}")
