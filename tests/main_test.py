@@ -13,10 +13,10 @@ class TestMain:
     @fixture(autouse=True)
     def inittest(self):
         b = BlaskApp(
-            templateDir=settings.templateDir,
-            postDir=settings.postDir,
+            template_dir=settings.template_dir,
+            post_dir=settings.post_dir,
             defaultLayout=settings.defaultLayout,
-            staticDir=settings.staticDir,
+            static_dir=settings.static_dir,
             title=settings.title,
         )
         b.app.testing = True

@@ -23,10 +23,10 @@ git clone https://github.com/zerasul/blask.git
 After downloading you need to create a `settings.py` file:
 
 ```python
-templateDir = "templates"
-postDir = "posts"
+template_dir = "templates"
+post_dir = "posts"
 defaultLayout = "template.html"
-staticDir = "static"
+static_dir = "static"
 title = "Blask | A Simple Blog Engine Based on Flask"
 errors= { 404: "404"}
 ```
@@ -43,8 +43,8 @@ To Run Blask, use the following Code:
 from blask import BlaskApp import settings
 
 if __name__ == '__main__':
-    b = BlaskApp(templateDir=settings.templateDir, postDir=settings.postDir, defaultLayout=settings.defaultLayout,
-        staticDir=settings.staticDir, title=settings.title, errors={404:'404'})
+    b = BlaskApp(template_dir=settings.template_dir, post_dir=settings.post_dir, defaultLayout=settings.defaultLayout,
+        static_dir=settings.static_dir, title=settings.title, errors={404:'404'})
     b.run()
 ```
 

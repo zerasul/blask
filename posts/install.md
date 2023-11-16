@@ -23,10 +23,10 @@ After that, you need to configure Blask, create a file called _settings.py_ file
     from os import path
     
     BASE_DIR = Path('.').resolve()
-    templateDir = path.join(BASE_DIR, "templates")
-    postDir = path.join(BASE_DIR, "posts")
+    template_dir = path.join(BASE_DIR, "templates")
+    post_dir = path.join(BASE_DIR, "posts")
     defaultLayout = "template.html"
-    staticDir = path.join(BASE_DIR, "static")
+    static_dir = path.join(BASE_DIR, "static")
     title = "Blask"
     errors = { 404:"404"}
 
@@ -42,8 +42,8 @@ You can run the application using this code:
     import settings
 
     if __name__ == '__main__':
-        b = BlaskApp(templateDir=settings.templateDir, postDir=settings.postDir
-        , defaultLayout=settings.defaultLayout, staticDir=settings.staticDir, title=settings.title, errors={404 : "404"})
+        b = BlaskApp(template_dir=settings.template_dir, post_dir=settings.post_dir
+        , defaultLayout=settings.defaultLayout, static_dir=settings.static_dir, title=settings.title, errors={404 : "404"})
         
         b.run()
 If you use the environment Variable you can run Blask without arguments:

@@ -19,8 +19,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 from werkzeug.utils import safe_join
 from flask import Flask, render_template, request, abort, Response
 from flask_wtf import CSRFProtect
-from blask.blasksettings import BlaskSettings
-from blask.blogrenderer import BlogRenderer
+from blask.blask_settings import BlaskSettings
+from blask.blog_renderer import BlogRenderer
 from blask.errors import PageNotExistError
 
 
@@ -34,46 +34,38 @@ class BlaskApp:
     app = None
     blogrenderer = None
 
-    def __init__(self, **kwargs):
+    def __init__(self, settings: dict = {}):
         """
-        Initialices a new blask Instance
-        :param kwargs: Dictionary with all the required settings;
-            for more info see :settings
+        Initialices a new Blask instance
+
+        :param settings: Dictionary with all the required settings.
         """
-        self.settings = BlaskSettings(**kwargs)
-        self.blogrenderer = BlogRenderer(self.settings["postDir"])
+        self.settings: BlaskSettings = BlaskSettings(**settings)
+        self.blogrenderer: BlogRenderer = BlogRenderer(self.settings["post_dir"])
         self.app = Flask(
             __name__,
-            template_folder=self.settings["templateDir"],
-            static_folder=self.settings["staticDir"],
+            template_folder=self.settings["template_dir"],
+            static_folder=self.settings["static_dir"],
         )
         
         self.csrf = CSRFProtect()
         self.csrf.init_app(self.app)
 
-        self.app.add_url_rule(
-            "/", endpoint="index", view_func=self._index, methods=["GET"])
-        self.app.add_url_rule(
-            "/sitemap.xml", view_func=self._get_sitemap, methods=["GET"])
-        self.app.add_url_rule(
-            "/<filename>", view_func=self._getpage, methods=["GET"])
-        self.app.add_url_rule(
-            "/<path:subpath>/<filename>",
+        self.app.add_url_rule("/", endpoint="index", view_func=self._index, methods=["GET"])
+        self.app.add_url_rule("/sitemap.xml", view_func=self._get_sitemap, methods=["GET"])
+        self.app.add_url_rule("/<filename>", view_func=self._getpage, methods=["GET"])
+        self.app.add_url_rule("/<path:subpath>/<filename>",
             view_func=self._get_subpage, methods=["GET"])
-        self.app.add_url_rule(
-            "/tag/<tag>", view_func=self._gettag, methods=["GET"])
-        self.app.add_url_rule(
-            "/search", view_func=self.searchpages, methods=["POST"])
-        self.app.add_url_rule(
-            "/category/<category>",
-            view_func=self._getcategory, methods=["GET"])
-        self.app.add_url_rule(
-            "/author/<author>", view_func=self._getauthor, methods=["GET"])
+        self.app.add_url_rule("/tag/<tag>", view_func=self._gettag, methods=["GET"])
+        self.app.add_url_rule("/search", view_func=self.searchpages, methods=["POST"])
+        self.app.add_url_rule("/category/<category>", view_func=self._getcategory, methods=["GET"])
+        self.app.add_url_rule("/author/<author>", view_func=self._getauthor, methods=["GET"])
+
         # Register the error handler for each setting
         for error in self.settings["errors"].keys():
             self.app.register_error_handler(error, f=self._handle_http_errors)
 
-    def _index(self):
+    def _index(self) -> str:
         """
         Render the Index page
         :return: rendered Index Page
@@ -82,10 +74,11 @@ class BlaskApp:
         template = entry.template
         if template is None:
             template = self.settings["defaultLayout"]
+
         return render_template(
             template, title=self.settings["title"], content=entry.content)
 
-    def _getpage(self, filename):
+    def _getpage(self, filename: str) -> str:
         """
         Render a blog post
         :param filename: Name of the Blog Post.
@@ -118,22 +111,23 @@ class BlaskApp:
             author=author,
         )
 
-    def _get_subpage(self, subpath, filename):
+    def _get_subpage(self, subpath: str, filename: str) -> str:
         subfilename = safe_join(subpath, filename)
+
         return self._getpage(subfilename)
 
-    def _get_sitemap(self):
+    def _get_sitemap(self) -> Response:
         """
         render the sitemap.xml file
         :returns: prints the sitemapfile
         """
         return Response(
             self.blogrenderer.generate_sitemap_xml(
-                self.settings["postDir"], request.url_root),
+                self.settings["post_dir"], request.url_root),
             content_type="text/xml",
         )
 
-    def _gettag(self, tag):
+    def _gettag(self, tag: str) -> str:
         """
         Render the Tags Page.
         :param tag: Tag for search
@@ -141,40 +135,43 @@ class BlaskApp:
         """
         postlist = self.blogrenderer.list_posts([tag])
         content = self.blogrenderer.generatetagpage(postlist)
+
         return render_template(
             self.settings["defaultLayout"],
             title=self.settings["title"],
             content=content
         )
 
-    def searchpages(self):
+    def searchpages(self) -> str:
         """
         Render the search page. Must Be on Method POST
         :return: rendered search Page
         """
         postlist = self.blogrenderer.list_posts(search=request.form["search"])
         content = self.blogrenderer.generatetagpage(postlist)
+
         return render_template(
             self.settings["defaultLayout"],
             title=self.settings["title"],
             content=content
         )
 
-    def _getcategory(self, category):
+    def _getcategory(self, category: str) -> str:
         """
         Render a category searchpage
-        :param category:
+        :param category: Category to list
         :return: rendered category search page
         """
         postlist = self.blogrenderer.list_posts(category=category)
         content = self.blogrenderer.generatetagpage(postlist)
+
         return render_template(
             self.settings["defaultLayout"],
             title=self.settings["title"],
             content=content
         )
 
-    def _getauthor(self, author):
+    def _getauthor(self, author: str) -> str:
         """
         Render an author searchpage
         :param author: author parameter
@@ -182,6 +179,7 @@ class BlaskApp:
         """
         postlist = self.blogrenderer.list_posts(author=author)
         content = self.blogrenderer.generatetagpage(postlist)
+
         return render_template(
             self.settings["defaultLayout"],
             title=self.settings["title"],
@@ -197,9 +195,9 @@ class BlaskApp:
         page = self.settings["errors"][error_message.code]
         return self._getpage(page)
 
-    def run(self, **kwargs):
+    def run(self, settings: dict):
         """
         Run the current instance of blask
         :param kwargs: Dictionary with all the required settings.
         """
-        self.app.run(**kwargs)
+        self.app.run(**settings)

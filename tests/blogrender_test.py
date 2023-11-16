@@ -1,5 +1,5 @@
-from blask.blogrenderer import BlogRenderer
-from settings import postDir
+from blask.blog_renderer import BlogRenderer
+from settings import post_dir
 from pytest import fixture, raises
 from datetime import datetime
 from blask.errors import PageNotExistError
@@ -13,7 +13,7 @@ class TestblogRender:
 
     @fixture(autouse=True)
     def initialize(self):
-        self.blogrender = BlogRenderer(postDir)
+        self.blogrender = BlogRenderer(post_dir)
 
     def test_rendering(self):
         entry = self.blogrender.renderfile("index")
@@ -65,5 +65,5 @@ class TestblogRender:
         assert "href='/releases/sub2/test" in entrieslist
 
     def test_generate_sitemap_xml(self):
-        mysxml = self.blogrender.generate_sitemap_xml(postDir)
+        mysxml = self.blogrender.generate_sitemap_xml(post_dir)
         assert b"<url><loc>http://localhost:5000" in mysxml
