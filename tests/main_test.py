@@ -1,13 +1,12 @@
 from pytest import fixture
-from blask import BlaskApp
-import settings
 
+import settings
+from blask import BlaskApp
 
 RESPONSE_DATA = b"href='/about'"
 
 
 class TestMain:
-
     test_client = None
 
     @fixture(autouse=True)
@@ -21,7 +20,7 @@ class TestMain:
         )
         b.app.testing = True
         b.app.config["SECRET_KEY"] = "supersecretkeyfortesting"
-        b.app.config['WTF_CSRF_METHODS'] = []
+        b.app.config["WTF_CSRF_METHODS"] = []
 
         self.test_client = b.app.test_client()
 

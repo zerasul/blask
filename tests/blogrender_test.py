@@ -1,15 +1,15 @@
-from blask.blogrenderer import BlogRenderer
-from settings import postDir
-from pytest import fixture, raises
 from datetime import datetime
+
+from pytest import fixture, raises
+
+from blask.blogrenderer import BlogRenderer
 from blask.errors import PageNotExistError
+from settings import postDir
 
 
 class TestblogRender:
-
     blogrender = None
-    markdowntest = (
-        "---\ntitle: test\ndate: 2018-03-03\ntags: test,test2\n ---\n test")
+    markdowntest = "---\ntitle: test\ndate: 2018-03-03\ntags: test,test2\n ---\n test"
 
     @fixture(autouse=True)
     def initialize(self):

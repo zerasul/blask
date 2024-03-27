@@ -9,9 +9,7 @@ from blask.blasksettings import BlaskSettings
 
 
 class TestBlaskSettings:
-
     def test_defaults(self):
-
         # remove all environment variables
         removed_vars = {}
         for key in blasksettings.DEFAULT_SETTINGS:
@@ -28,7 +26,6 @@ class TestBlaskSettings:
             os.environ[key] = value
 
     def test_from_environ(self):
-
         # remove all environment variables
         removed_vars = {}
         for key in blasksettings.DEFAULT_SETTINGS:
@@ -37,17 +34,17 @@ class TestBlaskSettings:
                 removed_vars[key] = value
 
         # changed for new pytest
-        os.environ['BLASK_SETTINGS'] = 'tests.testsettings'
+        os.environ["BLASK_SETTINGS"] = "tests.testsettings"
 
         settings = BlaskSettings()
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
-            if kw == 'postDir':
-                assert settings[kw] == str(Path('.').resolve() / 'posts2')
-            elif kw == 'title':
-                assert settings[kw] == 'The mantis revenge!'
+            if kw == "postDir":
+                assert settings[kw] == str(Path(".").resolve() / "posts2")
+            elif kw == "title":
+                assert settings[kw] == "The mantis revenge!"
             else:
                 assert settings[kw] == blasksettings.DEFAULT_SETTINGS[kw]
-        del(os.environ['BLASK_SETTINGS'])
+        del os.environ["BLASK_SETTINGS"]
 
         # put environment variables back
         for key, value in removed_vars.items():
@@ -68,9 +65,9 @@ class TestBlaskSettings:
         # changed for new pytest
         settings = BlaskSettings()
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
-            if kw == 'postDir':
-                assert settings[kw] == 'posts-env'
-            elif kw == 'title':
+            if kw == "postDir":
+                assert settings[kw] == "posts-env"
+            elif kw == "title":
                 assert settings[kw] == "The mantis with dotenv?!"
             else:
                 assert settings[kw] == blasksettings.DEFAULT_SETTINGS[kw]
@@ -85,7 +82,6 @@ class TestBlaskSettings:
             os.environ[key] = value
 
     def test_kwargs(self):
-
         # remove all environment variables
         removed_vars = {}
         for key in blasksettings.DEFAULT_SETTINGS:
@@ -93,16 +89,16 @@ class TestBlaskSettings:
                 value = os.environ.pop(key)
                 removed_vars[key] = value
         kwsettings = {
-            'postDir': str(Path.cwd() / 'mantispostdir'),
-            'title': 'The mantis has you!',
+            "postDir": str(Path.cwd() / "mantispostdir"),
+            "title": "The mantis has you!",
         }
         settings = BlaskSettings(**kwsettings)
 
         for kw in blasksettings.DEFAULT_SETTINGS.keys():
-            if kw == 'postDir':
-                assert settings[kw] == str(Path.cwd() / 'mantispostdir')
-            elif kw == 'title':
-                assert settings[kw] == 'The mantis has you!'
+            if kw == "postDir":
+                assert settings[kw] == str(Path.cwd() / "mantispostdir")
+            elif kw == "title":
+                assert settings[kw] == "The mantis has you!"
             else:
                 assert settings[kw] == blasksettings.DEFAULT_SETTINGS[kw]
 

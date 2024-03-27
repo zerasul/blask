@@ -1,7 +1,7 @@
-from pathlib import Path
 from os import path
+from pathlib import Path
 
-BASE_DIR = Path('.').resolve()
+BASE_DIR = Path(".").resolve()
 
 templateDir = path.join(BASE_DIR, "templates")
 postDir = path.join(BASE_DIR, "posts")

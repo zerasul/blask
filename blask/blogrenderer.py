@@ -16,19 +16,20 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
-from os import path, listdir
-from hashlib import sha3_512
 from datetime import datetime
+from hashlib import sha3_512
+from os import listdir, path
 from xml.etree import ElementTree as ET
-from werkzeug.utils import safe_join
-from werkzeug.exceptions import NotFound
 
 from markdown import Markdown
+from werkzeug.exceptions import NotFound
+from werkzeug.utils import safe_join
 
 from blask.errors import PageNotExistError
 
 INDEX = "./index.md"
 DATE_FORMAT = "%Y-%m-%d"
+
 
 class BlogRenderer:
     """
@@ -66,7 +67,8 @@ class BlogRenderer:
             would fall out of the posts directory.
         """
         page_not_exist_exception = PageNotExistError(
-            f"{filename} does not exists in {self.postdir} directory")
+            f"{filename} does not exists in {self.postdir} directory"
+        )
         try:
             file = f"{filename}.md"
             filepath = safe_join(self.postdir, file)
@@ -85,7 +87,6 @@ class BlogRenderer:
 
         return self.cache[content_hash]
 
-    # pylint: disable=R0201
     def rendertext(self, filename, text):
         """
          Render a Markdown Text and returns the BlogEntry.
@@ -93,20 +94,19 @@ class BlogRenderer:
         :param text: Text write in Markdown.
         :return: BlogEntry.
         """
-        mark_down = Markdown(
-            extensions=["meta", "markdown.extensions.codehilite"])
+        mark_down = Markdown(extensions=["meta", "markdown.extensions.codehilite"])
         entry = BlogEntry(filename, mark_down, text)
         return entry
 
     # pylint: disable=dangerous-default-value
     def list_posts(
-            self,
-            tags=None,
-            exclusions=[INDEX, "404.md"],
-            search="",
-            category="",
-            author="",
-            orderbydate=True,
+        self,
+        tags=None,
+        exclusions=[INDEX, "404.md"],
+        search="",
+        category="",
+        author="",
+        orderbydate=True,
     ):
         """
         Search a list of Posts returning a list of BlogEntry ordered By Date.
@@ -125,8 +125,10 @@ class BlogRenderer:
                 self._listdirectoriesrecursive(self.postdir),
             )
         )
+
         mapfilter = list(map(lambda l: path.splitext(l)[0], files))
-        entries = list(map(lambda l: self.renderfile(l), mapfilter))
+        entries = [self.renderfile(x) for x in mapfilter]
+
         if tags:
             for tag in tags:
                 entries = list(filter(lambda l, t=tag: t in l.tags, entries))
@@ -139,10 +141,10 @@ class BlogRenderer:
         if orderbydate:
             # create a sublist with only entries with date
             dateredentries = list(filter(lambda e: e.date is None, entries))
-            notdateredentries = list(
-                filter(lambda d: d.date is not None, entries))
+            notdateredentries = list(filter(lambda d: d.date is not None, entries))
             entries = list(
-               sorted(dateredentries, key=lambda t: t.date is not None, reverse=True))
+                sorted(dateredentries, key=lambda t: t.date is not None, reverse=True)
+            )
             entries.extend(notdateredentries)
         return entries
 
@@ -156,8 +158,9 @@ class BlogRenderer:
         for file in listdir(directory):
             if path.isdir(safe_join(directory, file)):
                 posts.extend(
-                    self._listdirectoriesrecursive(safe_join(directory, file),
-                                                   safe_join(append, file))
+                    self._listdirectoriesrecursive(
+                        safe_join(directory, file), safe_join(append, file)
+                    )
                 )
             else:
                 posts.append(safe_join(append, file))
@@ -170,12 +173,11 @@ class BlogRenderer:
         :return: return the xml output for the Sitemap.xml file.
         """
         root = ET.Element(
-            "urlset",
-            attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
+            "urlset", attrib={"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        )
         rpostlist = self._listdirectoriesrecursive(postlist)
         rpostlist.remove(INDEX)
-        rpostlist = list(map(lambda l: path.splitext(l)[0], rpostlist))
-        rpostlist = list(map(lambda l: self.renderfile(l), rpostlist))
+        rpostlist = list(map(lambda l: self.renderfile(path.splitext(l)[0]), rpostlist))
         # add index
         urlindex = ET.SubElement(root, "url")
         locindex = ET.SubElement(urlindex, "loc")
@@ -206,7 +208,7 @@ class BlogRenderer:
             priority.text = "0.5"
         return ET.tostring(root, encoding="UTF-8", method="xml")
 
-    # pylint: disable=R0201
+
     def generatetagpage(self, postlist):
         """
         Get a HTML with links of the entries.
@@ -223,8 +225,9 @@ class BlogRenderer:
 
 
 # pylint: disable=too-few-public-methods
+# pylint: disable=too-many-instance-attributes
 class BlogEntry:
-    """"
+    """ "
     This class has the information about the Blog Posts.
     Author: Zerasul
     Version: 0.0.1.
@@ -280,11 +283,6 @@ class BlogEntry:
         Convert this object to String
         :return: String with the data of this object.
         """
-        string = (
-            f"['content': {self.content}, 'name': {self.name}, "
-            f"'date': {self.date}, 'tags':[{self.tags}], "
-            f"'author': {self.author}, 'category': {self.category}, "
-            f"'template': {self.template}]"
-        )
-
-        return string
+        return f"['content': {self.content}, 'name': {self.name}, 'date': {self.date}, \
+            'tags':[{self.tags}], 'author': {self.author}, 'category': {self.category}, \
+                'template': {self.template}]"
